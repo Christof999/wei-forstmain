@@ -1,0 +1,232 @@
+/* Allgemeine Stile */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif; /* Allgemeine Schriftart */
+    background-color: rgba(255, 248, 220, 0.9); /* Cremefarbiger Hintergrund */
+}
+
+/* Header und Video */
+header {
+    position: relative;
+    height: 300px; /* Beibehaltung der Höhe des Videos */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Navigation */
+.navbar {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    margin: 0 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #556B2F; /* Moosgrüner Hover-Effekt */
+}
+
+/* Responsive Navigation für kleinere Bildschirme */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column; /* Links untereinander anzeigen */
+        align-items: center;
+    }
+
+    .navbar li {
+        margin: 10px 0;
+    }
+
+    .navbar a {
+        font-size: 1.1em;
+        padding: 10px 15px;
+    }
+}
+
+/* Kontaktseite */
+.contact-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 248, 220, 0.9); /* Cremefarbiger Hintergrund */
+    padding: 30px; /* Vergrößerter Abstand zum Rand */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 1200px;
+    margin-bottom: 30px;
+}
+
+.contact-info, .contact-form {
+    width: 45%;
+}
+
+/* Kontaktdetails Ästhetik */
+.contact-info h2 {
+    font-family: 'Lora', serif; /* Elegante Serifenschrift für die Überschrift */
+    font-size: 1.8em; /* Größere Schriftgröße für die Überschrift */
+    color: #556B2F; /* Moosgrüner Farbton */
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-family: 'Raleway', sans-serif; /* Moderne, serifenlose Schrift für den Text */
+    font-size: 1.1em; /* Etwas größere Schrift für besseren Kontrast */
+    line-height: 1.6; /* Angenehmer Zeilenabstand für bessere Lesbarkeit */
+    color: #333; /* Dunkler Farbton für klare Lesbarkeit */
+    margin: 10px 0;
+    letter-spacing: 0.5px; /* Leicht vergrößerter Zeichenabstand */
+}
+
+/* Kontaktformular */
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'Raleway', sans-serif; /* Gleiche moderne Schriftart für Einheitlichkeit */
+    font-weight: 600;
+    color: #333;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 15px; /* Vergrößertes Padding für mehr Abstand */
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    background-color: #556B2F; /* Moosgrüne Buttons */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.contact-form button:hover {
+    background-color: #6B8E23; /* Dunklere Version von Moosgrün beim Hover */
+}
+
+/* Google Maps Container */
+.map-container {
+    width: 100%; /* Karte nimmt jetzt die volle Breite ein */
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.map-container iframe {
+    width: 100%; /* Das iframe passt sich der vollen Breite an */
+    height: 450px;
+    border: none;
+}
+
+/* Footer */
+footer {
+    background-color: #556B2F;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.footer-content img {
+    max-width: 150px;
+    margin-bottom: 10px;
+}
+
+.footer-content p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+/* Spacer zwischen Header, Body und Footer */
+.spacer {
+    background-color: rgba(255, 248, 220, 0.9);
+    height: 30px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Google Fonts für ästhetische Schriftarten */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+
+/* Logo-Stil für Header */
+.header-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    max-width: 150px;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Schatteneffekt */
+    transition: all 0.3s ease;
+}
+
+/* Logo-Stil für kleinere Bildschirme */
+@media (max-width: 768px) {
+    .header-logo {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%); /* Zentriert das Logo */
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar li {
+        margin: 10px 0;
+    }
+}

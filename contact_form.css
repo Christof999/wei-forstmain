@@ -1,0 +1,58 @@
+/* Styles für das Kontaktformular-Feedback */
+#form-feedback {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#form-feedback.success {
+    background-color: rgba(169, 209, 142, 0.3); /* Hellgrün */
+    border-left: 4px solid #89B869;
+}
+
+#form-feedback.error {
+    background-color: rgba(255, 107, 107, 0.2); /* Hellrot */
+    border-left: 4px solid #FF6B6B;
+}
+
+.success-message, .error-message {
+    display: flex;
+    align-items: flex-start;
+}
+
+.success-message i, .error-message i {
+    margin-right: 10px;
+    font-size: 20px;
+    padding-top: 2px;
+}
+
+.success-message i {
+    color: #556B2F;
+}
+
+.error-message i {
+    color: #D32F2F;
+}
+
+.success-message p, .error-message p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Animation für den Spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.fa-spin {
+    animation: spin 1s infinite linear;
+}
+
+/* Stiländerungen für den Button-Zustand */
+.submit-button:disabled {
+    background-color: #8aae67; /* Etwas helleres Grün beim Laden */
+    cursor: not-allowed;
+}

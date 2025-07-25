@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeißForst GbR - Startseite</title>
+    <link rel="stylesheet" href="styles_home.css">
+    <link rel="stylesheet" href="cookie-consent.css">
+    <script src="script.js"></script>
+    <script src="cookie-consent.js"></script>
+    <!-- Add Swiper JS for the gallery -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+    
+    <header role="banner">
+        <div class="video-container">
+            <video autoplay muted loop playsinline disablepictureinpicture nocontrols controlslist="nodownload nofullscreen noremoteplayback" poster="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/video_poster.jpg" aria-label="Hintergrund-Video: Waldarbeiten der WeißForst GbR" role="presentation">
+                <source src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4" type="video/mp4">
+                <p>Ihr Browser unterstützt keine HTML5-Videos. Hier würden Sie ein Video von Forstarbeiten sehen.</p>
+            </video>
+        </div>
+        <a href="index.html" aria-label="Zurück zur Startseite">
+            <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo" class="header-logo">
+        </a>
+        <div class="menu-toggle" aria-expanded="false" aria-controls="navbar" aria-label="Menü öffnen">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-overlay" role="presentation"></div>
+        <nav class="navbar" id="navbar" role="navigation" aria-label="Hauptnavigation">
+            <ul>
+                <li><a href="about.html">Über Uns</a></li>
+                <li><a href="services2.html">Dienstleistungen</a></li>
+                <li><a href="Galerie.html">Galerie</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="hero-section">
+            <h1>Willkommen bei Weiß Forst GbR</h1>
+            <p>Ihr Partner für professionelle Forstdienstleistungen</p>
+        </section>
+
+        <!-- New section for admin posts in a swipeable gallery -->
+        <section class="admin-posts-gallery">
+            <div class="section-heading">
+                <h2>Aktuelle Beiträge</h2>
+                <p>Neuigkeiten und aktuelle Projekte von WeißForst GbR</p>
+            </div>
+            
+            <div class="swiper-container">
+                <div class="swiper-wrapper" id="posts-gallery">
+                    <!-- Posts will be loaded dynamically via JavaScript -->
+                    <div class="swiper-slide post-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Beiträge werden geladen...</p>
+                    </div>
+                </div>
+                <!-- Add navigation arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <!-- Add pagination dots -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <section class="services-section">
+            <div class="service-item">
+                <div class="img-wrapper" tabindex="0" role="button" aria-label="Forstdienstleistungen Bild öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openLightbox('https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_048.JPG'); return false;}">
+                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_048.JPG" alt="Bild von Forstdienstleistungen - Waldpflege im Einsatz" onclick="openLightbox(this.src)">
+                </div>
+                <h3>Forstdienstleistungen</h3>
+                <p>Professionelle Pflege und Wartung Ihrer Waldflächen.</p>
+            </div>
+            <div class="service-item">
+                <div class="img-wrapper" tabindex="0" role="button" aria-label="Holzernte Bild öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openLightbox('https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_011.JPG'); return false;}">
+                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_011.JPG" alt="Bild der Holzernte - Holzfällarbeiten im Wald" onclick="openLightbox(this.src)">
+                </div>
+                <h3>Holzernte</h3>
+                <p>Effizient und nachhaltig - Ihre Holzernte in besten Händen.</p>
+            </div>
+            <div class="service-item">
+                <div class="img-wrapper" tabindex="0" role="button" aria-label="Beratung Bild öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openLightbox('https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG'); return false;}">
+                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG" alt="Bild der Beratung - Fachgespräch zur Waldpflege" onclick="openLightbox(this.src)">
+                </div>
+                <h3>Beratung</h3>
+                <p>Individuelle Beratung für Ihre Projekte und Waldpflege.</p>
+            </div>
+        </section>
+
+        <section class="gallery-preview">
+            <div class="gallery-info">
+                <h2>Unsere Galerie</h2>
+                <p>Werfen Sie einen Blick auf unsere erfolgreich umgesetzten Projekte.</p>
+            </div>
+            <div class="gallery-slideshow">
+                <img id="slideshow-image" src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG" alt="Galerie-Vorschau">
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo">
+                <p>Email: info@weissforst-gbr.de</p>
+                <p>Telefon: +49 123 4567890</p>
+            </div>
+        </footer>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox" onclick="closeLightbox(event)" role="dialog" aria-modal="true" aria-label="Bildansicht" tabindex="-1">
+            <button class="close-lightbox" aria-label="Bild schließen" onclick="closeLightbox(event)">×</button>
+            <img id="lightbox-image" alt="Vergrößertes Bild">
+        </div>
+
+        <!-- Add Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+        <!-- Add additional swiper modules for mousewheel support -->
+        <script>
+            // Make sure the mousewheel is properly configured
+            document.addEventListener('DOMContentLoaded', function() {
+                // Prevent default scrolling on the swiper container
+                const swiperContainer = document.querySelector('.swiper-container');
+                if (swiperContainer) {
+                    swiperContainer.addEventListener('wheel', function(e) {
+                        e.preventDefault();
+                    }, { passive: false });
+                }
+            });
+        </script>
+
+    </main>
+</body>
+</html>

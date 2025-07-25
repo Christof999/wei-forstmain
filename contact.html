@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - WeißForst GbR</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact_form.css">
+    <!-- Font Awesome für Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- JavaScript für mobile Navigation -->
+    <script src="script.js" defer></script>
+    <script src="contact_form.js" defer></script>
+</head>
+<body>
+   <header>
+        <div class="video-container">
+            <video autoplay muted loop playsinline disablepictureinpicture nocontrols controlslist="nodownload nofullscreen noremoteplayback" poster="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/video_poster.jpg" aria-label="Hintergrund-Video: Waldarbeiten der WeißForst GbR" role="presentation">
+                <source src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4" type="video/mp4">
+                <p>Ihr Browser unterstützt keine HTML5-Videos. Hier würden Sie ein Video von Forstarbeiten sehen.</p>
+            </video>
+        </div>
+        <a href="index.html">
+            <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo" class="header-logo">
+        </a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-overlay"></div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="about.html">Über Uns</a></li>
+                <li><a href="services2.html">Dienstleistungen</a></li>
+                <li><a href="Galerie.html">Galerie</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contact-main">
+        <div class="contact-intro">
+            <h1>Kontakt</h1>
+            <div class="intro-decoration"></div>
+            <p class="contact-intro-text">Haben Sie Fragen zu unseren Dienstleistungen oder möchten Sie ein individuelles Angebot? Kontaktieren Sie uns - wir freuen uns auf Ihre Nachricht.</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info-card">
+                <div class="card-header">
+                    <i class="fas fa-address-card"></i>
+                    <h2>Unsere Kontaktdaten</h2>
+                </div>
+                <div class="contact-details-wrapper">
+                    <div class="contact-details">
+                        <div class="contact-detail-item">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <h3>Firma</h3>
+                                <p>WEISSFORST GBR<br>Lukas Weiß</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Adresse</h3>
+                                <p>Heglauer Straße 7<br>91732 Merkendorf</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h3>Telefon</h3>
+                                <p>Tel: 040 123 45 678<br>Mobil: 0176 123 45 678</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>E-Mail</h3>
+                                <p>info@weissforst-gbr.de</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-team-image">
+                        <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG" alt="WeißForst Team">
+                        <p class="team-caption">Ihr Team für alle Forstdienstleistungen</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form-card">
+                <div class="card-header">
+                    <i class="fas fa-paper-plane"></i>
+                    <h2>Kontaktformular</h2>
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone"><i class="fas fa-phone"></i> Telefon</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> E-Mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message"><i class="fas fa-comment"></i> Nachricht</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-paper-plane"></i> Nachricht senden
+                    </button>
+                </form>
+                <!-- Neues Element für Feedback -->
+                <div id="form-feedback"></div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-header">
+                <i class="fas fa-map-marked-alt"></i>
+                <h2>So finden Sie uns</h2>
+            </div>
+            <div class="map-frame">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2660.169273399118!2d10.677103615826117!3d49.17350118036037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479f1d54cf3b6b91%3A0xb641d37a9270aa35!2sHeglauer%20Stra%C3%9Fe%207%2C%2091732%20Merkendorf!5e0!3m2!1sde!2sde!4v1697034519948!5m2!1sde!2sde" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo">
+            <p>Email: info@weissforst-gbr.de</p>
+            <p>Telefon: +49 123 4567890</p>
+            <div class="footer-links">
+                <a href="Datenschutz.html">Datenschutz</a>
+                <a href="impressum.html">Impressum</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

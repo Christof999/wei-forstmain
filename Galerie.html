@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - WeißForst GbR</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome für Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- JavaScript für mobile Navigation -->
+    <script src="script.js" defer></script>
+    <script src="galerie.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="video-container">
+            <video autoplay muted loop playsinline disablepictureinpicture nocontrols controlslist="nodownload nofullscreen noremoteplayback" poster="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/video_poster.jpg" aria-label="Hintergrund-Video: Waldarbeiten der WeißForst GbR" role="presentation">
+                <source src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4" type="video/mp4">
+                <p>Ihr Browser unterstützt keine HTML5-Videos. Hier würden Sie ein Video von Forstarbeiten sehen.</p>
+            </video>
+        </div>
+        <a href="index.html">
+            <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo" class="header-logo">
+        </a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-overlay"></div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="about.html">Über Uns</a></li>
+                <li><a href="services2.html">Dienstleistungen</a></li>
+                <li><a href="Galerie.html">Galerie</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="gallery-content">
+        <div class="content-box">
+            <div class="gallery-intro">
+                <h1>Unsere Galerie</h1>
+                <div class="intro-decoration"></div>
+                <p class="gallery-intro-text">Entdecken Sie einige Impressionen unserer Arbeit und Projekte im Wald. Unsere Fotogalerie gibt Ihnen einen Einblick in unseren Arbeitsalltag und zeigt die Vielfalt unserer forstlichen Tätigkeiten.</p>
+            </div>
+            <section class="gallery" id="gallery"></section>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <button class="prev-button" onclick="prevImage()">&#10094;</button>
+        <img id="lightbox-image" alt="Vergrößertes Bild">
+        <button class="next-button" onclick="nextImage()">&#10095;</button>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo">
+            <p>Email: info@weissforst-gbr.de</p>
+            <p>Telefon: +49 123 4567890</p>
+        </div>
+    </footer>
+</body>
+</html>

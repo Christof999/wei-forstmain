@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+    <meta charset="UTF-8">
+    <title>Kontakt - Gartenbau Nussbaum</title>
+    <link rel="stylesheet" href="styles.css">
+<header>
+        <div class="video-container">
+            <video autoplay muted loop playsinline disablepictureinpicture nocontrols controlslist="nodownload nofullscreen noremoteplayback" poster="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/video_poster.jpg" aria-label="Hintergrund-Video: Waldarbeiten der WeißForst GbR" role="presentation">
+                <source src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4" type="video/mp4">
+                <p>Ihr Browser unterstützt keine HTML5-Videos. Hier würden Sie ein Video von Forstarbeiten sehen.</p>
+            </video>
+        </div>
+        <a href="index.html">
+            <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo" class="header-logo">
+        </a>
+        <nav class="navbar">
+            <ul>
+            <li><a href="about.html">Über Uns</a></li>
+            <li><a href="services2.html">Dienstleistungen</a></li>
+            <li><a href="Galerie.html">Galerie</a></li> <!-- Galerie-Link hinzugefügt -->
+            <li><a href="contact.html">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>Kontaktdaten</h2>
+            <p>GARTENBAU NUSSBAUM<br>
+            Meisterbetrieb<br>
+            Sven-Ole Nußbaum</p>
+            <p>Firma:<br>
+            Mozartstraße 37<br>
+            D-22880 WEDEL</p>
+            <p>Privat:<br>
+            Stuhlmannstraße 3<br>
+            D-22767 HAMBURG</p>
+            <p>Tel: 040 320 38 136<br>
+            Fax: 040 468 95 898<br>
+            mobil: 0176 48 14 50 54<br>
+            E-mail: info@gartenbau-nussbaum.de</p>
+        </div>
+        <div class="contact-form">
+            <h2>Kontaktformular</h2>
+            <form action="submit_form.php" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" required>
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Nachricht</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Senden</button>
+            </form>
+        </div>
+    </div>
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2430.547189327846!2d9.706115415796129!3d53.5803764800288!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b18dfc2b63f4a5%3A0x423ee5d1adaba2ce!2sMozartstra%C3%9Fe%2037%2C%2022880%20Wedel%2C%20Deutschland!5e0!3m2!1sde!2sus!4v1623402281914!5m2!1sde!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div id="back-top-wrapper" class="visible-desktop">
+        <a href="#">Top</a>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

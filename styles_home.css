@@ -1,0 +1,812 @@
+/* Allgemeine Stile */
+html {
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background-color: rgba(255, 248, 220, 0.9);
+}
+
+/* Skip-Link für Barrierefreiheit */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #556B2F;
+    color: white;
+    padding: 8px;
+    z-index: 1000;
+    transition: top 0.2s ease;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid #FFD700; /* Deutlicher Fokusring */
+}
+
+/* Focus-Styles für bessere Tastaturnutzung */
+a:focus, button:focus, select:focus, input:focus {
+    outline: 3px solid #FFD700;
+    outline-offset: 2px;
+}
+
+/* Section transitions and animations */
+section {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: relative;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Header und Video */
+header {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* Verhindert jegliche Interaktion mit dem Video */
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none; /* Verhindert jegliche Interaktion mit dem Video */
+    user-select: none; /* Verhindert Textauswahl */
+    -webkit-user-select: none; /* Safari-Unterstützung */
+    -webkit-tap-highlight-color: transparent; /* Entfernt den Highlight-Effekt beim Tippen (iOS) */
+}
+
+/* Logo */
+.header-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    max-width: 150px;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+/* Navigation */
+.navbar {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Kontrast erhöht */
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    margin: 0 30px;
+    position: relative;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+/* Unterstriche für die Navigation hinzufügen */
+.navbar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    background-color: #A9D18E;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.navbar a:hover::after, .navbar a.active::after {
+    width: 70%;
+}
+
+.navbar a:hover {
+    background-color: rgba(85, 107, 47, 0.7);
+}
+
+/* Hamburger-Menü für mobile Ansicht */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Navigation Anpassungen */
+@media (max-width: 768px) {
+    .header-logo {
+        top: 15px;
+        right: 15px;
+        max-width: 100px;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(40, 60, 30, 0.85);
+        flex-direction: column;
+        padding: 80px 0 20px;
+        transition: left 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .navbar.active {
+        left: 0;
+    }
+    
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .navbar li {
+        margin: 15px 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .navbar a {
+        display: block;
+        padding: 12px 20px;
+        width: 80%;
+        margin: 0 auto;
+    }
+    
+    /* Animationen für das Hamburger-Menü */
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+    
+    /* Overlay fürs Menü */
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 2;
+    }
+    
+    .menu-overlay.active {
+        display: block;
+    }
+}
+
+/* Modern underline animation for nav links */
+.navbar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    background-color: #89B869; /* Slightly lighter green for the underline */
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.navbar a:hover::after {
+    width: 70%;
+}
+
+.navbar a:hover {
+    color: #A9D18E; /* Lighter shade on hover */
+    background-color: transparent; /* Remove background color change */
+    transform: translateY(-3px);
+}
+
+.navbar a.active::after {
+    width: 70%;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar li {
+        margin: 10px 0;
+    }
+
+    .navbar a {
+        font-size: 1.1em;
+        padding: 10px 15px;
+    }
+
+    .header-logo {
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 100px;
+    }
+}
+
+.hero-section {
+    background-color: rgba(255, 248, 220, 0.9); /* Sanftes, helles Moosgrün */
+    color: #556B2F; /* Dunkler Text für guten Kontrast */
+    text-align: center; /* Zentrierter Inhalt */
+    padding: 50px 20px 70px; /* Mehr Abstand nach unten */
+    border-radius: 8px; /* Optional: Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Leichter Schatten */
+    margin-bottom: 40px; /* Abstand zur nächsten Sektion */
+    position: relative; /* Für den Trenner */
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%; /* Breite des Trenners */
+    height: 2px; /* Höhe des Trenners */
+    background: linear-gradient(90deg, transparent, #556B2F, transparent); /* Transparenter Verlauf */
+    border-radius: 2px;
+}
+
+.hero-section h1 {
+    font-size: 2.5em; /* Große, auffällige Überschrift */
+    font-weight: bold;
+    margin-bottom: 20px; /* Abstand unterhalb der Überschrift */
+}
+
+.hero-section p {
+    font-size: 1.2em; /* Etwas größere Schrift für den Text */
+    line-height: 1.6; /* Angenehme Lesbarkeit */
+    margin: 0 auto;
+    max-width: 600px; /* Textbreite begrenzen */
+}
+
+/* Services Section - Layered Design */
+.services-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 50px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.services-section::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #fdfaf0;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+    z-index: 1;
+}
+
+.service-item {
+    width: 250px;
+    color: white;
+    text-align: center;
+    background-color: #556B2F;
+    border-radius: 12px;
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.15),
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.service-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #89B869, #556B2F);
+    border-radius: 0 0 12px 12px;
+}
+
+.service-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.2),
+        0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+}
+
+.service-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Gallery Preview - Layered Design */
+.gallery-preview {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: rgba(255, 248, 220, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-preview::before, 
+.gallery-preview::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(85, 107, 47, 0.1);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.gallery-preview::before {
+    top: -100px;
+    left: -100px;
+}
+
+.gallery-preview::after {
+    bottom: -100px;
+    right: -100px;
+}
+
+.gallery-info {
+    position: relative;
+    z-index: 2;
+}
+
+.gallery-preview h2 {
+    color: #556B2F;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.gallery-preview h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #556B2F, transparent);
+    transform: translateX(-50%);
+}
+
+.gallery-slideshow {
+    margin-top: 30px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-slideshow img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.15),
+        0 5px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.5s ease;
+}
+
+.gallery-slideshow img:hover {
+    transform: scale(1.02);
+}
+
+/* Admin Posts Gallery - Layered Design */
+.admin-posts-gallery {
+    padding: 60px 20px;
+    background-color: rgba(255, 248, 220, 0.95); /* Leicht anderer Hintergrund für visuellen Unterschied */
+    position: relative;
+    overflow: hidden;
+    border-bottom: none;
+    position: relative;
+    margin-top: 20px; /* Abstand zur vorigen Sektion */
+}
+
+.admin-posts-gallery::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(180deg, rgba(85, 107, 47, 0.05), transparent);
+    z-index: 1;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.section-heading::after {
+    content: ''; 
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #A9D18E, transparent);
+    margin: 15px auto 0;
+    border-radius: 3px;
+}
+
+.section-heading h2 {
+    color: #556B2F;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.section-heading p {
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* Swiper Container Styles */
+.swiper-container {
+    width: 100%;
+    padding-bottom: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    touch-action: pan-y;
+    user-select: none;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.swiper-slide {
+    height: auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.1),
+        0 6px 6px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(0, 0, 0, 0.03);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.swiper-slide:hover {
+    transform: translateY(-10px);
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.15),
+        0 10px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Post Card Styles */
+.post-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.post-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    cursor: pointer;
+}
+
+.post-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-content h3 {
+    color: #556B2F;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.post-content p {
+    color: #666;
+    flex-grow: 1;
+    line-height: 1.6;
+}
+
+/* Loading State */
+.post-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #556B2F;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error and No Posts States */
+.swiper-slide.error,
+.swiper-slide.no-posts {
+    background-color: #fff8f8;
+    min-height: 200px;
+}
+
+/* Swiper Navigation Buttons */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #556B2F;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Swiper Pagination */
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: #556B2F;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .swiper-slide {
+        max-width: 90%;
+    }
+    
+    .post-card img {
+        height: 180px;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none;
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #556B2F;
+    color: white;
+}
+
+footer img {
+    max-width: 100px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Kontrast erhöht */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+}
+
+#slideshow-image {
+    width: 100%; /* Breite des Containers füllen */
+    height: 300px; /* Einheitliche Höhe */
+    object-fit: cover; /* Bild zuschneiden, um Verzerrungen zu vermeiden */
+    border-radius: 8px; /* Optional: Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: Schatten für bessere Optik */
+    transition: opacity 1s ease-in-out; /* Für sanfte Übergänge */
+    opacity: 0; /* Startwert für Übergang */
+}
+
+#slideshow-image.active {
+    opacity: 1; /* Sichtbar bei aktivem Bild */
+}
+
+/* Galerie-Stile */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Abstand zwischen den Bildern */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.gallery-item {
+    width: 180px; /* Maximale Breite für jedes Bild */
+    height: 120px; /* Maximale Höhe für jedes Bild */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dezenter Schatten */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation bei Hover */
+}
+
+.gallery-item:hover {
+    transform: scale(1.05); /* Leichte Vergrößerung bei Hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Stärkerer Schatten bei Hover */
+}
+
+.gallery-image {
+    width: 100%; /* Passt die Breite an den Container an */
+    height: 100%; /* Passt die Höhe an den Container an */
+    object-fit: cover; /* Beschneidet das Bild, ohne es zu verzerren */
+    cursor: pointer;
+}
+
+/* Barrierefreie Bildwrapper für die Tastaturnavigation */
+.img-wrapper {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+}
+
+.img-wrapper:focus {
+    outline: 3px solid #FFD700;
+    outline-offset: 2px;
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: auto;
+    transition: all 0.4s ease;
+    display: block;
+}
+
+.img-wrapper:hover img,
+.img-wrapper:focus img {
+    transform: scale(1.05);
+}
+
+/* Verbesserter Lightbox mit besserer Tastaturunterstützung */
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #556B2F;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+}
+
+.close-lightbox:hover,
+.close-lightbox:focus {
+    background: #6B8E23;
+    outline: 3px solid #FFD700;
+}

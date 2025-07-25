@@ -1,0 +1,43 @@
+# Betriebssystem-Dateien
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor-Verzeichnisse und Dateien
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# Umgebungsvariablen
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporäre Dateien
+tmp/
+temp/
+
+# Logs
+logs/
+*.log
+
+# Gebaut mit Werkzeugen
+/dist
+/build
+
+# Lokale Konfigurationsdateien
+config.local.js

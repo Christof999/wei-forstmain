@@ -65,7 +65,7 @@ class CookieConsentManager {
                     </div>
                     
                     <div class="cookie-consent-footer">
-                        <p>Weitere Informationen finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+                        <p>Weitere Informationen finden Sie in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
                     </div>
                 </div>
             </div>

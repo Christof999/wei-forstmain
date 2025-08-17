@@ -1,0 +1,1850 @@
+/* Team Spirit Section */
+.team-spirit {
+    background-color: rgba(255, 248, 220, 0.9); /* Gleiche Hintergrundfarbe wie der Hero-Bereich */
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 8px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+}
+
+.team-spirit h2 {
+    font-size: 2em; /* Größe der Überschrift */
+    color: #556B2F; /* Moosgrüner Farbton */
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Lora', serif; /* Einheitliche Schriftart */
+    border-left: 4px solid #4CAF50; /* Passende grüne Linie */
+    padding-left: 15px;
+    background-color: rgba(76, 175, 80, 0.1); /* Helles Grün für den Hintergrund */
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Dezenter Schatten */
+    animation: fadeIn 1.5s ease-in-out; /* Sanfte Animation */
+}
+
+.team-spirit .spirit-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.team-spirit .team-image {
+    max-width: 800px; /* Größeres Bild */
+    width: 100%; /* Passt sich dem Container an */
+    height: auto;
+    border-radius: 8px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Dezenter Schatten */
+}
+
+.team-spirit .spirit-quote {
+    color: #333; /* Neutraler Farbton */
+    font-size: 1.2em; /* Angemessene Schriftgröße */
+    line-height: 1.6; /* Angenehme Lesbarkeit */
+    max-width: 600px;
+    margin: 0 auto;
+    font-style: italic;
+    border-left: 4px solid #556B2F; /* Moosgrüner Akzent */
+    padding-left: 15px;
+    background-color: rgba(243, 237, 213, 0.9); /* Wärmerer, natürlicherer Hintergrund */
+    border-radius: 5px;
+}
+
+/* Allgemeine Stile */
+html {
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background-color: rgba(255, 248, 220, 0.9);
+}
+
+/* Section transitions and animations */
+section {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: relative;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Header */
+header {
+    position: relative;
+    height: 300px; /* Standardhöhe für größere Bildschirme */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.8); /* Fallback-Hintergrundfarbe */
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Video proportional skalieren */
+}
+
+/* Logo */
+.header-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    max-width: 150px; /* Maximale Breite für größere Bildschirme */
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+/* Navigation */
+.navbar {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    margin: 0 30px;
+    position: relative;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+/* Modern underline animation for nav links */
+.navbar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 50%;
+    background-color: #89B869; /* Slightly lighter green for the underline */
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.navbar a:hover::after {
+    width: 70%;
+}
+
+.navbar a:hover {
+    color: #A9D18E; /* Lighter shade on hover */
+    background-color: transparent; /* Remove background color change */
+    transform: translateY(-3px);
+}
+
+.navbar a.active::after {
+    width: 70%;
+}
+
+/* Responsive Navigation für kleinere Bildschirme */
+@media (max-width: 768px) {
+    header {
+        height: auto; /* Höhe dynamisch anpassen */
+    }
+
+    .video-container {
+        height: 200px; /* Reduzierte Höhe des Videos */
+    }
+
+    .header-logo {
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%); /* Logo zentrieren */
+        max-width: 100px; /* Kleinere Logo-Größe */
+    }
+
+    .navbar {
+        bottom: 0; /* Navigation unten positionieren */
+        padding: 10px 0;
+    }
+
+    .navbar ul {
+        flex-direction: column; /* Navigationselemente vertikal anordnen */
+        align-items: center;
+    }
+
+    .navbar li {
+        margin: 10px 0; /* Abstand zwischen Links */
+    }
+
+    .navbar a {
+        font-size: 1em; /* Kleinere Schriftgröße */
+        padding: 10px 15px; /* Angepasste Abstände */
+    }
+}
+
+/* Hauptinhalt */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Galerie */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Abstand zwischen den Bildern */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.gallery-item {
+    width: 200px; /* Feste Breite */
+    height: 150px; /* Feste Höhe */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dezenter Schatten */
+}
+
+.gallery-image {
+    width: 100%; /* Füllt den Container vollständig */
+    height: 100%; /* Passt sich proportional an */
+    object-fit: cover; /* Kein Verzerren oder Strecken */
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Leichter Hover-Effekt */
+}
+
+.gallery-image:hover {
+    transform: scale(1.05); /* Leichtes Vergrößern bei Hover */
+}
+
+/* Galerie Optimierung */
+.gallery-loader {
+    text-align: center;
+    padding: 30px;
+    margin: 20px auto;
+    color: #556B2F;
+}
+
+.loader-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(85, 107, 47, 0.2);
+    border-radius: 50%;
+    border-top-color: #556B2F;
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid rgba(85, 107, 47, 0.2);
+    border-radius: 50%;
+    border-top-color: #556B2F;
+    animation: spin 1s linear infinite;
+}
+
+.gallery-error {
+    padding: 20px;
+    background-color: rgba(255, 235, 235, 0.9);
+    border-radius: 5px;
+    color: #d32f2f;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 80%;
+}
+
+#lightbox-image.loading {
+    opacity: 0.3;
+}
+
+#lightbox::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border: 6px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#lightbox:has(#lightbox-image.loading)::before,
+#lightbox-image.loading + #lightbox::before {
+    opacity: 1;
+}
+
+/* Galerie Intro Styling */
+.gallery-intro {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background-color: rgba(255, 248, 220, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-intro h1 {
+    color: #556B2F;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.intro-decoration {
+    width: 80px;
+    height: 3px;
+    background-color: #89B869;
+    margin: 0 auto 25px;
+    border-radius: 3px;
+}
+
+.gallery-intro-text {
+    font-size: 1.2em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #555;
+}
+
+/* Lightbox */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Navigation Buttons */
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1001;
+}
+
+.prev-button {
+    left: 20px;
+}
+
+.next-button {
+    right: 20px;
+}
+
+.prev-button:hover,
+.next-button:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: black;
+}
+
+/* Verschwommener Hintergrund */
+.blur-background {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+/* Verbesserte Unterüberschrift */
+.content-box p {
+    font-size: 1.2rem;
+    color: #333; /* Neutraler, dunkler Grauton für bessere Lesbarkeit */
+    text-align: left; /* Linksbündig für bessere Lesbarkeit von Textblöcken */
+    line-height: 1.8; /* Mehr Zeilenabstand für bessere Lesbarkeit */
+    margin: 20px 0; /* Mehr Abstand nach oben und unten */
+    padding: 0 20px; /* Innenabstand für bessere Textstruktur */
+    font-style: normal; /* Keine Kursivschrift für bessere Lesbarkeit */
+    border-left: none; /* Keine grüne Linie */
+    background-color: transparent; /* Kein Hintergrund */
+    border-radius: 0; /* Keine abgerundeten Ecken */
+    box-shadow: none; /* Kein Schatten */
+    animation: fadeIn 1.5s ease-in-out; /* Animation beibehalten */
+}
+
+/* Animationsstil */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Footer */
+footer {
+    background-color: #556B2F;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Galerie-Stile */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Abstand zwischen den Bildern */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.gallery-item {
+    width: 180px; /* Maximale Breite für jedes Bild */
+    height: 120px; /* Maximale Höhe für jedes Bild */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dezenter Schatten */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation bei Hover */
+}
+
+.gallery-item:hover {
+    transform: scale(1.05); /* Leichte Vergrößerung bei Hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Stärkerer Schatten bei Hover */
+}
+
+.gallery-image {
+    width: 100%; /* Passt die Breite an den Container an */
+    height: 100%; /* Passt die Höhe an den Container an */
+    object-fit: cover; /* Beschneidet das Bild, ohne es zu verzerren */
+    cursor: pointer;
+}
+
+/* Lightbox */
+.lightbox {
+    display: none; /* Unsichtbar, bis aktiviert */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Dunkler Hintergrund */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden; /* Verhindert Scrollen, wenn die Lightbox aktiv ist */
+}
+
+.lightbox img {
+    max-width: 90%; /* Bild passt in den Viewport */
+    max-height: 90%; /* Bild passt in den Viewport */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Leichter Schatten für das Bild */
+    animation: fadeIn 0.3s ease-in-out; /* Animation beim Öffnen */
+}
+
+.lightbox.show {
+    display: flex; /* Aktiviert die Lightbox */
+}
+
+/* Navigation Buttons in der Lightbox */
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1001;
+    transition: background-color 0.3s ease;
+}
+
+.prev-button:hover,
+.next-button:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: black;
+}
+
+.prev-button {
+    left: 20px;
+}
+
+.next-button {
+    right: 20px;
+}
+
+/* Verschwommener Hintergrund */
+.blur-background {
+    filter: blur(5px);
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}
+
+/* Animationsstil für das Bild-Overlay */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.footer-content img {
+    max-width: 100px; /* Maximale Breite des Logos */
+    height: auto; /* Höhe proportional anpassen */
+    margin-bottom: 10px;
+}
+
+/* Allgemeiner Bildstil */
+img {
+    max-width: 100%; /* Bild passt sich der Breite des Containers an */
+    height: auto;    /* Proportionen werden beibehalten */
+    border-radius: 8px; /* Leichte Abrundung der Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Dezenter Schatten */
+}
+
+/* Spezifische Stile für Logos */
+.header-logo, .footer-content img {
+    max-width: 150px; /* Größe des Logos begrenzen */
+    height: auto;
+    margin: 10px auto; /* Zentrierung */
+}
+
+/* Galerie-Bilder (keine Änderung hier, da sie separat angepasst wurden) */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Keine Verzerrung der Bilder */
+    transition: transform 0.3s ease; /* Hover-Effekt */
+}
+
+/* Bilder in "Über Uns" */
+.person-info img {
+    max-width: 250px; /* Begrenzte Breite */
+    height: auto; /* Proportionale Höhe */
+    border-radius: 8px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dezenter Schatten */
+    margin: 10px; /* Abstand um das Bild */
+}
+
+/* Bilder in "Dienstleistungen" */
+.service-image {
+    max-width: 300px; /* Begrenzte Breite */
+    height: auto; /* Proportionale Höhe */
+    border-radius: 8px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dezenter Schatten */
+    margin: 10px; /* Abstand um das Bild */
+}
+
+/* Stil für die Unterüberschriften in "Über Uns" */
+.person h2 {
+    font-size: 2em; /* Größe der Überschrift */
+    color: #556B2F; /* Moosgrüner Farbton */
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Lora', serif; /* Ästhetische Schriftart */
+    border-left: 4px solid #4CAF50; /* Passende grüne Linie */
+    padding-left: 15px;
+    background-color: rgba(76, 175, 80, 0.1); /* Helles Grün für den Hintergrund */
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Dezenter Schatten */
+    animation: fadeIn 1.5s ease-in-out; /* Sanfte Animation */
+}
+
+/* Header-Container anpassbar machen */
+header {
+    position: relative;
+    height: auto; /* Höhe passt sich dynamisch an */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Video skalierbar machen */
+.video-container video {
+    width: 100%;
+    height: auto; /* Passt Höhe proportional an */
+    object-fit: cover;
+}
+
+/* Responsive Navigation */
+.navbar ul {
+    display: flex;
+    flex-wrap: wrap; /* Elemente umbrechen, wenn nötig */
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+/* Navigationselemente übereinander stapeln bei kleinen Bildschirmen */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column; /* Übereinander stapeln */
+        align-items: center; /* Zentrierte Anordnung */
+        gap: 10px; /* Abstand zwischen den Links */
+    }
+
+    .navbar li {
+        margin: 5px 0;
+    }
+
+    .navbar a {
+        font-size: 1em; /* Kleinere Schriftgröße */
+        padding: 10px 15px; /* Angemessene Abstände */
+    }
+
+    .header-logo {
+        position: relative;
+        max-width: 100px; /* Reduzierte Größe des Logos */
+        margin: 10px auto;
+    }
+}
+
+/* Allgemeine Stile */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif; /* Allgemeine Schriftart */
+    background-color: rgba(255, 248, 220, 0.9); /* Cremefarbiger Hintergrund */
+}
+
+/* Header und Video */
+header {
+    position: relative;
+    height: 300px; /* Beibehaltung der Höhe des Videos */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Navigation */
+.navbar {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    margin: 0 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #556B2F; /* Moosgrüner Hover-Effekt */
+}
+
+/* Responsive Navigation für kleinere Bildschirme */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column; /* Links untereinander anzeigen */
+        align-items: center;
+    }
+
+    .navbar li {
+        margin: 10px 0;
+    }
+
+    .navbar a {
+        font-size: 1.1em;
+        padding: 10px 15px;
+    }
+}
+
+#slideshow-image {
+    width: 100%; /* Breite des Containers füllen */
+    height: 300px; /* Einheitliche Höhe */
+    object-fit: cover; /* Bild zuschneiden, um Verzerrungen zu vermeiden */
+    border-radius: 8px; /* Optional: Abgerundete Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: Schatten für bessere Optik */
+    transition: opacity 1s ease-in-out; /* Für sanfte Übergänge */
+    opacity: 0; /* Startwert für Übergang */
+}
+
+#slideshow-image.active {
+    opacity: 1;
+}
+
+/* Responsive Anpassungen für "Über Uns" auf Mobilgeräten */
+@media (max-width: 768px) {
+    .person-info, .person-info.reverse {
+        flex-direction: column; /* Elemente untereinander */
+        text-align: center;
+    }
+
+    .person-info img, .person-info.reverse img {
+        margin: 0 auto 20px; /* Bild zentrieren mit Abstand nach unten */
+        width: 180px; /* Bild etwas kleiner */
+    }
+
+    .person h2 {
+        font-size: 1.6em; /* Kleinere Überschrift */
+        text-align: center;
+    }
+
+    .person-text {
+        font-size: 1em; /* Kleinerer Text */
+        margin: 0;
+        padding: 0 10px; /* Seitenabstand */
+    }
+}
+
+/* About Page Styles */
+.about-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.about-intro {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: rgba(255, 248, 220, 0.9); /* Hintergrund an andere Sektionen anpassen */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-intro h1 {
+    color: #556B2F;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.about-intro h1::after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 3px;
+    bottom: -10px;
+    left: 15%;
+    background-color: #89B869;
+    border-radius: 3px;
+}
+
+.intro-text {
+    font-size: 1.2em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+.about-values {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.value-item {
+    flex: 1;
+    min-width: 200px;
+    padding: 20px;
+    margin: 10px;
+    background-color: rgba(243, 237, 213, 0.9); /* Wärmerer, natürlicherer Hintergrund */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.value-item i {
+    font-size: 2.5em;
+    color: #556B2F;
+    margin-bottom: 15px;
+}
+
+.value-item h3 {
+    font-size: 1.4em;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Person styles with enhanced layout */
+.person {
+    margin-bottom: 60px;
+    padding: 20px;
+    background-color: rgba(255, 248, 220, 0.9); /* Hintergrund an andere Sektionen anpassen */
+}
+
+.person-info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background-color: rgba(243, 237, 213, 0.9); /* Wärmerer, natürlicherer Hintergrund */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.person-info.reverse {
+    flex-direction: row-reverse;
+}
+
+.person-image-container {
+    flex: 1;
+    max-width: 300px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.person-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.person-image-container:hover .person-image {
+    transform: scale(1.05);
+}
+
+.person-content {
+    flex: 2;
+}
+
+.person-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.person-skills {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px; /* Mehr Abstand nach oben */
+}
+
+.person-skills li {
+    padding: 12px 0; /* Erhöhter vertikaler Abstand */
+    position: relative;
+    margin-bottom: 10px; /* Erhöhter Abstand zwischen den Elementen */
+    background-color: rgba(237, 231, 201, 0.8); /* Wärmerer, natürlicherer Hintergrund */
+    border-radius: 6px;
+    padding-left: 15px; /* Einrückung für den Text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Leichter Schatten für Tiefe */
+}
+
+.person-skills i {
+    color: #556B2F;
+    margin-right: 10px;
+    font-size: 1.1em; /* Etwas größere Icons */
+}
+
+/* Team spirit section styles */
+.team-spirit {
+    text-align: center;
+    margin: 40px 0;
+    padding: 20px;
+    background-color: rgba(255, 248, 220, 0.9); /* Hintergrund an andere Sektionen anpassen */
+}
+
+.spirit-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(243, 237, 213, 0.9); /* Wärmerer, natürlicherer Hintergrund */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.spirit-quote-container {
+    max-width: 800px;
+}
+
+.spirit-quote {
+    font-size: 1.6em;
+    font-style: italic;
+    color: #556B2F;
+    margin-bottom: 20px;
+    position: relative;
+    padding: 0 30px;
+}
+
+.spirit-quote::before,
+.spirit-quote::after {
+    content: '"';
+    font-size: 2em;
+    position: absolute;
+    color: #A9D18E;
+    opacity: 0.5;
+}
+
+.spirit-quote::before {
+    left: 0;
+    top: -10px;
+}
+
+.spirit-quote::after {
+    right: 0;
+    bottom: -30px;
+}
+
+.spirit-mission {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Certificates section */
+.certificates {
+    margin: 40px 0;
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(255, 248, 220, 0.9); /* Hintergrund an andere Sektionen anpassen */
+}
+
+.certificates h2 {
+    color: #556B2F;
+    margin-bottom: 30px;
+}
+
+.cert-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cert-item {
+    flex: 1;
+    min-width: 200px;
+    padding: 20px;
+    background-color: rgba(243, 237, 213, 0.9); /* Wärmerer, natürlicherer Hintergrund */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.cert-item:hover {
+    transform: translateY(-5px);
+}
+
+.cert-item i {
+    font-size: 2.5em;
+    color: #89B869;
+    margin-bottom: 15px;
+}
+
+.cert-item h3 {
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #3e3e3e;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content img {
+    max-width: 150px;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.footer-links li {
+    margin: 0 15px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #A9D18E;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .about-values {
+        flex-direction: column;
+    }
+    
+    .person-info, 
+    .person-info.reverse {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .person-image-container {
+        margin: 0 auto 20px;
+    }
+    
+    .spirit-content {
+        padding: 20px;
+    }
+    
+    .spirit-quote {
+        font-size: 1.3em;
+        padding: 0 20px;
+    }
+    
+    .cert-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cert-item {
+        width: 80%;
+    }
+}
+
+/* Services Page Styles */
+.services-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.services-intro {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px;
+    background-color: rgba(255, 248, 220, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.services-intro h1 {
+    color: #556B2F;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.services-intro h1::after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 3px;
+    bottom: -10px;
+    left: 15%;
+    background-color: #89B869;
+    border-radius: 3px;
+}
+
+.services-intro-text {
+    font-size: 1.2em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Service Cards */
+.service-card {
+    margin-bottom: 60px;
+    padding: 20px;
+    background-color: rgba(255, 248, 220, 0.9);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.service-card-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background-color: rgba(243, 237, 213, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card-content.reverse {
+    flex-direction: row-reverse;
+}
+
+.service-image-container {
+    flex: 1;
+    max-width: 300px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.service-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.service-image-container:hover .service-image {
+    transform: scale(1.05);
+}
+
+.service-icon {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #556B2F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.service-details {
+    flex: 2;
+}
+
+.service-details h2 {
+    font-size: 1.8em;
+    color: #556B2F;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(85, 107, 47, 0.3);
+}
+
+.service-description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+.service-features li {
+    padding: 8px 0;
+    margin-bottom: 8px;
+    background-color: rgba(237, 231, 201, 0.8);
+    border-radius: 6px;
+    padding-left: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.service-features i {
+    color: #556B2F;
+    margin-right: 10px;
+}
+
+.service-button {
+    display: inline-block;
+    background-color: #556B2F;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.service-button:hover {
+    background-color: #3e4f24;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific service card styles */
+.forest-care {
+    border-left: 5px solid #2e7d32; /* Dunkleres Grün für Waldpflege */
+}
+
+.firewood {
+    border-left: 5px solid #e65100; /* Orange-Braun für Brennholz */
+}
+
+.forestry {
+    border-left: 5px solid #1b5e20; /* Tiefes Grün für forstliche Dienstleistungen */
+}
+
+.reforestation {
+    border-left: 5px solid #7cb342; /* Helleres Grün für Aufforstung */
+}
+
+/* Contact Teaser */
+.contact-teaser {
+    margin: 60px 0 40px;
+    padding: 40px;
+    text-align: center;
+    background-color: rgba(243, 237, 213, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-teaser h2 {
+    font-size: 2em;
+    color: #556B2F;
+    margin-bottom: 20px;
+}
+
+.contact-teaser p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-button {
+    display: inline-block;
+    background-color: #556B2F;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contact-button:hover {
+    background-color: #3e4f24;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive styles for services page */
+@media (max-width: 768px) {
+    .service-card-content,
+    .service-card-content.reverse {
+        flex-direction: column;
+    }
+    
+    .service-image-container {
+        margin-bottom: 20px;
+        max-width: 100%;
+    }
+    
+    .service-icon {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .service-features li {
+        padding-left: 10px;
+        font-size: 0.95em;
+    }
+    
+    .contact-teaser {
+        padding: 20px;
+    }
+}
+
+/* Kontaktseite Styles */
+.contact-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.contact-intro {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 30px;
+    background-color: rgba(255, 248, 220, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-intro h1 {
+    color: #556B2F;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.contact-intro-text {
+    font-size: 1.2em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.contact-info-card, .contact-form-card {
+    background-color: rgba(255, 248, 220, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    width: 100%;
+    max-width: 500px;
+    transition: transform 0.3s ease;
+}
+
+.contact-info-card:hover, .contact-form-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: #556B2F;
+    color: white;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-header i {
+    font-size: 1.8em;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.6em;
+}
+
+.contact-details {
+    padding: 25px;
+}
+
+.contact-detail-item {
+    display: flex;
+    margin-bottom: 25px;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.contact-detail-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-detail-item i {
+    color: #556B2F;
+    font-size: 1.5em;
+    width: 30px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.contact-detail-item h3 {
+    color: #556B2F;
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+}
+
+.contact-detail-item p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.contact-form-card form {
+    padding: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #556B2F;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #89B869;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(137, 184, 105, 0.2);
+}
+
+.submit-button {
+    background-color: #556B2F;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.submit-button:hover {
+    background-color: #3e4f24;
+    transform: translateY(-3px);
+}
+
+.map-container {
+    background-color: rgba(255, 248, 220, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.map-header {
+    background-color: #556B2F;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.map-header i {
+    font-size: 1.8em;
+}
+
+.map-header h2 {
+    margin: 0;
+    font-size: 1.6em;
+}
+
+.map-frame {
+    padding: 0;
+}
+
+.map-frame iframe {
+    display: block;
+    width: 100%;
+    height: 450px;
+    border: none;
+}
+
+/* Anpassungen für das Footer-Design */
+.footer-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #A9D18E;
+    text-decoration: underline;
+}
+
+/* Responsive-Design für die Kontaktseite */
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .contact-info-card, .contact-form-card {
+        max-width: 100%;
+    }
+    
+    .card-header, .map-header {
+        padding: 15px;
+    }
+    
+    .card-header h2, .map-header h2 {
+        font-size: 1.4em;
+    }
+    
+    .contact-details, .contact-form-card form {
+        padding: 20px;
+    }
+    
+    .map-frame iframe {
+        height: 350px;
+    }
+}
+
+/* Neues Layout für Kontaktdetails mit Teambild */
+.contact-details-wrapper {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+}
+
+.contact-details {
+    flex: 1;
+    min-width: 250px;
+    padding: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.contact-team-image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.contact-team-image::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    background: linear-gradient(to right, rgba(255, 248, 220, 0.9) 0%, rgba(255, 248, 220, 0.5) 60%, rgba(255, 248, 220, 0) 100%);
+    z-index: 1;
+}
+
+.contact-team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.contact-team-image img:hover {
+    transform: scale(1.02);
+}
+
+.team-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(85, 107, 47, 0.8);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-style: italic;
+    text-align: center;
+    max-width: 80%;
+    z-index: 2;
+}
+
+/* Anpassung des responsiven Designs */
+@media (max-width: 768px) {
+    .contact-info-card, .contact-form-card {
+        max-width: 100%;
+    }
+    
+    .contact-details {
+        padding: 20px 15px;
+    }
+    
+    .contact-team-image {
+        width: 40%;
+    }
+    
+    .team-caption {
+        font-size: 0.8em;
+        padding: 5px 10px;
+        bottom: 10px;
+    }
+    
+    .contact-detail-item {
+        margin-bottom: 15px;
+    }
+    
+    .contact-detail-item i {
+        font-size: 1.2em;
+    }
+    
+    .contact-detail-item h3 {
+        font-size: 1em;
+    }
+    
+    .contact-detail-item p {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-team-image {
+        width: 35%;
+    }
+    
+    .contact-team-image::before {
+        width: 40px;
+    }
+    
+    .team-caption {
+        font-size: 0.7em;
+        max-width: 90%;
+    }
+    
+    .contact-detail-item {
+        gap: 8px;
+    }
+}
+
+/* Hamburger-Menü für mobile Ansicht */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Navigation Anpassungen */
+@media (max-width: 768px) {
+    .header-logo {
+        top: 15px;
+        right: 15px;
+        max-width: 100px;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(40, 60, 30, 0.85);
+        flex-direction: column;
+        padding: 80px 0 20px;
+        transition: left 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .navbar.active {
+        left: 0;
+    }
+    
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .navbar li {
+        margin: 15px 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .navbar a {
+        display: block;
+        padding: 12px 20px;
+        width: 80%;
+        margin: 0 auto;
+    }
+    
+    /* Animationen für das Hamburger-Menü */
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+    
+    /* Overlay fürs Menü */
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 2;
+    }
+    
+    .menu-overlay.active {
+        display: block;
+    }
+}

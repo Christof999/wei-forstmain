@@ -178,11 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
             touchRatio: 1,
             threshold: 5,
             
-            // Mousewheel mit reduzierten Einstellungen
-            mousewheel: {
-                forceToAxis: true,
-                sensitivity: 1,
-            },
+            // Mousewheel deaktiviert für normales Seiten-Scrollen
+            mousewheel: false,
             
             // Responsive Breakpoints mit konstanter Zentrierung
             breakpoints: {
@@ -214,6 +211,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 1200: {
                     slidesPerView: 'auto',
                     spaceBetween: 35,
+                    centeredSlides: true,
+                },
+                // Vollbild-Desktop
+                1600: {
+                    slidesPerView: 'auto',
+                    spaceBetween: 40,
                     centeredSlides: true,
                 },
             },

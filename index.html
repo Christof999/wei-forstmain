@@ -119,19 +119,6 @@
 
         <!-- Add Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-        <!-- Add additional swiper modules for mousewheel support -->
-        <script>
-            // Make sure the mousewheel is properly configured
-            document.addEventListener('DOMContentLoaded', function() {
-                // Prevent default scrolling on the swiper container
-                const swiperContainer = document.querySelector('.swiper-container');
-                if (swiperContainer) {
-                    swiperContainer.addEventListener('wheel', function(e) {
-                        e.preventDefault();
-                    }, { passive: false });
-                }
-            });
-        </script>
 
     </main>
 </body>

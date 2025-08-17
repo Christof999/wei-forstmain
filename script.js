@@ -99,6 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 `;
                 postsGalleryElement.appendChild(noPostsSlide);
+                // Initialisiere Swiper auch ohne Posts
+                initSwiperGallery(0);
             } else {
                 // Zeige die Posts in der Gallery an
                 posts.forEach(post => {
@@ -115,10 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     `;
                     postsGalleryElement.appendChild(slide);
                 });
+                
+                // Initialisiere die Swiper Gallery mit Posts
+                initSwiperGallery(posts.length);
             }
-            
-            // Initialisiere die Swiper Gallery
-            initSwiperGallery();
             
         } catch (error) {
             console.error("Fehler beim Anzeigen der Beiträge:", error);
@@ -130,73 +132,105 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
+            // Initialisiere Swiper auch bei Fehler
+            initSwiperGallery(0);
         }
     }
     
     // Swiper-Instanz initialisieren
-    function initSwiperGallery() {
+    function initSwiperGallery(postCount = 1) {
+        // Loop nur aktivieren, wenn genügend Posts vorhanden sind
+        const enableLoop = postCount > 2;
+        
         new Swiper('.swiper-container', {
-            slidesPerView: 1,
+            // Grundkonfiguration für bessere Zentrierung
+            slidesPerView: 'auto',
             spaceBetween: 30,
-            loop: true,
-            autoplay: {
-                delay: 5000,
+            loop: enableLoop,
+            centeredSlides: true,
+            
+            // Verbesserte Autoplay-Konfiguration (nur wenn genügend Posts)
+            autoplay: enableLoop ? {
+                delay: 4000,
                 disableOnInteraction: false,
-            },
+                pauseOnMouseEnter: true,
+                reverseDirection: false,
+            } : false,
+            
+            // Navigation und Pagination (nur wenn Loop aktiviert)
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
+                dynamicBullets: true,
             },
-            navigation: {
+            navigation: enableLoop ? {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
-            },
-            // Reduce mousewheel sensitivity
+            } : false,
+            
+            // Sanfte Übergänge
+            effect: 'slide',
+            speed: 800,
+            
+            // Touch- und Maus-Interaktionen vereinfachen
+            allowTouchMove: true,
+            simulateTouch: true,
+            touchRatio: 1,
+            threshold: 5,
+            
+            // Mousewheel mit reduzierten Einstellungen
             mousewheel: {
                 forceToAxis: true,
-                sensitivity: 0.5, // Reduced from 1 to make it less sensitive
-                releaseOnEdges: true,
-                thresholdDelta: 50, // Higher threshold to avoid accidental swipes
-                thresholdTime: 400, // Time window for the swipe 
+                sensitivity: 1,
             },
-            // Force snap behavior
-            snapOnRelease: true,
-            centeredSlides: true,
-            slidesPerGroup: 1,
-            followFinger: false, // Prevents partial dragging
-            allowTouchMove: true,
-            touchRatio: 0.8, // Reduced touch sensitivity
-            longSwipes: false, // Disable long swipes
-            shortSwipes: true, // Only allow short swipes
-            threshold: 10, // Small threshold for swipe detection
-            effect: 'slide',
-            speed: 500, // Slightly slower for more control
-            freeMode: false,
-            preventInteractionOnTransition: true,
+            
+            // Responsive Breakpoints mit konstanter Zentrierung
             breakpoints: {
-                // For mobile/small screens
+                // Sehr kleine Bildschirme
                 320: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
+                    slidesPerView: 'auto',
+                    spaceBetween: 15,
                     centeredSlides: true,
                 },
-                // Ab 768px zeigen wir 2 Slides nebeneinander
-                768: {
-                    slidesPerView: 2,
+                // Kleine Bildschirme
+                480: {
+                    slidesPerView: 'auto',
                     spaceBetween: 20,
+                    centeredSlides: true,
                 },
-                // Ab 1024px zeigen wir 3 Slides nebeneinander
+                // Mittlere Bildschirme
+                768: {
+                    slidesPerView: 'auto',
+                    spaceBetween: 25,
+                    centeredSlides: true,
+                },
+                // Große Bildschirme
                 1024: {
-                    slidesPerView: 3,
+                    slidesPerView: 'auto',
                     spaceBetween: 30,
+                    centeredSlides: true,
+                },
+                // Extra große Bildschirme
+                1200: {
+                    slidesPerView: 'auto',
+                    spaceBetween: 35,
+                    centeredSlides: true,
                 },
             },
+            
+            // Event-Handler für bessere Kontrolle
             on: {
-                // Additional callback to ensure proper positioning
-                slideChangeTransitionEnd: function() {
-                    // Ensure proper slide position after transition
-                    this.snapGrid = [...this.slidesGrid];
+                init: function() {
+                    // Stelle sicher, dass der erste Slide zentriert ist
+                    this.slideTo(0, 0);
                 },
+                autoplayStart: function() {
+                    console.log('Autoplay gestartet');
+                },
+                slideChange: function() {
+                    // Sorge für glatte Übergänge
+                    this.update();
+                }
             }
         });
     }

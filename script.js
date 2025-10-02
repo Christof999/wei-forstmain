@@ -78,12 +78,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Funktion zum Formatieren des Datums
+    function formatPostDate(timestamp) {
+        if (!timestamp) return '';
+        const date = new Date(timestamp);
+        return date.toLocaleDateString('de-DE', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    }
+    
+    // Globales Array für alle Posts (für Navigation im Modal)
+    let allPosts = [];
+    let currentPostIndex = 0;
+    
     // Funktion zum Anzeigen der Posts in der Swiper Gallery
     async function displayPostsInGallery() {
         if (!postsGalleryElement) return;
         
         try {
             const posts = await fetchPosts();
+            allPosts = posts; // Speichere Posts global
             
             // Entferne den Ladeindikator
             postsGalleryElement.innerHTML = "";
@@ -103,18 +119,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 initSwiperGallery(0);
             } else {
                 // Zeige die Posts in der Gallery an
-                posts.forEach(post => {
+                posts.forEach((post, index) => {
                     const slide = document.createElement('div');
                     slide.className = 'swiper-slide';
+                    
+                    const dateStr = formatPostDate(post.timestamp);
+                    const truncatedText = post.text.length > 120 ? post.text.substring(0, 120) + '...' : post.text;
+                    
                     slide.innerHTML = `
-                        <div class="post-card">
-                            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" onclick="openLightbox(this.src)">` : ''}
+                        <div class="post-card" data-post-index="${index}">
+                            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : ''}
                             <div class="post-content">
                                 <h3>${post.title}</h3>
-                                <p>${post.text}</p>
+                                ${dateStr ? `<div class="post-date">${dateStr}</div>` : ''}
+                                <p>${truncatedText}</p>
+                                <button class="read-more-btn">Weiterlesen</button>
                             </div>
                         </div>
                     `;
+                    
+                    // Event Listener für das Öffnen des Modals
+                    const postCard = slide.querySelector('.post-card');
+                    const readMoreBtn = slide.querySelector('.read-more-btn');
+                    
+                    const openModal = (e) => {
+                        e.stopPropagation();
+                        currentPostIndex = index;
+                        openPostModal(post, index);
+                    };
+                    
+                    postCard.addEventListener('click', openModal);
+                    readMoreBtn.addEventListener('click', openModal);
+                    
                     postsGalleryElement.appendChild(slide);
                 });
                 
@@ -262,14 +298,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   
     // 4. LIGHTBOX-FUNKTIONEN
-    function openLightbox(imgSrc) {
+    window.openLightbox = function(imgSrc) {
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
         
         if (lightbox && lightboxImage) {
             lightboxImage.src = imgSrc;
             lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Verhindert Scrollen im Hintergrund
+            
+            // Verhindert Scrollen im Hintergrund
+            // Wenn Modal offen ist, nicht überschreiben
+            const modal = document.getElementById('postModal');
+            if (!modal || !modal.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            }
             
             // Setze Fokus auf die Lightbox, um Tastaturnavigation zu ermöglichen
             lightbox.focus();
@@ -277,29 +319,36 @@ document.addEventListener('DOMContentLoaded', function() {
             // Event-Listener für Escape-Taste hinzufügen
             document.addEventListener('keydown', handleLightboxKeydown);
         }
-    }
+    };
 
-    function closeLightbox(event) {
-        // Schließen, wenn auf den Hintergrund geklickt wird, nicht auf das Bild
-        if (event && (event.target.id === 'lightbox' || event.target.classList.contains('close-lightbox'))) {
+    window.closeLightbox = function(event) {
+        // Schließen kann entweder durch Event oder direkt aufgerufen werden
+        if (!event || event.target.id === 'lightbox' || event.target.classList.contains('close-lightbox')) {
             const lightbox = document.getElementById('lightbox');
-            lightbox.style.display = 'none';
-            document.body.style.overflow = ''; // Scrollen wieder aktivieren
-            
-            // Event-Listener für Escape-Taste entfernen
-            document.removeEventListener('keydown', handleLightboxKeydown);
-            
-            // Fokus zurück auf das Element setzen, das die Lightbox geöffnet hat
-            if (window.lastFocusedElement) {
-                window.lastFocusedElement.focus();
+            if (lightbox) {
+                lightbox.style.display = 'none';
+                
+                // Scrollen nur wieder aktivieren, wenn kein Modal offen ist
+                const modal = document.getElementById('postModal');
+                if (!modal || !modal.classList.contains('active')) {
+                    document.body.style.overflow = '';
+                }
+                
+                // Event-Listener für Escape-Taste entfernen
+                document.removeEventListener('keydown', handleLightboxKeydown);
+                
+                // Fokus zurück auf das Element setzen, das die Lightbox geöffnet hat
+                if (window.lastFocusedElement) {
+                    window.lastFocusedElement.focus();
+                }
             }
         }
-    }
+    };
 
     // Funktion zur Behandlung von Tastatureingaben in der Lightbox
     function handleLightboxKeydown(event) {
         if (event.key === 'Escape') {
-            closeLightbox({ target: { id: 'lightbox' } });
+            window.closeLightbox({ target: { id: 'lightbox' } });
         }
     }
 
@@ -433,4 +482,222 @@ document.addEventListener('DOMContentLoaded', function() {
     setupMobileMenu();
     setupSmoothScrolling();
     setupScrollAnimations();
+    
+    // 5. POST MODAL FUNKTIONALITÄT
+    function openPostModal(post, index) {
+        const modal = document.getElementById('postModal');
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDate = document.getElementById('modal-date');
+        const modalText = document.getElementById('modal-text');
+        const prevBtn = document.querySelector('.post-modal-prev');
+        const nextBtn = document.querySelector('.post-modal-next');
+        
+        if (!modal) return;
+        
+        currentPostIndex = index !== undefined ? index : currentPostIndex;
+        
+        // Setze die Modal-Inhalte
+        const imageContainer = document.querySelector('.post-modal-image-container');
+        if (post.imageUrl && modalImage && imageContainer) {
+            modalImage.src = post.imageUrl;
+            modalImage.alt = post.title;
+            imageContainer.style.display = 'block';
+            
+            // Event-Listener für Bild-Zoom
+            imageContainer.onclick = function() {
+                openLightbox(post.imageUrl);
+            };
+        } else if (imageContainer) {
+            imageContainer.style.display = 'none';
+        }
+        
+        if (modalTitle) modalTitle.textContent = post.title || 'Kein Titel';
+        
+        // Formatiere das Datum falls vorhanden
+        if (modalDate && post.timestamp) {
+            const formattedDate = formatPostDate(post.timestamp);
+            modalDate.textContent = formattedDate;
+        } else if (modalDate) {
+            modalDate.textContent = '';
+        }
+        
+        if (modalText) modalText.textContent = post.text || 'Kein Inhalt verfügbar';
+        
+        // Update Navigation Buttons
+        if (prevBtn) {
+            prevBtn.disabled = currentPostIndex === 0;
+        }
+        if (nextBtn) {
+            nextBtn.disabled = currentPostIndex === allPosts.length - 1;
+        }
+        
+        // Zeige das Modal
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Fokus auf das Modal setzen
+        modal.focus();
+        
+        // Event-Listener für Escape-Taste
+        document.addEventListener('keydown', handleModalKeydown);
+        
+        // Setup Touch-Events für Swipe-to-Close auf Mobile
+        setupModalSwipe();
+    }
+    
+    function closePostModal() {
+        const modal = document.getElementById('postModal');
+        if (!modal) return;
+        
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Event-Listener für Escape-Taste entfernen
+        document.removeEventListener('keydown', handleModalKeydown);
+        
+        // Touch-Events entfernen
+        cleanupModalSwipe();
+    }
+    
+    function handleModalKeydown(event) {
+        if (event.key === 'Escape') {
+            closePostModal();
+        } else if (event.key === 'ArrowLeft') {
+            navigateToPreviousPost();
+        } else if (event.key === 'ArrowRight') {
+            navigateToNextPost();
+        }
+    }
+    
+    function navigateToPreviousPost() {
+        if (currentPostIndex > 0) {
+            currentPostIndex--;
+            openPostModal(allPosts[currentPostIndex], currentPostIndex);
+        }
+    }
+    
+    function navigateToNextPost() {
+        if (currentPostIndex < allPosts.length - 1) {
+            currentPostIndex++;
+            openPostModal(allPosts[currentPostIndex], currentPostIndex);
+        }
+    }
+    
+    // Swipe-to-Close für Mobile
+    let touchStartY = 0;
+    let touchCurrentY = 0;
+    let isSwiping = false;
+    
+    function setupModalSwipe() {
+        const modalContent = document.querySelector('.post-modal-content');
+        if (!modalContent) return;
+        
+        modalContent.addEventListener('touchstart', handleTouchStart, { passive: true });
+        modalContent.addEventListener('touchmove', handleTouchMove, { passive: false });
+        modalContent.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+    
+    function cleanupModalSwipe() {
+        const modalContent = document.querySelector('.post-modal-content');
+        if (!modalContent) return;
+        
+        modalContent.removeEventListener('touchstart', handleTouchStart);
+        modalContent.removeEventListener('touchmove', handleTouchMove);
+        modalContent.removeEventListener('touchend', handleTouchEnd);
+    }
+    
+    function handleTouchStart(e) {
+        // Nur wenn am oberen Rand des Modal-Body gescrollt wird
+        const modalBody = document.querySelector('.post-modal-body');
+        if (modalBody && modalBody.scrollTop > 10) return;
+        
+        touchStartY = e.touches[0].clientY;
+        isSwiping = false;
+    }
+    
+    function handleTouchMove(e) {
+        if (touchStartY === 0) return;
+        
+        touchCurrentY = e.touches[0].clientY;
+        const diff = touchCurrentY - touchStartY;
+        
+        // Nur nach unten swipen erlauben
+        if (diff > 10) {
+            isSwiping = true;
+            const modalContent = document.querySelector('.post-modal-content');
+            if (modalContent) {
+                modalContent.classList.add('swiping');
+                // Bewege das Modal mit dem Finger
+                const translateY = Math.min(diff, 300);
+                modalContent.style.transform = `translateY(${translateY}px)`;
+                
+                // Reduziere Opacity beim Swipen
+                const opacity = Math.max(0, 1 - (diff / 400));
+                document.querySelector('.post-modal-overlay').style.opacity = opacity;
+            }
+            
+            // Verhindere Scrollen beim Swipen
+            e.preventDefault();
+        }
+    }
+    
+    function handleTouchEnd(e) {
+        if (!isSwiping) {
+            touchStartY = 0;
+            return;
+        }
+        
+        const diff = touchCurrentY - touchStartY;
+        const modalContent = document.querySelector('.post-modal-content');
+        
+        if (diff > 150) {
+            // Schwellwert überschritten - schließe Modal
+            closePostModal();
+        } else {
+            // Schwellwert nicht erreicht - zurück zur Ausgangsposition
+            if (modalContent) {
+                modalContent.style.transform = '';
+                document.querySelector('.post-modal-overlay').style.opacity = '';
+            }
+        }
+        
+        if (modalContent) {
+            modalContent.classList.remove('swiping');
+        }
+        
+        touchStartY = 0;
+        touchCurrentY = 0;
+        isSwiping = false;
+    }
+    
+    // Event-Listener für Modal-Schließen-Button
+    const modalCloseBtn = document.querySelector('.post-modal-close');
+    if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', closePostModal);
+    }
+    
+    // Event-Listener für Klick auf Overlay
+    const modalOverlay = document.querySelector('.post-modal-overlay');
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', closePostModal);
+    }
+    
+    // Event-Listener für Navigation-Buttons
+    const prevBtn = document.querySelector('.post-modal-prev');
+    const nextBtn = document.querySelector('.post-modal-next');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', navigateToPreviousPost);
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', navigateToNextPost);
+    }
+    
+    // Globale Funktionen für Event-Handler
+    window.openPostModal = openPostModal;
+    window.closePostModal = closePostModal;
+    window.navigateToPreviousPost = navigateToPreviousPost;
+    window.navigateToNextPost = navigateToNextPost;
 });

@@ -227,8 +227,8 @@ header {
 }
 
 .gallery-item {
-    width: 180px;
-    height: 120px;
+    width: 250px;
+    height: 180px;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -237,11 +237,21 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .gallery-item:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-item img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Zeigt das ganze Bild ohne Beschneidung */
+    cursor: pointer;
 }
 
 .gallery-image {

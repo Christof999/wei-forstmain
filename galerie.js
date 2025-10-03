@@ -40,7 +40,7 @@ async function fetchGallery() {
         
         // Optimierung: Bilder in Batches mit kleiner Verzögerung laden
         // Dies verhindert Browserblockaden und verteilt die Netzwerklast
-        const batchSize = 6; // Anzahl der Bilder pro Batch
+        const batchSize = 60; // Anzahl der Bilder pro Batch
         
         for (let i = 0; i < images.length; i += batchSize) {
             const batch = images.slice(i, i + batchSize);
@@ -53,7 +53,6 @@ async function fetchGallery() {
         setTimeout(hideLoadingIndicator, 1500);
         
     } catch (error) {
-        console.error('Fehler beim Abrufen der Galerie:', error);
         hideLoadingIndicator();
         
         const galleryDiv = document.getElementById('gallery');
@@ -79,7 +78,7 @@ function loadImageBatch(batch, startIndex) {
         const globalIndex = startIndex + index;
         
         // Klick-Event direkt hinzufügen (ohne Abhängigkeit vom Load-Event)
-        imgContainer.onclick = () => openLightbox(globalIndex);
+        imgContainer.onclick = () => openGalleryLightbox(globalIndex);
         
         // Bild mit src direkt setzen (traditionelle Methode)
         imgElement.src = `https://website-imageslw.s3.eu-central-1.amazonaws.com/${img}`;
@@ -100,31 +99,87 @@ function loadImageBatch(batch, startIndex) {
     });
 }
 
-// Lightbox öffnen
-function openLightbox(index) {
+// Lightbox öffnen - unterstützt sowohl Index (Zahl) als auch direkte URL (String)
+function openGalleryLightbox(index) {
+    console.log('openGalleryLightbox aufgerufen mit Index:', index, 'Bild:', images[index]);
+    
     currentImageIndex = index;
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightbox-image');
     
-    // Spinner anzeigen während des Ladevorgangs
-    lightboxImage.classList.add('loading');
+    if (!lightbox || !lightboxImage) {
+        console.error('Lightbox-Elemente nicht gefunden');
+        return;
+    }
+    
+    if (!images[index]) {
+        console.error('Bild-Index ungültig:', index, 'Images Array:', images);
+        return;
+    }
+    
+    // Bild URL konstruieren
+    const imageUrl = `https://website-imageslw.s3.eu-central-1.amazonaws.com/${images[index]}`;
+    console.log('Lade Bild:', imageUrl);
+    
+    // Lightbox anzeigen
     lightbox.style.display = 'flex';
     
-    // Bild URL setzen
-    const imageUrl = `https://website-imageslw.s3.eu-central-1.amazonaws.com/${images[index]}`;
+    // Alte src entfernen und loading state setzen
+    lightboxImage.src = '';
+    lightboxImage.classList.add('loading');
     
-    // Wenn das Bild bereits im Cache ist, wird es sofort angezeigt
-    if (lightboxImage.complete && lightboxImage.src === imageUrl) {
-        lightboxImage.classList.remove('loading');
-    } else {
-        // Wenn das Bild nicht im Cache ist, warten wir auf das load-Event
+    // Warte kurz, dann setze die neue src
+    setTimeout(() => {
+        // onload Handler setzen BEVOR src gesetzt wird
         lightboxImage.onload = function() {
+            console.log('Bild geladen:', imageUrl);
             lightboxImage.classList.remove('loading');
-            lightboxImage.onload = null; // Event-Handler entfernen nach Verwendung
+            lightboxImage.onload = null;
         };
+        
+        // onerror Handler für Fehlerbehandlung
+        lightboxImage.onerror = function() {
+            console.error('Fehler beim Laden des Bildes:', imageUrl);
+            lightboxImage.classList.remove('loading');
+            lightboxImage.onerror = null;
+        };
+        
+        // Setze die neue src
         lightboxImage.src = imageUrl;
-    }
+    }, 10);
 }
+
+// Überschreibe die window.openLightbox aus script.js für die Galerie-Seite
+// Diese Funktion erkennt automatisch, ob ein Index oder eine URL übergeben wurde
+window.openLightbox = function(indexOrUrl) {
+    // Wenn es eine Zahl ist, nutze die Galerie-Logik
+    if (typeof indexOrUrl === 'number') {
+        openGalleryLightbox(indexOrUrl);
+    } 
+    // Wenn es ein String ist, könnte es eine direkte URL sein (für andere Seiten)
+    else if (typeof indexOrUrl === 'string') {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        
+        if (lightbox && lightboxImage) {
+            lightbox.style.display = 'flex';
+            lightboxImage.src = '';
+            lightboxImage.classList.add('loading');
+            
+            setTimeout(() => {
+                lightboxImage.onload = function() {
+                    lightboxImage.classList.remove('loading');
+                    lightboxImage.onload = null;
+                };
+                lightboxImage.onerror = function() {
+                    lightboxImage.classList.remove('loading');
+                    lightboxImage.onerror = null;
+                };
+                lightboxImage.src = indexOrUrl;
+            }, 10);
+        }
+    }
+};
 
 // Lightbox schließen
 function closeLightbox(event) {
@@ -135,43 +190,81 @@ function closeLightbox(event) {
 }
 
 // Zum nächsten Bild navigieren
-function nextImage() {
+function nextImage(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    
     currentImageIndex = (currentImageIndex + 1) % images.length;
+    console.log('Nächstes Bild - Index:', currentImageIndex, 'Bild:', images[currentImageIndex]);
+    
+    if (!images[currentImageIndex]) {
+        console.error('Bild-Index ungültig:', currentImageIndex);
+        return;
+    }
     
     const lightboxImage = document.getElementById('lightbox-image');
-    lightboxImage.classList.add('loading');
-    
     const imageUrl = `https://website-imageslw.s3.eu-central-1.amazonaws.com/${images[currentImageIndex]}`;
     
-    if (lightboxImage.complete && lightboxImage.src === imageUrl) {
-        lightboxImage.classList.remove('loading');
-    } else {
+    // Alte src entfernen und loading state setzen
+    lightboxImage.src = '';
+    lightboxImage.classList.add('loading');
+    
+    // Kurz warten, dann neue src setzen
+    setTimeout(() => {
         lightboxImage.onload = function() {
+            console.log('Bild geladen:', imageUrl);
             lightboxImage.classList.remove('loading');
             lightboxImage.onload = null;
         };
+        
+        lightboxImage.onerror = function() {
+            console.error('Fehler beim Laden des Bildes:', imageUrl);
+            lightboxImage.classList.remove('loading');
+            lightboxImage.onerror = null;
+        };
+        
         lightboxImage.src = imageUrl;
-    }
+    }, 10);
 }
 
 // Zum vorherigen Bild navigieren
-function prevImage() {
+function prevImage(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    
     currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    console.log('Vorheriges Bild - Index:', currentImageIndex, 'Bild:', images[currentImageIndex]);
+    
+    if (!images[currentImageIndex]) {
+        console.error('Bild-Index ungültig:', currentImageIndex);
+        return;
+    }
     
     const lightboxImage = document.getElementById('lightbox-image');
-    lightboxImage.classList.add('loading');
-    
     const imageUrl = `https://website-imageslw.s3.eu-central-1.amazonaws.com/${images[currentImageIndex]}`;
     
-    if (lightboxImage.complete && lightboxImage.src === imageUrl) {
-        lightboxImage.classList.remove('loading');
-    } else {
+    // Alte src entfernen und loading state setzen
+    lightboxImage.src = '';
+    lightboxImage.classList.add('loading');
+    
+    // Kurz warten, dann neue src setzen
+    setTimeout(() => {
         lightboxImage.onload = function() {
+            console.log('Bild geladen:', imageUrl);
             lightboxImage.classList.remove('loading');
             lightboxImage.onload = null;
         };
+        
+        lightboxImage.onerror = function() {
+            console.error('Fehler beim Laden des Bildes:', imageUrl);
+            lightboxImage.classList.remove('loading');
+            lightboxImage.onerror = null;
+        };
+        
         lightboxImage.src = imageUrl;
-    }
+    }, 10);
 }
 
 // Tastatur-Events für Lightbox-Navigation

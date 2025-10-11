@@ -447,41 +447,71 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Fade-In Animation für Sektionen beim Scrollen
+    // Verbesserte Scroll-Animationen mit Intersection Observer
     function setupScrollAnimations() {
+        // Elemente die animiert werden sollen
         const sections = document.querySelectorAll('section');
+        const serviceItems = document.querySelectorAll('.service-item');
+        const adminPostsGallery = document.querySelector('.admin-posts-gallery');
+        const heroSection = document.querySelector('.hero-section');
         
-        // Fade-In Klasse hinzufügen
+        // Intersection Observer für bessere Performance
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Verzögerung für gestaffelten Effekt
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+        
+        // Sections beobachten
         sections.forEach(section => {
-            if (!section.classList.contains('fade-in')) {
-                section.classList.add('fade-in');
+            if (!section.classList.contains('hero-section')) {
+                section.classList.add('fade-in-up');
+                observer.observe(section);
             }
         });
         
-        // Prüfen, ob Sektionen im Viewport sind und animieren
-        function checkVisibility() {
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                // Wenn die Sektion im Viewport ist
-                if (sectionTop < windowHeight * 0.8) {
-                    section.classList.add('visible');
-                }
+        // Service Items einzeln animieren
+        serviceItems.forEach((item, index) => {
+            item.classList.add('fade-in-scale');
+            setTimeout(() => {
+                observer.observe(item);
+            }, index * 50);
+        });
+        
+        // Hero Section sofort sichtbar
+        if (heroSection) {
+            heroSection.classList.add('visible');
+        }
+    }
+    
+    // Parallax-Effekt für Header-Video
+    function setupParallaxEffect() {
+        const video = document.querySelector('.video-container video');
+        
+        if (video) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallax = scrolled * 0.5;
+                video.style.transform = `translateY(${parallax}px) translateZ(0)`;
             });
         }
-        
-        // Initial Check ausführen
-        checkVisibility();
-        
-        // Bei Scroll erneut prüfen
-        window.addEventListener('scroll', checkVisibility);
     }
     
     highlightCurrentPage();
     setupMobileMenu();
     setupSmoothScrolling();
     setupScrollAnimations();
+    setupParallaxEffect();
     
     // 5. POST MODAL FUNKTIONALITÄT
     function openPostModal(post, index) {

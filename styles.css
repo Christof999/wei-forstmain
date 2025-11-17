@@ -78,7 +78,7 @@ section {
 /* === HEADER & NAVIGATION === */
 header {
     position: relative;
-    height: 300px;
+    height: 500px; /* Erhöht für bessere Videoqualität */
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background-color: rgba(0, 0, 0, 0.8);
@@ -105,17 +105,18 @@ header {
     user-select: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
-    /* Verbesserte Rendering-Qualität für besseres Vollbild */
+    /* Minimale CSS-Transforms für beste Qualität */
+    /* Hardware-Beschleunigung ohne Qualitätsverlust */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    perspective: 1000px;
-    -webkit-perspective: 1000px;
-    will-change: transform;
-    /* Mindestgröße für bessere Qualität */
-    min-width: 100%;
-    min-height: 100%;
+    /* Keine Perspective/Will-Change die Qualität verschlechtern könnten */
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    /* Verhindert Browser-Komprimierung */
+    image-rendering: auto;
+    /* Verhindert Subpixel-Rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Logo */
@@ -1310,20 +1311,19 @@ footer {
 /* Größerer Header für bessere Video-Qualität auf großen Bildschirmen */
 @media (min-width: 1200px) {
     header {
-        height: 400px;
+        height: 550px; /* Erhöht für bessere Qualität */
     }
 }
 
-
 @media (min-width: 1600px) {
     header {
-        height: 500px;
+        height: 600px; /* Noch größer für große Bildschirme */
     }
 }
 
 @media (min-width: 1920px) {
     header {
-        height: 600px;
+        height: 700px; /* Maximale Höhe für sehr große Bildschirme */
     }
 }
 

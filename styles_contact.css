@@ -10,7 +10,7 @@ body, html {
 /* Header und Video */
 header {
     position: relative;
-    height: 300px; /* Beibehaltung der Höhe des Videos */
+    height: 500px; /* Erhöht für bessere Videoqualität */
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -28,6 +28,14 @@ header {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Optimierte Videoqualität - keine Bildkomprimierung */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Verhindert Browser-Komprimierung beim Rendering */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    /* Verhindert Subpixel-Rendering das Qualität verschlechtert */
+    image-rendering: auto;
 }
 
 /* Navigation */

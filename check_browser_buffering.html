@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Buffering Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .check-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        video {
+            max-width: 100%;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Video Buffering & Quality Check</h1>
+    
+    <div class="check-section">
+        <h2>1. Video-Element Test</h2>
+        <video id="testVideo" 
+               src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4"
+               controls
+               preload="metadata">
+            Ihr Browser unterstützt keine HTML5-Videos.
+        </video>
+        <button onclick="checkVideoElement()">Video-Element prüfen</button>
+        <div id="videoElementResults"></div>
+    </div>
+    
+    <div class="check-section">
+        <h2>2. Network Request Check</h2>
+        <button onclick="checkNetworkRequest()">Network-Request prüfen</button>
+        <div id="networkResults"></div>
+    </div>
+    
+    <div class="check-section">
+        <h2>3. Browser Rendering Check</h2>
+        <button onclick="checkRendering()">Rendering prüfen</button>
+        <div id="renderingResults"></div>
+    </div>
+    
+    <div class="check-section">
+        <h2>4. Performance Check</h2>
+        <button onclick="checkPerformance()">Performance prüfen</button>
+        <div id="performanceResults"></div>
+    </div>
+
+    <script>
+        const video = document.getElementById('testVideo');
+        
+        function addResult(containerId, message, type = 'success') {
+            const container = document.getElementById(containerId);
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.innerHTML = message;
+            container.appendChild(div);
+        }
+        
+        function clearResults(containerId) {
+            document.getElementById(containerId).innerHTML = '';
+        }
+        
+        function checkVideoElement() {
+            clearResults('videoElementResults');
+            
+            video.addEventListener('loadedmetadata', () => {
+                const results = [];
+                
+                // Video-Dimensionen
+                const naturalWidth = video.videoWidth;
+                const naturalHeight = video.videoHeight;
+                const displayWidth = video.clientWidth;
+                const displayHeight = video.clientHeight;
+                
+                results.push(`<strong>Natürliche Auflösung:</strong> ${naturalWidth}x${naturalHeight} px`);
+                results.push(`<strong>Angezeigte Größe:</strong> ${displayWidth}x${displayHeight} px`);
+                
+                // Skalierungsfaktor
+                const scaleX = displayWidth / naturalWidth;
+                const scaleY = displayHeight / naturalHeight;
+                results.push(`<strong>Skalierungsfaktor:</strong> ${scaleX.toFixed(2)}x / ${scaleY.toFixed(2)}x`);
+                
+                if (scaleX > 1.5 || scaleY > 1.5) {
+                    addResult('videoElementResults', 
+                        `⚠️ Video wird stark hochskaliert (${scaleX.toFixed(2)}x) - das kann Qualitätsverlust verursachen!`, 
+                        'warning');
+                } else if (scaleX < 0.5 || scaleY < 0.5) {
+                    addResult('videoElementResults', 
+                        `⚠️ Video wird stark herunterskaliert (${scaleX.toFixed(2)}x)`, 
+                        'warning');
+                } else {
+                    addResult('videoElementResults', 
+                        `✅ Skalierung ist im akzeptablen Bereich`, 
+                        'success');
+                }
+                
+                // Video-Format
+                const duration = video.duration;
+                const readyState = video.readyState;
+                results.push(`<strong>Dauer:</strong> ${duration.toFixed(2)} Sekunden`);
+                results.push(`<strong>Ready State:</strong> ${readyState} (0=nichts, 4=vollständig geladen)`);
+                
+                // Video-Tracks
+                if (video.videoTracks && video.videoTracks.length > 0) {
+                    results.push(`<strong>Video-Tracks:</strong> ${video.videoTracks.length}`);
+                }
+                
+                addResult('videoElementResults', results.join('<br>'), 'success');
+                
+                // Prüfe ob Video komprimiert wird
+                if (naturalWidth < 1920 || naturalHeight < 1080) {
+                    addResult('videoElementResults', 
+                        `⚠️ Video-Auflösung ist niedriger als Full HD (${naturalWidth}x${naturalHeight})`, 
+                        'warning');
+                }
+            }, { once: true });
+            
+            video.load();
+        }
+        
+        function checkNetworkRequest() {
+            clearResults('networkResults');
+            addResult('networkResults', 'Prüfe Network-Request...', 'success');
+            
+            fetch('https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4', {
+                method: 'HEAD'
+            })
+            .then(response => {
+                const results = [];
+                const headers = {};
+                
+                response.headers.forEach((value, key) => {
+                    headers[key.toLowerCase()] = value;
+                });
+                
+                results.push(`<strong>Status:</strong> ${response.status} ${response.statusText}`);
+                results.push(`<strong>Server:</strong> ${headers['server'] || 'N/A'}`);
+                results.push(`<strong>Content-Type:</strong> ${headers['content-type'] || 'N/A'}`);
+                results.push(`<strong>Content-Length:</strong> ${(parseInt(headers['content-length']) / 1024 / 1024).toFixed(2)} MB`);
+                
+                // CloudFront Check
+                if (headers['x-amz-cf-id']) {
+                    addResult('networkResults', 
+                        `✅ CloudFront wird verwendet (CDN)`, 
+                        'success');
+                } else {
+                    addResult('networkResults', 
+                        `ℹ️ Direkte S3-Auslieferung (kein CloudFront)`, 
+                        'success');
+                }
+                
+                // Content-Encoding Check
+                if (headers['content-encoding']) {
+                    addResult('networkResults', 
+                        `⚠️ Content-Encoding: ${headers['content-encoding']} - Video könnte komprimiert werden!`, 
+                        'warning');
+                } else {
+                    addResult('networkResults', 
+                        `✅ Keine Content-Encoding - Video wird nicht komprimiert`, 
+                        'success');
+                }
+                
+                // Cache-Control
+                if (headers['cache-control']) {
+                    results.push(`<strong>Cache-Control:</strong> ${headers['cache-control']}`);
+                }
+                
+                addResult('networkResults', results.join('<br>'), 'success');
+            })
+            .catch(error => {
+                addResult('networkResults', 
+                    `❌ Fehler beim Abrufen der Header: ${error.message}`, 
+                    'error');
+            });
+        }
+        
+        function checkRendering() {
+            clearResults('renderingResults');
+            
+            const computedStyle = window.getComputedStyle(video);
+            const results = [];
+            
+            results.push(`<strong>CSS image-rendering:</strong> ${computedStyle.imageRendering}`);
+            results.push(`<strong>CSS transform:</strong> ${computedStyle.transform}`);
+            results.push(`<strong>CSS backface-visibility:</strong> ${computedStyle.backfaceVisibility}`);
+            results.push(`<strong>CSS object-fit:</strong> ${computedStyle.objectFit}`);
+            
+            // Prüfe problematische CSS-Eigenschaften
+            if (computedStyle.imageRendering === 'crisp-edges' || 
+                computedStyle.imageRendering === 'pixelated') {
+                addResult('renderingResults', 
+                    `⚠️ image-rendering ist auf "${computedStyle.imageRendering}" gesetzt - kann Videoqualität verschlechtern!`, 
+                    'warning');
+            } else {
+                addResult('renderingResults', 
+                    `✅ image-rendering ist optimal gesetzt`, 
+                    'success');
+            }
+            
+            if (computedStyle.backfaceVisibility === 'hidden') {
+                addResult('renderingResults', 
+                    `⚠️ backface-visibility ist "hidden" - sollte "visible" für Videos sein`, 
+                    'warning');
+            } else {
+                addResult('renderingResults', 
+                    `✅ backface-visibility ist optimal gesetzt`, 
+                    'success');
+            }
+            
+            addResult('renderingResults', results.join('<br>'), 'success');
+        }
+        
+        function checkPerformance() {
+            clearResults('performanceResults');
+            
+            if (!performance || !performance.getEntriesByType) {
+                addResult('performanceResults', 
+                    `⚠️ Performance API nicht verfügbar`, 
+                    'warning');
+                return;
+            }
+            
+            const videoResource = performance.getEntriesByType('resource').find(
+                entry => entry.name.includes('Weiß_Forst_Gbr_045.MP4')
+            );
+            
+            if (videoResource) {
+                const results = [];
+                results.push(`<strong>Transfer-Größe:</strong> ${(videoResource.transferSize / 1024 / 1024).toFixed(2)} MB`);
+                results.push(`<strong>Dekodierte Größe:</strong> ${(videoResource.decodedBodySize / 1024 / 1024).toFixed(2)} MB`);
+                results.push(`<strong>Ladezeit:</strong> ${videoResource.duration.toFixed(2)} ms`);
+                results.push(`<strong>DNS-Zeit:</strong> ${videoResource.domainLookupEnd - videoResource.domainLookupStart} ms`);
+                results.push(`<strong>Connect-Zeit:</strong> ${videoResource.connectEnd - videoResource.connectStart} ms`);
+                
+                // Komprimierung Check
+                if (videoResource.transferSize < videoResource.decodedBodySize) {
+                    const compressionRatio = ((1 - videoResource.transferSize / videoResource.decodedBodySize) * 100).toFixed(1);
+                    addResult('performanceResults', 
+                        `✅ Transfer-Komprimierung: ${compressionRatio}%`, 
+                        'success');
+                } else {
+                    addResult('performanceResults', 
+                        `ℹ️ Keine Transfer-Komprimierung erkannt`, 
+                        'success');
+                }
+                
+                addResult('performanceResults', results.join('<br>'), 'success');
+            } else {
+                addResult('performanceResults', 
+                    `ℹ️ Video noch nicht geladen. Laden Sie die Seite neu und klicken Sie erneut.`, 
+                    'warning');
+            }
+        }
+        
+        // Auto-Check beim Laden
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                checkVideoElement();
+                checkNetworkRequest();
+                checkRendering();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+

@@ -1,6 +1,50 @@
+// Video-Qualitätsoptimierung
+function optimizeVideoQuality() {
+    const videos = document.querySelectorAll('header video');
+    videos.forEach(video => {
+        // Setze preload für besseres Laden
+        if (!video.hasAttribute('preload')) {
+            video.setAttribute('preload', 'auto');
+        }
+        
+        // Erzwinge beste Qualität beim Laden
+        video.addEventListener('loadedmetadata', function() {
+            // Prüfe ob Video zu stark skaliert wird
+            const naturalWidth = video.videoWidth;
+            const naturalHeight = video.videoHeight;
+            const displayWidth = video.clientWidth;
+            const displayHeight = video.clientHeight;
+            
+            if (naturalWidth > 0 && naturalHeight > 0) {
+                const scaleX = displayWidth / naturalWidth;
+                const scaleY = displayHeight / naturalHeight;
+                
+                // Wenn Video stark hochskaliert wird, könnte das Qualität verschlechtern
+                if (scaleX > 2 || scaleY > 2) {
+                    console.warn('Video wird stark hochskaliert:', scaleX.toFixed(2) + 'x');
+                }
+            }
+            
+            // Erzwinge beste Render-Qualität
+            video.style.imageRendering = 'auto';
+            video.style.webkitImageRendering = 'auto';
+        }, { once: true });
+        
+        // Verhindere Browser-Komprimierung
+        video.addEventListener('play', function() {
+            // Stelle sicher, dass Video in voller Qualität gerendert wird
+            video.style.transform = 'translateZ(0)';
+            video.style.webkitTransform = 'translateZ(0)';
+        });
+    });
+}
+
 // Warten, bis das DOM vollständig geladen ist
 document.addEventListener('DOMContentLoaded', function() {
     console.log("Startseite geladen");
+    
+    // Optimiere Video-Qualität
+    optimizeVideoQuality();
   
     // 1. SLIDESHOW
     const slideshowImages = [

@@ -554,7 +554,7 @@ header {
 /* Admin Posts Gallery - Layered Design mit mehr Tiefe */
 .admin-posts-gallery {
     padding: 60px 20px;
-    background-color: rgba(255, 248, 220, 0.95);
+    background-color: rgba(243, 237, 213, 0.9);
     position: relative;
     overflow: hidden;
     margin-top: 20px;
@@ -637,7 +637,7 @@ header {
 .swiper-slide {
     height: auto;
     width: 320px;
-    background: #fff;
+    background-color: rgba(255, 248, 220, 0.9);
     border-radius: 12px;
     /* Verbesserte multi-layer Schatten für mehr Tiefe */
     box-shadow: 

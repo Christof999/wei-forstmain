@@ -99,23 +99,23 @@
         </section>
 
         <section class="services-section">
-            <div class="service-item">
-                <div class="img-wrapper" tabindex="0" role="button" aria-label="Forstdienstleistungen Bild öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openLightbox('https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_048.JPG'); return false;}">
-                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_048.JPG" alt="Bild von Forstdienstleistungen - Waldpflege im Einsatz" onclick="openLightbox(this.src)">
+            <div class="service-item" data-service="forestry" onclick="openServiceModal('forestry')" style="cursor: pointer;">
+                <div class="img-wrapper" tabindex="0" role="button" aria-label="Forstdienstleistungen Details öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openServiceModal('forestry'); return false;}">
+                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_048.JPG" alt="Bild von Forstdienstleistungen - Waldpflege im Einsatz">
                 </div>
                 <h3>Forstdienstleistungen</h3>
                 <p>Effizent und nachhaltig - Ihre Holzernte in besten Händen.</p>
             </div>
-            <div class="service-item">
-                <div class="img-wrapper" tabindex="0" role="button" aria-label="Zaunbau & Pflanzung Bild öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openLightbox('https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_011.JPG'); return false;}">
-                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_011.JPG" alt="Bild von Zaunbau & Pflanzung" onclick="openLightbox(this.src)">
+            <div class="service-item" data-service="reforestation" onclick="openServiceModal('reforestation')" style="cursor: pointer;">
+                <div class="img-wrapper" tabindex="0" role="button" aria-label="Zaunbau & Pflanzung Details öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openServiceModal('reforestation'); return false;}">
+                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_011.JPG" alt="Bild von Zaunbau & Pflanzung">
                 </div>
                 <h3>Zaunbau & Pflanzung</h3>
                 <p>Professionelle Umsetzung Ihrer Zaun- und Pflanzprojekte.</p>
             </div>
-            <div class="service-item">
-                <div class="img-wrapper" tabindex="0" role="button" aria-label="Beratung Bild öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openLightbox('https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG'); return false;}">
-                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG" alt="Bild der Beratung - Fachgespräch zur Waldpflege" onclick="openLightbox(this.src)">
+            <div class="service-item" data-service="consultation" onclick="openServiceModal('consultation')" style="cursor: pointer;">
+                <div class="img-wrapper" tabindex="0" role="button" aria-label="Beratung Details öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openServiceModal('consultation'); return false;}">
+                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG" alt="Bild der Beratung - Fachgespräch zur Waldpflege">
                 </div>
                 <h3>Beratung</h3>
                 <p>Individuelle Beratung für Ihre Projekte und Waldpflege.</p>
@@ -171,6 +171,24 @@
                         <span class="post-modal-date" id="modal-date"></span>
                     </div>
                     <div class="post-modal-text" id="modal-text"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Detail Modal -->
+        <div id="serviceModal" class="service-modal" role="dialog" aria-modal="true" aria-labelledby="service-modal-title" tabindex="-1">
+            <div class="service-modal-overlay"></div>
+            <div class="service-modal-content">
+                <button class="service-modal-close" aria-label="Modal schließen">×</button>
+                <div class="service-modal-image-container">
+                    <img id="service-modal-image" src="" alt="Dienstleistungsbild">
+                    <div class="image-zoom-hint">🔍 Klicken zum Vergrößern</div>
+                </div>
+                <div class="service-modal-body">
+                    <h2 id="service-modal-title"></h2>
+                    <div class="service-modal-description" id="service-modal-description"></div>
+                    <ul class="service-modal-features" id="service-modal-features"></ul>
+                    <a href="services2.html" class="service-modal-link">Mehr erfahren →</a>
                 </div>
             </div>
         </div>

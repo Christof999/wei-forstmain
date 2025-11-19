@@ -774,4 +774,120 @@ document.addEventListener('DOMContentLoaded', function() {
     window.closePostModal = closePostModal;
     window.navigateToPreviousPost = navigateToPreviousPost;
     window.navigateToNextPost = navigateToNextPost;
+
+    // 6. SERVICE MODAL FUNKTIONALITÄT
+    const serviceData = {
+        forestry: {
+            title: 'Forstdienstleistungen',
+            image: 'https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG',
+            description: 'Mit unserer Weiß Forst GbR und dem RAL-zertifizierten Forstservice Weiß bieten wir professionelle Forstdienstleistungen aus einer Hand. Ob Pflege junger Bestände, Durchforstung oder Holzernte – wir sorgen für gesunde Wälder, stabile Bestände und eine nachhaltige Nutzung Ihrer Ressourcen.',
+            features: [
+                'Jungbestandspflege',
+                'Durchforstung und Holzeinschlag',
+                'Holzrückung und Transport'
+            ]
+        },
+        reforestation: {
+            title: 'Pflanzung & Zaunbau',
+            image: 'https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_039.JPG',
+            description: 'Wir übernehmen die Anpflanzung von Jungbäumen und die Errichtung von Forstzäunen, um neue Bestände zu sichern und vor Wildverbiss zu schützen. So sorgen wir dafür, dass Ihr Wald gesund wächst und sich optimal entwickeln kann.',
+            features: [
+                'Jungbaumpflanzung – Fachgerechte Anpflanzung für stabile und vitale Bestände',
+                'Forstzaunbau – Schutz vor Wildverbiss und Sicherung der Jungbestände',
+                'Pflege und Kontrolle – Regelmäßige Überprüfung und Instandhaltung der Zäune'
+            ]
+        },
+        consultation: {
+            title: 'Beratung',
+            image: 'https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG',
+            description: 'Als erfahrenes Team bieten wir Ihnen individuelle Beratung für alle Fragen rund um die Waldpflege, Holzernte und nachhaltige Forstwirtschaft. Wir helfen Ihnen dabei, die beste Lösung für Ihren Wald zu finden.',
+            features: [
+                'Individuelle Beratung für Ihre Projekte',
+                'Nachhaltige Forstwirtschaft',
+                'Professionelle Planung und Umsetzung'
+            ]
+        }
+    };
+
+    function openServiceModal(serviceKey) {
+        const modal = document.getElementById('serviceModal');
+        const service = serviceData[serviceKey];
+        
+        if (!modal || !service) return;
+
+        // Setze die Modal-Inhalte
+        const modalImage = document.getElementById('service-modal-image');
+        const modalTitle = document.getElementById('service-modal-title');
+        const modalDescription = document.getElementById('service-modal-description');
+        const modalFeatures = document.getElementById('service-modal-features');
+        const imageContainer = document.querySelector('.service-modal-image-container');
+
+        if (service.image && modalImage && imageContainer) {
+            modalImage.src = service.image;
+            modalImage.alt = service.title;
+            imageContainer.style.display = 'block';
+            
+            // Event-Listener für Bild-Zoom
+            imageContainer.onclick = function() {
+                openLightbox(service.image);
+            };
+        } else if (imageContainer) {
+            imageContainer.style.display = 'none';
+        }
+
+        if (modalTitle) modalTitle.textContent = service.title || 'Dienstleistung';
+        if (modalDescription) modalDescription.textContent = service.description || '';
+
+        // Setze Features
+        if (modalFeatures && service.features) {
+            modalFeatures.innerHTML = '';
+            service.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check-circle"></i><span>${feature}</span>`;
+                modalFeatures.appendChild(li);
+            });
+        }
+
+        // Zeige das Modal
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Fokus auf das Modal setzen
+        modal.focus();
+
+        // Event-Listener für ESC-Taste
+        document.addEventListener('keydown', handleServiceModalKeydown);
+    }
+
+    function closeServiceModal() {
+        const modal = document.getElementById('serviceModal');
+        if (!modal) return;
+
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+
+        // Entferne Event-Listener
+        document.removeEventListener('keydown', handleServiceModalKeydown);
+    }
+
+    function handleServiceModalKeydown(event) {
+        if (event.key === 'Escape') {
+            closeServiceModal();
+        }
+    }
+
+    // Event-Listener für Modal-Schließen-Button
+    const serviceModalCloseBtn = document.querySelector('.service-modal-close');
+    if (serviceModalCloseBtn) {
+        serviceModalCloseBtn.addEventListener('click', closeServiceModal);
+    }
+
+    const serviceModalOverlay = document.querySelector('.service-modal-overlay');
+    if (serviceModalOverlay) {
+        serviceModalOverlay.addEventListener('click', closeServiceModal);
+    }
+
+    // Globale Funktionen für Service Modal
+    window.openServiceModal = openServiceModal;
+    window.closeServiceModal = closeServiceModal;
 });

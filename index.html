@@ -3,13 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WeißForst GbR - Startseite</title>
-    <link rel="stylesheet" href="styles_home.css">
-    <link rel="stylesheet" href="cookie-consent.css">
-    <script src="script.js"></script>
-    <script src="cookie-consent.js"></script>
-    <!-- Add Swiper JS for the gallery -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <title>WeißForst GbR - In Arbeit</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Zusätzliche Styles für die Baustellenseite */
+        .construction-container {
+            min-height: calc(100vh - 500px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background-color: rgba(255, 248, 220, 0.9);
+            position: relative;
+        }
+
+        .construction-content {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(243, 237, 213, 0.95) 0%, rgba(255, 248, 220, 0.95) 100%);
+            border-radius: 20px;
+            box-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.12),
+                0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .construction-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(85, 107, 47, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .construction-content::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(137, 184, 105, 0.05) 0%, transparent 70%);
+            animation: rotate 25s linear infinite reverse;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .construction-icon {
+            font-size: 4em;
+            margin-bottom: 30px;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .construction-title {
+            font-size: 3em;
+            color: #556B2F;
+            margin-bottom: 30px;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            line-height: 1.2;
+        }
+
+        .construction-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #89B869, transparent);
+            border-radius: 2px;
+        }
+
+        .construction-text {
+            font-size: 1.3em;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .construction-subtext {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.6;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .construction-footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid rgba(85, 107, 47, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .construction-footer p {
+            color: #556B2F;
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .construction-container {
+                min-height: calc(100vh - 400px);
+                padding: 40px 15px;
+            }
+
+            .construction-content {
+                padding: 40px 25px;
+            }
+
+            .construction-title {
+                font-size: 2.2em;
+            }
+
+            .construction-text {
+                font-size: 1.1em;
+            }
+
+            .construction-subtext {
+                font-size: 1em;
+            }
+
+            .construction-icon {
+                font-size: 3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .construction-title {
+                font-size: 1.8em;
+            }
+
+            .construction-text {
+                font-size: 1em;
+            }
+
+            .construction-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
@@ -24,113 +199,26 @@
         <a href="index.html" aria-label="Zurück zur Startseite">
             <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo" class="header-logo">
         </a>
-        <div class="menu-toggle" aria-expanded="false" aria-controls="navbar" aria-label="Menü öffnen">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="menu-overlay" role="presentation"></div>
-        <nav class="navbar" id="navbar" role="navigation" aria-label="Hauptnavigation">
-            <ul>
-                <li><a href="about.html">Über Uns</a></li>
-                <li><a href="services2.html">Dienstleistungen</a></li>
-                <li><a href="Galerie.html">Galerie</a></li>
-                <li><a href="contact.html">Kontakt</a></li>
-            </ul>
-        </nav>
     </header>
 
     <main id="main-content" role="main">
-        <section class="hero-section">
-            <h1>Willkommen bei Weiß Forst GbR</h1>
-            <p>Ihr Partner für professionelle Forstdienstleistungen</p>
-        </section>
-
-        <!-- New section for admin posts in a swipeable gallery -->
-        <section class="admin-posts-gallery">
-            <div class="section-heading">
-                <h2>Aktuelle Beiträge</h2>
-                <p>Neuigkeiten und aktuelle Projekte von WeißForst GbR</p>
-            </div>
-            
-            <div class="swiper-container">
-                <div class="swiper-wrapper" id="posts-gallery">
-                    <!-- Posts will be loaded dynamically via JavaScript -->
-                    <div class="swiper-slide skeleton-card">
-                        <div class="skeleton-image"></div>
-                        <div class="skeleton-content">
-                            <div class="skeleton-title"></div>
-                            <div class="skeleton-date"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-button"></div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide skeleton-card">
-                        <div class="skeleton-image"></div>
-                        <div class="skeleton-content">
-                            <div class="skeleton-title"></div>
-                            <div class="skeleton-date"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-button"></div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide skeleton-card">
-                        <div class="skeleton-image"></div>
-                        <div class="skeleton-content">
-                            <div class="skeleton-title"></div>
-                            <div class="skeleton-date"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-text"></div>
-                            <div class="skeleton-button"></div>
-                        </div>
-                    </div>
+        <div class="construction-container">
+            <div class="construction-content">
+                <div class="construction-icon">🏗️</div>
+                <h1 class="construction-title">Hier entsteht gerade unsere neue Website</h1>
+                <p class="construction-text">
+                    Wir arbeiten intensiv an unserer neuen Website, um Ihnen ein noch besseres Online-Erlebnis zu bieten.
+                </p>
+                <p class="construction-subtext">
+                    In Kürze werden wir Ihnen unsere neue Website präsentieren können.<br>
+                    Vielen Dank für Ihr Verständnis!
+                </p>
+                <div class="construction-footer">
+                    <p><strong>WeißForst GbR</strong></p>
+                    <p>Ihr Partner für professionelle Forstdienstleistungen</p>
                 </div>
-                <!-- Add navigation arrows -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <!-- Add pagination dots -->
-                <div class="swiper-pagination"></div>
             </div>
-        </section>
-
-        <section class="services-section">
-            <div class="service-item" data-service="forestry" onclick="openServiceModal('forestry')" style="cursor: pointer;">
-                <div class="img-wrapper" tabindex="0" role="button" aria-label="Forstdienstleistungen Details öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openServiceModal('forestry'); return false;}">
-                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_048.JPG" alt="Bild von Forstdienstleistungen - Waldpflege im Einsatz">
-                </div>
-                <h3>Forstdienstleistungen</h3>
-                <p>Effizent und nachhaltig - Ihre Holzernte in besten Händen.</p>
-            </div>
-            <div class="service-item" data-service="reforestation" onclick="openServiceModal('reforestation')" style="cursor: pointer;">
-                <div class="img-wrapper" tabindex="0" role="button" aria-label="Zaunbau & Pflanzung Details öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openServiceModal('reforestation'); return false;}">
-                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_011.JPG" alt="Bild von Zaunbau & Pflanzung">
-                </div>
-                <h3>Zaunbau & Pflanzung</h3>
-                <p>Professionelle Umsetzung Ihrer Zaun- und Pflanzprojekte.</p>
-            </div>
-            <div class="service-item" data-service="consultation" onclick="openServiceModal('consultation')" style="cursor: pointer;">
-                <div class="img-wrapper" tabindex="0" role="button" aria-label="Beratung Details öffnen" onkeydown="if(event.key==='Enter' || event.key===' ') {openServiceModal('consultation'); return false;}">
-                    <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG" alt="Bild der Beratung - Fachgespräch zur Waldpflege">
-                </div>
-                <h3>Beratung</h3>
-                <p>Individuelle Beratung für Ihre Projekte und Waldpflege.</p>
-            </div>
-        </section>
-
-        <section class="gallery-preview">
-            <div class="gallery-info">
-                <h2>Unsere Galerie</h2>
-                <p>Werfen Sie einen Blick auf unsere erfolgreich umgesetzten Projekte.</p>
-            </div>
-            <div class="gallery-slideshow">
-                <img id="slideshow-image" src="https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG" alt="Galerie-Vorschau">
-            </div>
-        </section>
+        </div>
 
         <footer>
             <div class="footer-content">
@@ -139,63 +227,6 @@
                 <p>Telefon: +49 123 4567890</p>
             </div>
         </footer>
-
-        <!-- Lightbox -->
-        <div id="lightbox" class="lightbox" onclick="closeLightbox(event)" role="dialog" aria-modal="true" aria-label="Bildansicht" tabindex="-1">
-            <button class="close-lightbox" aria-label="Bild schließen" onclick="closeLightbox(event)">×</button>
-            <img id="lightbox-image" alt="Vergrößertes Bild">
-        </div>
-
-        <!-- Post Detail Modal -->
-        <div id="postModal" class="post-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
-            <div class="post-modal-overlay"></div>
-            <div class="post-modal-content">
-                <button class="post-modal-close" aria-label="Modal schließen">×</button>
-                <button class="post-modal-nav post-modal-prev" aria-label="Vorheriger Beitrag">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-                <button class="post-modal-nav post-modal-next" aria-label="Nächster Beitrag">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
-                <div class="post-modal-image-container">
-                    <img id="modal-image" src="" alt="Beitragsbild">
-                    <div class="image-zoom-hint">🔍 Klicken zum Vergrößern</div>
-                </div>
-                <div class="post-modal-body">
-                    <h2 id="modal-title"></h2>
-                    <div class="post-modal-meta">
-                        <span class="post-modal-date" id="modal-date"></span>
-                    </div>
-                    <div class="post-modal-text" id="modal-text"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Service Detail Modal -->
-        <div id="serviceModal" class="service-modal" role="dialog" aria-modal="true" aria-labelledby="service-modal-title" tabindex="-1">
-            <div class="service-modal-overlay"></div>
-            <div class="service-modal-content">
-                <button class="service-modal-close" aria-label="Modal schließen">×</button>
-                <div class="service-modal-image-container">
-                    <img id="service-modal-image" src="" alt="Dienstleistungsbild">
-                    <div class="image-zoom-hint">🔍 Klicken zum Vergrößern</div>
-                </div>
-                <div class="service-modal-body">
-                    <h2 id="service-modal-title"></h2>
-                    <div class="service-modal-description" id="service-modal-description"></div>
-                    <ul class="service-modal-features" id="service-modal-features"></ul>
-                    <a href="services2.html" class="service-modal-link">Mehr erfahren →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add Swiper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
     </main>
 </body>
 </html>

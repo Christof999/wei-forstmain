@@ -789,7 +789,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         reforestation: {
             title: 'Pflanzung & Zaunbau',
-            image: 'https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_039.JPG',
+            image: 'images/zaunbau.png',
             description: 'Wir übernehmen die Anpflanzung von Jungbäumen und die Errichtung von Forstzäunen, um neue Bestände zu sichern und vor Wildverbiss zu schützen. So sorgen wir dafür, dass Ihr Wald gesund wächst und sich optimal entwickeln kann.',
             features: [
                 'Jungbaumpflanzung – Fachgerechte Anpflanzung für stabile und vitale Bestände',

@@ -1083,6 +1083,10 @@ header {
 
 .contact-details {
     padding: 25px;
+    /* Constrain text area so long strings (e.g. E-Mail) don't render under the right-side image */
+    width: 50%;
+    max-width: 50%;
+    box-sizing: border-box;
 }
 
 .contact-detail-item {
@@ -1090,6 +1094,11 @@ header {
     margin-bottom: 25px;
     align-items: flex-start;
     gap: 15px;
+}
+
+.contact-detail-item > div {
+    /* Allow flex children to shrink so long text can wrap instead of getting clipped */
+    min-width: 0;
 }
 
 .contact-detail-item:last-child {
@@ -1113,6 +1122,8 @@ header {
 .contact-detail-item p {
     margin: 0;
     line-height: 1.6;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .contact-form-card form {
@@ -1531,6 +1542,11 @@ footer {
     .contact-team-image {
         width: 40%;
     }
+
+    .contact-details {
+        width: 60%;
+        max-width: 60%;
+    }
     
     .team-caption {
         font-size: 0.8em;
@@ -1558,6 +1574,11 @@ footer {
 @media (max-width: 576px) {
     .contact-team-image {
         width: 35%;
+    }
+
+    .contact-details {
+        width: 65%;
+        max-width: 65%;
     }
     
     .contact-team-image::before {

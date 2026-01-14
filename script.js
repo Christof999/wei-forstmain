@@ -779,7 +779,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const serviceData = {
         forestry: {
             title: 'Forstdienstleistungen',
-            image: 'https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_055.JPG',
+            image: 'https://website-imageslw.s3.eu-central-1.amazonaws.com/gallery/Weiß_Forst_Gbr_048.JPG',
             description: 'Mit unserer Weiß Forst GbR und dem RAL-zertifizierten Forstservice Weiß bieten wir professionelle Forstdienstleistungen aus einer Hand. Ob Pflege junger Bestände, Durchforstung oder Holzernte – wir sorgen für gesunde Wälder, stabile Bestände und eine nachhaltige Nutzung Ihrer Ressourcen.',
             features: [
                 'Jungbestandspflege',

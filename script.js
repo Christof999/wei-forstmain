@@ -1,10 +1,55 @@
 // Video-Qualitätsoptimierung
+function getBrowserConnection() {
+    return navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
+}
+
+function shouldDisableHeroVideo() {
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const connection = getBrowserConnection();
+    const saveData = !!(connection && connection.saveData);
+    const effectiveType = connection && connection.effectiveType;
+    const verySlow = effectiveType === 'slow-2g' || effectiveType === '2g';
+
+    return prefersReducedMotion || saveData || verySlow;
+}
+
+function disableHeroVideo(video) {
+    try {
+        video.pause();
+    } catch (e) {
+        // ignore
+    }
+
+    // Stop future loading and show poster instead
+    video.removeAttribute('autoplay');
+    video.setAttribute('preload', 'none');
+
+    // Remove sources so the browser doesn't start fetching the file
+    const sources = video.querySelectorAll('source');
+    sources.forEach(source => source.remove());
+    video.removeAttribute('src');
+
+    try {
+        video.load();
+    } catch (e) {
+        // ignore
+    }
+}
+
 function optimizeVideoQuality() {
     const videos = document.querySelectorAll('header video');
     videos.forEach(video => {
-        // Setze preload für besseres Laden
+        // Respektiere Nutzer-/Netzwerkpräferenzen (z.B. "Daten sparen", "Bewegung reduzieren")
+        if (video.hasAttribute('data-hero-video') && shouldDisableHeroVideo()) {
+            disableHeroVideo(video);
+            return;
+        }
+
+        // Für Background-Videos ist "metadata" meist stabiler als "auto" (insb. bei großen Dateien)
         if (!video.hasAttribute('preload')) {
-            video.setAttribute('preload', 'auto');
+            video.setAttribute('preload', 'metadata');
+        } else if (video.getAttribute('preload') === 'auto') {
+            video.setAttribute('preload', 'metadata');
         }
         
         // Erzwinge beste Qualität beim Laden
@@ -540,14 +585,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Parallax-Effekt für Header-Video
     function setupParallaxEffect() {
+        // Parallax kostet Frames (besonders auf Mobile). Nur aktivieren, wenn nicht reduziert/gespart wird.
+        if (shouldDisableHeroVideo()) return;
+
         const video = document.querySelector('.video-container video');
         
         if (video) {
+            let ticking = false;
             window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const parallax = scrolled * 0.5;
-                video.style.transform = `translateY(${parallax}px) translateZ(0)`;
-            });
+                if (ticking) return;
+                ticking = true;
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const parallax = scrolled * 0.5;
+                    video.style.transform = `translateY(${parallax}px) translateZ(0)`;
+                    ticking = false;
+                });
+            }, { passive: true });
         }
     }
     

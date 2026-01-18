@@ -40,7 +40,7 @@ if (video) {
     // Prüfe Netzwerk-Informationen
     if (performance && performance.getEntriesByType) {
         const videoResource = performance.getEntriesByType('resource').find(
-            entry => entry.name.includes('Weiß_Forst_Gbr_045.MP4')
+            entry => entry.name.includes('Weiß_Forst_Gbr_045_1080p.mp4')
         );
         if (videoResource) {
             console.log('=== Netzwerk-Informationen ===');
@@ -54,7 +54,7 @@ if (video) {
 }
 
 // 2. Prüfe ob CloudFront verwendet wird
-fetch('https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4', {method: 'HEAD'})
+fetch('https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045_1080p.mp4', {method: 'HEAD'})
     .then(response => {
         console.log('=== Server-Informationen ===');
         console.log('Server:', response.headers.get('server'));

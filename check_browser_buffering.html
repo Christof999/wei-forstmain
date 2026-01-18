@@ -75,7 +75,7 @@
     <div class="check-section">
         <h2>1. Video-Element Test</h2>
         <video id="testVideo" 
-               src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4"
+               src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045_1080p.mp4"
                controls
                preload="metadata">
             Ihr Browser unterstützt keine HTML5-Videos.
@@ -179,7 +179,7 @@
             clearResults('networkResults');
             addResult('networkResults', 'Prüfe Network-Request...', 'success');
             
-            fetch('https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4', {
+            fetch('https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045_1080p.mp4', {
                 method: 'HEAD'
             })
             .then(response => {
@@ -278,7 +278,7 @@
             }
             
             const videoResource = performance.getEntriesByType('resource').find(
-                entry => entry.name.includes('Weiß_Forst_Gbr_045.MP4')
+                entry => entry.name.includes('Weiß_Forst_Gbr_045_1080p.mp4')
             );
             
             if (videoResource) {

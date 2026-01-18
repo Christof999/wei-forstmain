@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Video-Qualitätsprüfung für S3-Video
-VIDEO_URL="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4"
+VIDEO_URL="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045_1080p.mp4"
 
 echo "=== Video-Qualitätsprüfung ==="
 echo ""

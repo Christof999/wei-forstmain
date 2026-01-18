@@ -10,7 +10,7 @@ import json
 from urllib.request import urlopen, Request
 from urllib.parse import urlparse, quote
 
-VIDEO_URL = "https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045.MP4"
+VIDEO_URL = "https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045_1080p.mp4"
 
 def encode_url(url):
     """Kodiert URL richtig für HTTP-Requests"""

@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const slide = document.createElement('div');
                     slide.className = 'swiper-slide';
                     
-                    const dateStr = formatPostDate(post.timestamp);
+                    const dateStr = formatPostDate(post.timestamp || post.createdAt);
                     const truncatedText = post.text.length > 120 ? post.text.substring(0, 120) + '...' : post.text;
                     
                     slide.innerHTML = `
@@ -265,30 +265,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // Swiper-Instanz initialisieren
     function initSwiperGallery(postCount = 1) {
         // Loop nur aktivieren, wenn genügend Posts vorhanden sind
+        // Für 2 Posts nutzen wir "rewind", damit es trotzdem wie eine Slideshow läuft.
         const enableLoop = postCount > 2;
+        const enableRewind = !enableLoop && postCount > 1;
+        const enableAutoplay = postCount > 1;
+        const enableNavigation = postCount > 1;
         
         new Swiper('.swiper-container', {
             // Grundkonfiguration für bessere Zentrierung
             slidesPerView: 'auto',
             spaceBetween: 30,
             loop: enableLoop,
+            rewind: enableRewind,
             centeredSlides: true,
             
-            // Verbesserte Autoplay-Konfiguration (nur wenn genügend Posts)
-            autoplay: enableLoop ? {
+            // Autoplay sobald es mehr als einen Post gibt
+            autoplay: enableAutoplay ? {
                 delay: 4000,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
                 reverseDirection: false,
             } : false,
             
-            // Navigation und Pagination (nur wenn Loop aktiviert)
+            // Navigation und Pagination (sobald es mehr als einen Post gibt)
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
                 dynamicBullets: true,
             },
-            navigation: enableLoop ? {
+            navigation: enableNavigation ? {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             } : false,
@@ -643,8 +648,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (modalTitle) modalTitle.textContent = post.title || 'Kein Titel';
         
         // Formatiere das Datum falls vorhanden
-        if (modalDate && post.timestamp) {
-            const formattedDate = formatPostDate(post.timestamp);
+        if (modalDate && (post.timestamp || post.createdAt)) {
+            const formattedDate = formatPostDate(post.timestamp || post.createdAt);
             modalDate.textContent = formattedDate;
         } else if (modalDate) {
             modalDate.textContent = '';

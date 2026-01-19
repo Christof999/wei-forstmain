@@ -138,6 +138,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // API URL für Posts (muss mit der aus admin_posts.js übereinstimmen)
     const API_BASE_URL = "https://ilxyp19ev8.execute-api.eu-central-1.amazonaws.com/test1";
     const postsGalleryElement = document.getElementById("posts-gallery");
+    const adminPostsSection = document.querySelector('.admin-posts-gallery');
+
+    function setAdminPostsSectionVisible(visible) {
+        if (!adminPostsSection) return;
+        adminPostsSection.style.display = visible ? '' : 'none';
+        adminPostsSection.setAttribute('aria-hidden', visible ? 'false' : 'true');
+    }
     
     // Funktion zum Abrufen der Posts von AWS
     async function fetchPosts() {
@@ -190,75 +197,61 @@ document.addEventListener('DOMContentLoaded', function() {
             const posts = await fetchPosts();
             allPosts = posts; // Speichere Posts global
             
-            // Entferne den Ladeindikator
+            // Wenn keine Beiträge vorhanden sind: Sektion komplett ausblenden
+            if (posts.length === 0) {
+                setAdminPostsSectionVisible(false);
+                return;
+            }
+
+            // Beiträge vorhanden: Sektion einblenden
+            setAdminPostsSectionVisible(true);
+
+            // Entferne den Ladeindikator / Skeletons
             postsGalleryElement.innerHTML = "";
             
-            if (posts.length === 0) {
-                // Zeige Nachricht, wenn keine Posts verfügbar sind
-                const noPostsSlide = document.createElement('div');
-                noPostsSlide.className = 'swiper-slide no-posts';
-                noPostsSlide.innerHTML = `
-                    <div class="post-content">
-                        <h3>Keine Beiträge verfügbar</h3>
-                        <p>Schauen Sie später wieder vorbei für Neuigkeiten.</p>
+            // Zeige die Posts in der Gallery an
+            posts.forEach((post, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+                
+                const dateStr = formatPostDate(post.timestamp || post.createdAt);
+                const truncatedText = post.text.length > 120 ? post.text.substring(0, 120) + '...' : post.text;
+                
+                slide.innerHTML = `
+                    <div class="post-card" data-post-index="${index}">
+                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : ''}
+                        <div class="post-content">
+                            <h3>${post.title}</h3>
+                            ${dateStr ? `<div class="post-date">${dateStr}</div>` : ''}
+                            <p>${truncatedText}</p>
+                            <button class="read-more-btn">Weiterlesen</button>
+                        </div>
                     </div>
                 `;
-                postsGalleryElement.appendChild(noPostsSlide);
-                // Initialisiere Swiper auch ohne Posts
-                initSwiperGallery(0);
-            } else {
-                // Zeige die Posts in der Gallery an
-                posts.forEach((post, index) => {
-                    const slide = document.createElement('div');
-                    slide.className = 'swiper-slide';
-                    
-                    const dateStr = formatPostDate(post.timestamp || post.createdAt);
-                    const truncatedText = post.text.length > 120 ? post.text.substring(0, 120) + '...' : post.text;
-                    
-                    slide.innerHTML = `
-                        <div class="post-card" data-post-index="${index}">
-                            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : ''}
-                            <div class="post-content">
-                                <h3>${post.title}</h3>
-                                ${dateStr ? `<div class="post-date">${dateStr}</div>` : ''}
-                                <p>${truncatedText}</p>
-                                <button class="read-more-btn">Weiterlesen</button>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Event Listener für das Öffnen des Modals
-                    const postCard = slide.querySelector('.post-card');
-                    const readMoreBtn = slide.querySelector('.read-more-btn');
-                    
-                    const openModal = (e) => {
-                        e.stopPropagation();
-                        currentPostIndex = index;
-                        openPostModal(post, index);
-                    };
-                    
-                    postCard.addEventListener('click', openModal);
-                    readMoreBtn.addEventListener('click', openModal);
-                    
-                    postsGalleryElement.appendChild(slide);
-                });
                 
-                // Initialisiere die Swiper Gallery mit Posts
-                initSwiperGallery(posts.length);
-            }
+                // Event Listener für das Öffnen des Modals
+                const postCard = slide.querySelector('.post-card');
+                const readMoreBtn = slide.querySelector('.read-more-btn');
+                
+                const openModal = (e) => {
+                    e.stopPropagation();
+                    currentPostIndex = index;
+                    openPostModal(post, index);
+                };
+                
+                postCard.addEventListener('click', openModal);
+                readMoreBtn.addEventListener('click', openModal);
+                
+                postsGalleryElement.appendChild(slide);
+            });
+            
+            // Initialisiere die Swiper Gallery mit Posts
+            initSwiperGallery(posts.length);
             
         } catch (error) {
             console.error("Fehler beim Anzeigen der Beiträge:", error);
-            postsGalleryElement.innerHTML = `
-                <div class="swiper-slide error">
-                    <div class="post-content">
-                        <h3>Fehler beim Laden</h3>
-                        <p>Die Beiträge konnten nicht geladen werden.</p>
-                    </div>
-                </div>
-            `;
-            // Initialisiere Swiper auch bei Fehler
-            initSwiperGallery(0);
+            // Bei Fehlern ebenfalls komplett ausblenden (wir wollen keine leere Sektion)
+            setAdminPostsSectionVisible(false);
         }
     }
     

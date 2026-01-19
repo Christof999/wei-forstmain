@@ -6,6 +6,22 @@
     <title>WeißForst GbR - Startseite</title>
     <link rel="stylesheet" href="styles_home.css">
     <link rel="stylesheet" href="cookie-consent.css">
+    <script>
+        // Client-side draft gate for GitHub Pages (NOT real security).
+        (function () {
+            const key = 'wei_forst_draft_auth_v1';
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) throw new Error('no-auth');
+                const data = JSON.parse(raw);
+                if (!data || typeof data.expiresAt !== 'number') throw new Error('bad-auth');
+                if (Date.now() > data.expiresAt) throw new Error('expired');
+            } catch (e) {
+                const next = encodeURIComponent('index_original.html');
+                window.location.replace(`login.html?next=${next}`);
+            }
+        })();
+    </script>
     <script src="script.js"></script>
     <script src="cookie-consent.js"></script>
     <!-- Add Swiper JS for the gallery -->

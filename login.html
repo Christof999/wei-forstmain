@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunden-Login - WeißForst GbR</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-page {
+            min-height: calc(100vh - 120px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 520px;
+            background: rgba(255, 248, 220, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+            padding: 28px;
+            border: 1px solid rgba(85, 107, 47, 0.15);
+        }
+        .login-card h1 {
+            margin: 0 0 10px 0;
+            color: #556B2F;
+            font-size: 2em;
+        }
+        .login-card p {
+            margin: 0 0 20px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+        .login-form {
+            display: grid;
+            gap: 14px;
+        }
+        .login-form label {
+            display: block;
+            margin-bottom: 6px;
+            color: #556B2F;
+            font-weight: 600;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit;
+        }
+        .login-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .login-hint {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .login-error {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: rgba(255, 235, 235, 0.9);
+            color: #b71c1c;
+            border: 1px solid rgba(183, 28, 28, 0.15);
+        }
+    </style>
+    <script src="login.js" defer></script>
+</head>
+<body>
+    <header role="banner">
+        <div class="video-container">
+            <video autoplay muted loop playsinline preload="metadata" disablepictureinpicture nocontrols controlslist="nodownload nofullscreen noremoteplayback" poster="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/video_poster.jpg" aria-label="Hintergrund-Video: Waldarbeiten der WeißForst GbR" role="presentation" data-hero-video>
+                <source src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045_720p.mp4" type="video/mp4" media="(max-width: 768px)">
+                <source src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Header/Weiß_Forst_Gbr_045_1080p.mp4" type="video/mp4">
+                <p>Ihr Browser unterstützt keine HTML5-Videos. Hier würden Sie ein Video von Forstarbeiten sehen.</p>
+            </video>
+        </div>
+        <a href="index.html" aria-label="Zurück zur Startseite">
+            <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo" class="header-logo">
+        </a>
+    </header>
+
+    <main class="login-page" role="main">
+        <div class="login-card">
+            <h1>Kunden-Login</h1>
+            <p>Nach erfolgreichem Login werden Sie zur Vorschau-Version der Website weitergeleitet.</p>
+
+            <form class="login-form" id="loginForm">
+                <div>
+                    <label for="username">Benutzer</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required>
+                </div>
+                <div>
+                    <label for="password">Passwort</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                </div>
+
+                <div class="login-actions">
+                    <button type="submit" class="submit-button">Einloggen</button>
+                    <span class="login-hint">Hinweis: Login ist nur eine einfache Schutz-Hürde.</span>
+                </div>
+
+                <div class="login-error" id="loginError" role="alert"></div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="https://website-imageslw.s3.eu-central-1.amazonaws.com/Logos/Weiß_Forst_Gbr_LOGO.JPG" alt="WeißForst GbR Logo">
+            <p>Email: L.Weiss-Forstservice@gmx.de</p>
+            <p>Telefon: 01747468091</p>
+        </div>
+    </footer>
+</body>
+</html>
+

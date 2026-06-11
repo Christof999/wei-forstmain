@@ -3,6 +3,9 @@
   flex-direction: column;
   gap: clamp(48px, 8vw, 96px);
 }
+.service-row {
+  scroll-margin-top: 96px;
+}
 .service-row__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;

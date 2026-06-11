@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
 
 // Scroll-getriggerte Einblend-Animation (nur transform/opacity -> performant).
-export default function Reveal({ children, delay = 0, y = 28, className, as = 'div' }) {
+export default function Reveal({ children, delay = 0, y = 28, className, as = 'div', id }) {
   const MotionTag = motion[as] || motion.div
   return (
     <MotionTag
+      id={id}
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}

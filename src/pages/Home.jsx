@@ -126,7 +126,7 @@ export default function Home() {
           <div className="services-preview__grid">
             {services.map((s, i) => (
               <Reveal key={s.id} delay={i * 0.06}>
-                <Link to="/leistungen" className="service-tile">
+                <Link to={`/leistungen#${s.id}`} className="service-tile">
                   <div className="service-tile__img">
                     <img src={s.image} alt={s.title} loading="lazy" />
                     <span className="service-tile__icon">

@@ -25,39 +25,15 @@
   gap: 12px;
   color: #fff;
 }
-.nav__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  padding: 7px 14px;
-  border-radius: 13px;
-  background: var(--cream);
-  box-shadow: var(--shadow-sm);
+.nav__logo {
+  height: 54px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
   transition: transform 0.2s var(--ease);
 }
-.nav__brand:hover .nav__badge {
+.nav__brand:hover .nav__logo {
   transform: translateY(-1px);
-}
-.nav__badge img {
-  height: 34px;
-  width: auto;
-}
-.nav__brand-text {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.25rem;
-  letter-spacing: -0.01em;
-  color: #fff;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
-}
-.nav__brand-text span {
-  opacity: 0.8;
-  font-weight: 500;
-}
-.nav--solid .nav__brand-text {
-  color: var(--ink);
-  text-shadow: none;
 }
 
 .nav__links {
@@ -146,7 +122,13 @@
   flex-direction: column;
   gap: 6px;
 }
+.nav__drawer nav {
+  display: flex;
+  flex-direction: column;
+}
 .nav__drawer-link {
+  display: block;
+  width: 100%;
   padding: 14px 8px;
   font-size: 1.1rem;
   font-weight: 600;

@@ -9,13 +9,8 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer__grid">
         <div className="footer__brand">
-          <span className="footer__badge">
-            <img src={img.logo} alt={`${company.name} Logo`} />
-          </span>
-          <div>
-            <p className="footer__name">{company.name}</p>
-            <p className="footer__tag">{company.tagline}</p>
-          </div>
+          <img src={img.logo} alt={`${company.name} Logo`} className="footer__logo" />
+          <p className="footer__tag">{company.tagline}</p>
         </div>
 
         <nav className="footer__nav" aria-label="Footer-Navigation">

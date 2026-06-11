@@ -23,7 +23,7 @@ export default function Services() {
       <section className="section">
         <div className="container services-list">
           {services.map((s, i) => (
-            <Reveal key={s.id} className="service-row">
+            <Reveal key={s.id} id={s.id} className="service-row">
               <div className={`service-row__inner ${i % 2 === 1 ? 'reverse' : ''}`}>
                 <div className="service-row__media">
                   <img src={s.image} alt={s.title} loading="lazy" />

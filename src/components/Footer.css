@@ -27,33 +27,21 @@
 }
 .footer__brand {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
 }
-.footer__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 16px;
-  border-radius: 14px;
-  background: var(--cream);
-  flex-shrink: 0;
-}
-.footer__badge img {
-  height: 42px;
+.footer__logo {
+  height: 84px;
   width: auto;
-}
-.footer__name {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: #fff;
-  margin: 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 .footer__tag {
-  margin: 4px 0 0;
+  margin: 0;
   font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.7);
-  max-width: 30ch;
+  max-width: 32ch;
 }
 
 .footer__nav {

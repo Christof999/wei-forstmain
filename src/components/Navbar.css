@@ -102,61 +102,88 @@
   height: 24px;
 }
 
-.nav__scrim {
+/* ---------- Vollbild-Menü (mobil) ---------- */
+.nav__menu {
   position: fixed;
   inset: 0;
-  background: rgba(20, 26, 14, 0.5);
-  z-index: 90;
-}
-.nav__drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(82vw, 340px);
-  z-index: 95;
+  z-index: 200;
   background: var(--cream);
-  box-shadow: var(--shadow-lg);
-  padding: calc(var(--header-h) + 16px) 24px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.nav__drawer nav {
   display: flex;
   flex-direction: column;
 }
-.nav__drawer-link {
+.nav__menu-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  flex-shrink: 0;
+}
+.nav__menu-logo {
+  height: 48px;
+  width: auto;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+.nav__menu-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: var(--r-sm);
+  background: var(--green-100);
+  color: var(--primary-dark);
+}
+.nav__menu-close svg {
+  width: 26px;
+  height: 26px;
+}
+.nav__menu-links {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding-inline: clamp(20px, 5vw, 40px);
+}
+.nav__menu-link {
   display: block;
-  width: 100%;
-  padding: 14px 8px;
-  font-size: 1.1rem;
+  padding: 18px 4px;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 7vw, 2rem);
   font-weight: 600;
   color: var(--ink);
   border-bottom: 1px solid var(--line);
 }
-.nav__drawer-link.is-active {
+.nav__menu-link.is-active {
   color: var(--primary);
 }
-.nav__drawer .btn {
-  margin-top: 18px;
-}
-.nav__drawer-contact {
-  margin-top: auto;
+.nav__menu-foot {
+  flex-shrink: 0;
+  padding-bottom: 34px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  font-size: 0.95rem;
+  gap: 20px;
 }
-.nav__drawer-contact a {
+.nav__menu-cta {
+  width: 100%;
+}
+.nav__menu-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 1rem;
+}
+.nav__menu-contact a {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--text-soft);
 }
-.nav__drawer-contact svg {
-  width: 18px;
-  height: 18px;
+.nav__menu-contact svg {
+  width: 20px;
+  height: 20px;
   color: var(--primary);
 }
 

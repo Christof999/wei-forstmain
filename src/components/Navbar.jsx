@@ -55,52 +55,71 @@ export default function Navbar() {
 
         <button
           className="nav__toggle"
-          aria-label={open ? 'Menü schließen' : 'Menü öffnen'}
+          aria-label="Menü öffnen"
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen(true)}
         >
-          <Icon name={open ? 'X' : 'Menu'} />
+          <Icon name="Menu" />
         </button>
       </div>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            className="nav__drawer"
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="nav__menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           >
-            <nav aria-label="Mobile Navigation">
-              {nav.map((item) => (
-                <NavLink
+            <div className="container nav__menu-head">
+              <img src={img.logo} alt={`${company.name} Logo`} className="nav__menu-logo" />
+              <button
+                className="nav__menu-close"
+                aria-label="Menü schließen"
+                onClick={() => setOpen(false)}
+              >
+                <Icon name="X" />
+              </button>
+            </div>
+
+            <nav className="nav__menu-links" aria-label="Mobile Navigation">
+              {nav.map((item, i) => (
+                <motion.div
                   key={item.to}
-                  to={item.to}
-                  end={item.to === '/'}
-                  className={({ isActive }) =>
-                    `nav__drawer-link ${isActive ? 'is-active' : ''}`
-                  }
+                  initial={{ opacity: 0, x: 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.06 + i * 0.05, duration: 0.3 }}
                 >
-                  {item.label}
-                </NavLink>
+                  <NavLink
+                    to={item.to}
+                    end={item.to === '/'}
+                    className={({ isActive }) =>
+                      `nav__menu-link ${isActive ? 'is-active' : ''}`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                </motion.div>
               ))}
             </nav>
-            <Link to="/kontakt" className="btn btn-primary">
-              Anfrage senden
-            </Link>
-            <div className="nav__drawer-contact">
-              <a href={company.phoneHref}>
-                <Icon name="Phone" /> {company.phone}
-              </a>
-              <a href={`mailto:${company.email}`}>
-                <Icon name="Mail" /> {company.email}
-              </a>
+
+            <div className="container nav__menu-foot">
+              <Link to="/kontakt" className="btn btn-primary nav__menu-cta">
+                Anfrage senden
+              </Link>
+              <div className="nav__menu-contact">
+                <a href={company.phoneHref}>
+                  <Icon name="Phone" /> {company.phone}
+                </a>
+                <a href={`mailto:${company.email}`}>
+                  <Icon name="Mail" /> {company.email}
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-      {open && <div className="nav__scrim" onClick={() => setOpen(false)} />}
     </header>
   )
 }

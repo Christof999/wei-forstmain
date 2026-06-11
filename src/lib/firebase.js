@@ -16,6 +16,7 @@ import {
   orderBy,
   serverTimestamp,
 } from 'firebase/firestore'
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -32,13 +33,15 @@ export const isFirebaseConfigured = Boolean(
 
 let app = null
 let db = null
+let storage = null
 
 if (isFirebaseConfigured) {
   app = initializeApp(firebaseConfig)
   db = getFirestore(app)
+  storage = getStorage(app)
 }
 
-export { app, db }
+export { app, db, storage }
 
 /* ----------------------------- Kontaktanfragen ---------------------------- */
 
@@ -63,12 +66,27 @@ export async function fetchPosts() {
 }
 
 /* --------------------------------- Galerie -------------------------------- */
-// Galeriebilder werden in Firebase Storage abgelegt; in Firestore ('gallery')
-// steht pro Bild ein Dokument mit der Download-URL. Pflege über die Console.
+// Galeriebilder werden einfach in den Storage-Ordner "gallery/" hochgeladen.
+// Hier werden alle Dateien dieses Ordners aufgelistet und ihre Download-URLs
+// geladen – es sind keine zusätzlichen Firestore-Einträge nötig.
+
+const GALLERY_FOLDER = 'gallery'
 
 export async function fetchGalleryImages() {
   if (!isFirebaseConfigured) return []
-  const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'))
-  const snap = await getDocs(q)
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+  const folderRef = ref(storage, GALLERY_FOLDER)
+  const res = await listAll(folderRef)
+  // Nach Dateiname sortieren (stabile, vorhersagbare Reihenfolge)
+  const items = [...res.items].sort((a, b) => b.name.localeCompare(a.name))
+  const urls = await Promise.all(
+    items.map(async (item) => {
+      try {
+        const url = await getDownloadURL(item)
+        return { id: item.fullPath, name: item.name, url }
+      } catch {
+        return null
+      }
+    }),
+  )
+  return urls.filter(Boolean)
 }

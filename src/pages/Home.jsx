@@ -5,16 +5,24 @@ import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
 import { company, services, values, galleryFallback, img } from '../data/site.js'
-import { fetchPosts } from '../lib/firebase.js'
+import { fetchPosts, fetchGalleryImages } from '../lib/firebase.js'
 import './Home.css'
 
 export default function Home() {
   const [posts, setPosts] = useState([])
+  const [gallery, setGallery] = useState(galleryFallback)
 
   useEffect(() => {
     let active = true
     fetchPosts()
       .then((data) => active && setPosts(data))
+      .catch(() => {})
+    fetchGalleryImages()
+      .then((items) => {
+        if (!active) return
+        const urls = items.map((i) => i.url).filter(Boolean)
+        if (urls.length > 0) setGallery(urls)
+      })
       .catch(() => {})
     return () => {
       active = false
@@ -183,7 +191,7 @@ export default function Home() {
             <p>Erfolgreich umgesetzte Projekte aus Wald und Flur.</p>
           </Reveal>
           <div className="gallery-preview__grid">
-            {galleryFallback.slice(0, 5).map((src, i) => (
+            {gallery.slice(0, 5).map((src, i) => (
               <Reveal
                 key={src}
                 delay={i * 0.05}

@@ -4,7 +4,7 @@ Die Seite nutzt **Firebase** als Backend für:
 
 - **Kontaktanfragen** (Firestore-Sammlung `contactRequests`) – vom Besucher
   abgeschickt, von dir in der Firebase Console eingesehen
-- **Galerie** (Firebase Storage + Firestore-Sammlung `gallery`) – nur lesend
+- **Galerie** (Firebase Storage, Ordner `gallery/`) – nur lesend
 - **Aktuelle Beiträge** (Firestore-Sammlung `posts`) – nur lesend
 
 **Keine Authentifizierung.** Die Seite ist öffentlich und liest nur. Inhalte
@@ -87,8 +87,8 @@ service cloud.firestore {
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    match /gallery/{file} {
-      allow read: if true;
+    match /gallery/{allPaths=**} {
+      allow read: if true;        // get + list -> Auflisten des Ordners
       allow write: if false;
     }
   }
@@ -101,10 +101,9 @@ service firebase.storage {
 Feldern `title` (string), `text` (string), `image` (string, Bild-URL, optional)
 und `createdAt` (timestamp).
 
-**Galeriebild hinzufügen:**
-1. Storage → Ordner `gallery` → Bild hochladen → die **Download-URL** kopieren.
-2. Firestore → Sammlung `gallery` → Dokument hinzufügen mit `url` (string,
-   die kopierte URL) und `createdAt` (timestamp).
+**Galeriebild hinzufügen:** Storage → Ordner `gallery/` → Bild(er) hochladen.
+Mehr nicht – die Seite listet den Ordner automatisch auf und zeigt die Bilder
+an. (Kein Firestore-Eintrag nötig.)
 
 **Kontaktanfragen ansehen:** Firestore → Sammlung `contactRequests`.
 

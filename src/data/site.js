@@ -29,6 +29,10 @@ export const img = {
   headerVideo: '/media/header.mp4',
   headerVideoMobile: '/media/header.mobile.mp4',
   zaunbau: '/images/zaunbau.png',
+  // Dienstleistungs-Fotos (direkt vom Kunden hochgeladen, fürs Web optimiert)
+  svcForstdienstleistung: '/images/forstdienstleistung.jpg',
+  svcBrennholz: '/images/brennholz.jpg',
+  svcWaldpflege: '/images/waldpflege.jpg',
   team: `${S3}/gallery/Weiß_Forst_Gbr_055.JPG`,
   forestry: `${S3}/gallery/Weiß_Forst_Gbr_048.JPG`,
   waldpflege: `${S3}/gallery/Weiß_Forst_Gbr_008.JPG`,
@@ -51,7 +55,7 @@ export const services = [
     icon: 'Trees',
     title: 'Forstdienstleistungen',
     teaser: 'Effizient und nachhaltig – Ihre Holzernte in besten Händen.',
-    image: img.forestry,
+    image: img.svcForstdienstleistung,
     description:
       'Mit unserer Weiß Forst GbR und dem RAL-zertifizierten Forstservice Weiß bieten wir professionelle Forstdienstleistungen aus einer Hand. Ob Pflege junger Bestände, Durchforstung oder Holzernte – wir sorgen für gesunde Wälder, stabile Bestände und eine nachhaltige Nutzung Ihrer Ressourcen.',
     features: [
@@ -65,7 +69,7 @@ export const services = [
     icon: 'Flame',
     title: 'Brennholz & Hackschnitzel',
     teaser: 'Hochwertige Energie aus nachhaltiger Forstwirtschaft.',
-    image: img.firewood,
+    image: img.svcBrennholz,
     description:
       'Wir bieten hochwertiges Brennholz und Hackschnitzel aus nachhaltiger Forstwirtschaft. Ideal für die umweltfreundliche Beheizung von Wohnräumen und für industrielle Heizsysteme.',
     features: [
@@ -93,7 +97,7 @@ export const services = [
     icon: 'Leaf',
     title: 'Waldpflege',
     teaser: 'Gesunde Wälder für kommende Generationen.',
-    image: img.waldpflege,
+    image: img.svcWaldpflege,
     description:
       'Waldpflege sorgt dafür, dass Wälder stark, vital und artenreich bleiben. Sie schützt die Natur, stärkt die Widerstandskraft der Bäume und sichert den Wald als wertvollen Lebensraum für kommende Generationen.',
     features: ['Durchforstung und Bestandspflege', 'Jungbestandspflege'],

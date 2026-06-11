@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -10,6 +10,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const locationKeyRef = useRef('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -19,12 +20,17 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
+    locationKeyRef.current = `${location.pathname}${location.hash}`
+  }, [location.pathname, location.hash])
+
+  useEffect(() => {
     setOpen(false)
-  }, [location.pathname])
+  }, [location.pathname, location.hash])
 
   useEffect(() => {
     if (!open) return
 
+    const openedAt = locationKeyRef.current
     const scrollY = window.scrollY
     document.body.style.position = 'fixed'
     document.body.style.top = `-${scrollY}px`
@@ -38,7 +44,11 @@ export default function Navbar() {
       document.body.style.left = ''
       document.body.style.right = ''
       document.body.style.overflow = ''
-      window.scrollTo(0, scrollY)
+
+      // Nach Navigation nicht alte Position wiederherstellen – ScrollToTop übernimmt
+      if (locationKeyRef.current === openedAt) {
+        window.scrollTo(0, scrollY)
+      }
     }
   }, [open])
 

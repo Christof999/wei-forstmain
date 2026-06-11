@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Icon from './Icon.jsx'
@@ -22,9 +23,22 @@ export default function Navbar() {
   }, [location.pathname])
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
+    if (!open) return
+
+    const scrollY = window.scrollY
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = '0'
+    document.body.style.right = '0'
+    document.body.style.overflow = 'hidden'
+
     return () => {
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.left = ''
+      document.body.style.right = ''
       document.body.style.overflow = ''
+      window.scrollTo(0, scrollY)
     }
   }, [open])
 
@@ -63,63 +77,66 @@ export default function Navbar() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="nav__menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="container nav__menu-head">
-              <img src={img.logo} alt={`${company.name} Logo`} className="nav__menu-logo" />
-              <button
-                className="nav__menu-close"
-                aria-label="Menü schließen"
-                onClick={() => setOpen(false)}
-              >
-                <Icon name="X" />
-              </button>
-            </div>
-
-            <nav className="nav__menu-links" aria-label="Mobile Navigation">
-              {nav.map((item, i) => (
-                <motion.div
-                  key={item.to}
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.06 + i * 0.05, duration: 0.3 }}
+      {createPortal(
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              className="nav__menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="container nav__menu-head">
+                <img src={img.logo} alt={`${company.name} Logo`} className="nav__menu-logo" />
+                <button
+                  className="nav__menu-close"
+                  aria-label="Menü schließen"
+                  onClick={() => setOpen(false)}
                 >
-                  <NavLink
-                    to={item.to}
-                    end={item.to === '/'}
-                    className={({ isActive }) =>
-                      `nav__menu-link ${isActive ? 'is-active' : ''}`
-                    }
-                  >
-                    {item.label}
-                  </NavLink>
-                </motion.div>
-              ))}
-            </nav>
-
-            <div className="container nav__menu-foot">
-              <Link to="/kontakt" className="btn btn-primary nav__menu-cta">
-                Anfrage senden
-              </Link>
-              <div className="nav__menu-contact">
-                <a href={company.phoneHref}>
-                  <Icon name="Phone" /> {company.phone}
-                </a>
-                <a href={`mailto:${company.email}`}>
-                  <Icon name="Mail" /> {company.email}
-                </a>
+                  <Icon name="X" />
+                </button>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+              <nav className="nav__menu-links" aria-label="Mobile Navigation">
+                {nav.map((item, i) => (
+                  <motion.div
+                    key={item.to}
+                    initial={{ opacity: 0, x: 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.06 + i * 0.05, duration: 0.3 }}
+                  >
+                    <NavLink
+                      to={item.to}
+                      end={item.to === '/'}
+                      className={({ isActive }) =>
+                        `nav__menu-link ${isActive ? 'is-active' : ''}`
+                      }
+                    >
+                      {item.label}
+                    </NavLink>
+                  </motion.div>
+                ))}
+              </nav>
+
+              <div className="container nav__menu-foot">
+                <Link to="/kontakt" className="btn btn-primary nav__menu-cta">
+                  Anfrage senden
+                </Link>
+                <div className="nav__menu-contact">
+                  <a href={company.phoneHref}>
+                    <Icon name="Phone" /> {company.phone}
+                  </a>
+                  <a href={`mailto:${company.email}`}>
+                    <Icon name="Mail" /> {company.email}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </header>
   )
 }

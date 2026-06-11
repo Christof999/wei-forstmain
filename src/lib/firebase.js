@@ -66,23 +66,38 @@ export async function fetchPosts() {
 }
 
 /* --------------------------------- Galerie -------------------------------- */
-// Galeriebilder werden einfach in den Storage-Ordner "gallery/" hochgeladen.
-// Hier werden alle Dateien dieses Ordners aufgelistet und ihre Download-URLs
-// geladen – es sind keine zusätzlichen Firestore-Einträge nötig.
+// Galeriebilder werden einfach in den Firebase Storage hochgeladen – entweder
+// direkt in den Bucket-Root oder in einen Ordner "gallery/". Beide Orte werden
+// durchsucht; aus jeder Bilddatei wird die Download-URL geladen. Es sind keine
+// zusätzlichen Firestore-Einträge nötig.
 
-const GALLERY_FOLDER = 'gallery'
+const GALLERY_FOLDERS = ['', 'gallery']
+const IMAGE_RE = /\.(jpe?g|png|webp|gif|avif)$/i
 
 export async function fetchGalleryImages() {
   if (!isFirebaseConfigured) return []
-  const folderRef = ref(storage, GALLERY_FOLDER)
-  const res = await listAll(folderRef)
+
+  const lists = await Promise.allSettled(
+    GALLERY_FOLDERS.map((path) => listAll(ref(storage, path))),
+  )
+
+  const seen = new Set()
+  const items = []
+  for (const result of lists) {
+    if (result.status !== 'fulfilled') continue
+    for (const item of result.value.items) {
+      if (seen.has(item.fullPath)) continue
+      seen.add(item.fullPath)
+      if (IMAGE_RE.test(item.name)) items.push(item)
+    }
+  }
   // Nach Dateiname sortieren (stabile, vorhersagbare Reihenfolge)
-  const items = [...res.items].sort((a, b) => b.name.localeCompare(a.name))
+  items.sort((a, b) => b.name.localeCompare(a.name))
+
   const urls = await Promise.all(
     items.map(async (item) => {
       try {
-        const url = await getDownloadURL(item)
-        return { id: item.fullPath, name: item.name, url }
+        return { id: item.fullPath, name: item.name, url: await getDownloadURL(item) }
       } catch {
         return null
       }

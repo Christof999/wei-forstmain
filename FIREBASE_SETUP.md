@@ -87,13 +87,16 @@ service cloud.firestore {
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    match /gallery/{allPaths=**} {
-      allow read: if true;        // get + list -> Auflisten des Ordners
-      allow write: if false;
+    match /{allPaths=**} {
+      allow read: if true;        // get + list -> Auflisten (Root & Ordner)
+      allow write: if false;      // Hochladen nur über die Console
     }
   }
 }
 ```
+
+> Der Bucket enthält ausschließlich öffentliche Galeriebilder – daher ist
+> öffentliches Lesen/Auflisten unbedenklich. Hochladen bleibt gesperrt.
 
 ## 6. Inhalte pflegen (in der Firebase Console)
 
@@ -101,9 +104,9 @@ service firebase.storage {
 Feldern `title` (string), `text` (string), `image` (string, Bild-URL, optional)
 und `createdAt` (timestamp).
 
-**Galeriebild hinzufügen:** Storage → Ordner `gallery/` → Bild(er) hochladen.
-Mehr nicht – die Seite listet den Ordner automatisch auf und zeigt die Bilder
-an. (Kein Firestore-Eintrag nötig.)
+**Galeriebild hinzufügen:** Storage → Bild(er) hochladen (direkt im Root oder
+in einen Ordner `gallery/`). Mehr nicht – die Seite listet die Bilder
+automatisch auf. (Kein Firestore-Eintrag nötig.)
 
 **Kontaktanfragen ansehen:** Firestore → Sammlung `contactRequests`.
 

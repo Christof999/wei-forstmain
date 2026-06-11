@@ -9,7 +9,8 @@ Neuaufbau mit **React + Vite + Framer Motion**, Backend über **Firebase**.
 - **React Router** (Mehrseiten-Navigation mit Seitenübergängen)
 - **Framer Motion** (Animationen, Scroll-Reveals, Page-Transitions)
 - **lucide-react** (Vektor-Icons)
-- **Firebase** (Firestore, Storage, Auth) – Galerie, Beiträge, Kontaktanfragen
+- **Firebase** (Firestore, Storage) – Galerie, Beiträge, Kontaktanfragen
+  (öffentlich, ohne Login – Inhalte werden in der Firebase Console gepflegt)
 
 ## Lokale Entwicklung
 
@@ -54,7 +55,7 @@ wird auf die Live-Domain deployed.
 public/            statische Assets (Logo, Header-Video, CNAME)
 src/
   components/      Navbar, Footer, Lightbox, Reveal, Icon, …
-  pages/           Home, About, Services, Gallery, Contact, Admin, …
+  pages/           Home, About, Services, Gallery, Contact, Impressum, …
   lib/             firebase.js (Backend), useAuth.js
   data/            site.js (Inhalte, Kontaktdaten, Services)
   styles/          global.css (Design-Tokens), pages.css

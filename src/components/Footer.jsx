@@ -43,7 +43,6 @@ export default function Footer() {
         <div className="footer__legal">
           <Link to="/impressum">Impressum</Link>
           <Link to="/datenschutz">Datenschutz</Link>
-          <Link to="/login">Login</Link>
         </div>
       </div>
     </footer>

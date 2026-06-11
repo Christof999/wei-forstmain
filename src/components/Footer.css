@@ -30,12 +30,18 @@
   align-items: center;
   gap: 16px;
 }
-.footer__brand img {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+.footer__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: var(--cream);
+  flex-shrink: 0;
+}
+.footer__badge img {
+  height: 42px;
+  width: auto;
 }
 .footer__name {
   font-family: var(--font-display);

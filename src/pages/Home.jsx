@@ -35,6 +35,11 @@ export default function Home() {
             preload="auto"
             poster={img.forestry}
           >
+            <source
+              src={img.headerVideoMobile}
+              type="video/mp4"
+              media="(max-width: 768px)"
+            />
             <source src={img.headerVideo} type="video/mp4" />
           </video>
           <div className="hero__overlay" />

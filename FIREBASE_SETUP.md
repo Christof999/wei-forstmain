@@ -39,9 +39,9 @@ VITE_FIREBASE_APP_ID=1:1234567890:web:abc123
 
 > Diese Werte sind **nicht geheim** – der Schutz läuft über die Security Rules.
 
-Für das **Deployment** dieselben Werte als
-**GitHub Actions Secrets** hinterlegen
-(Repo → Settings → Secrets and variables → Actions), Namen identisch.
+Für das **Deployment** dieselben Werte in **Vercel** hinterlegen
+(Project → Settings → Environment Variables), Namen identisch, für alle
+Environments (Production, Preview, Development).
 
 ## 4. Dienste aktivieren
 
@@ -94,7 +94,8 @@ service firebase.storage {
 ## 6. Erlaubte Domains
 
 Authentication → Settings → **Authorized domains**: die Live-Domain
-(`www.xn--wei-forst-i1a.de`) und `localhost` hinzufügen.
+(`www.xn--wei-forst-i1a.de`), die Vercel-Domain (`<projekt>.vercel.app`)
+und `localhost` hinzufügen.
 
 ---
 

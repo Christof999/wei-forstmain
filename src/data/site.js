@@ -25,8 +25,9 @@ export const nav = [
 
 // Bestehende Bilder liegen weiterhin auf AWS S3 (öffentliche URLs).
 export const img = {
-  logo: '/logo.jpeg',
+  logo: '/logo.png',
   headerVideo: '/media/header.mp4',
+  headerVideoMobile: '/media/header.mobile.mp4',
   zaunbau: '/images/zaunbau.png',
   team: `${S3}/gallery/Weiß_Forst_Gbr_055.JPG`,
   forestry: `${S3}/gallery/Weiß_Forst_Gbr_048.JPG`,

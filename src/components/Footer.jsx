@@ -9,7 +9,9 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer__grid">
         <div className="footer__brand">
-          <img src={img.logo} alt={`${company.name} Logo`} />
+          <span className="footer__badge">
+            <img src={img.logo} alt={`${company.name} Logo`} />
+          </span>
           <div>
             <p className="footer__name">{company.name}</p>
             <p className="footer__tag">{company.tagline}</p>

@@ -32,7 +32,9 @@ export default function Navbar() {
     <header className={`nav ${scrolled ? 'nav--solid' : ''}`}>
       <div className="container nav__inner">
         <Link to="/" className="nav__brand" aria-label="Zur Startseite">
-          <img src={img.logo} alt={`${company.name} Logo`} className="nav__logo" />
+          <span className="nav__badge">
+            <img src={img.logo} alt={`${company.name} Logo`} />
+          </span>
           <span className="nav__brand-text">
             Weiß Forst<span> GbR</span>
           </span>

@@ -32,16 +32,21 @@ beschrieben. Hintergrund: Das frühere AWS-Backend ist nicht mehr zugänglich
 und wurde durch Firebase ersetzt. Bestehende Galeriebilder werden vorerst
 weiter von ihren öffentlichen S3-URLs geladen; neue Bilder laufen über Firebase.
 
-## Deployment (GitHub Pages)
+## Deployment (Vercel)
 
-Deployment läuft automatisch über **GitHub Actions**
-(`.github/workflows/deploy.yml`) bei jedem Push auf `main`.
+Gehostet auf **Vercel**. Vercel erkennt Vite automatisch; die SPA-Rewrites
+stehen in `vercel.json`.
 
 Einmalig nötig:
 
-1. Repo → **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-2. Firebase-Werte als **Actions Secrets** hinterlegen (siehe FIREBASE_SETUP.md).
-3. Die Custom-Domain ist über `public/CNAME` gesetzt.
+1. Auf <https://vercel.com> das GitHub-Repo importieren (Framework: **Vite**).
+2. Firebase-Werte unter **Project → Settings → Environment Variables**
+   hinterlegen (gleiche Namen wie in `.env.example`), für alle Environments.
+3. Custom-Domain unter **Project → Settings → Domains** hinzufügen.
+
+**Branch-Previews:** Jeder Push auf einen Branch bzw. jeder Pull Request
+erhält automatisch eine eigene Preview-URL. `main` (bzw. der Production-Branch)
+wird auf die Live-Domain deployed.
 
 ## Projektstruktur
 

@@ -25,14 +25,23 @@
   gap: 12px;
   color: #fff;
 }
-.nav__logo {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #fff;
+.nav__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 7px 14px;
+  border-radius: 13px;
+  background: var(--cream);
   box-shadow: var(--shadow-sm);
-  border: 2px solid rgba(255, 255, 255, 0.7);
+  transition: transform 0.2s var(--ease);
+}
+.nav__brand:hover .nav__badge {
+  transform: translateY(-1px);
+}
+.nav__badge img {
+  height: 34px;
+  width: auto;
 }
 .nav__brand-text {
   font-family: var(--font-display);

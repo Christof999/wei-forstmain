@@ -1,0 +1,59 @@
+import {
+  Trees,
+  Leaf,
+  Flame,
+  Sprout,
+  BadgeCheck,
+  Handshake,
+  Phone,
+  Mail,
+  MapPin,
+  ArrowRight,
+  ArrowLeft,
+  Menu,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Quote,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Building2,
+  Loader2,
+  Upload,
+  Trash2,
+  LogOut,
+} from 'lucide-react'
+
+// Zentrale Icon-Zuordnung – konsistente Vektor-Icons statt Emoji.
+const map = {
+  Trees,
+  Leaf,
+  Flame,
+  Sprout,
+  BadgeCheck,
+  Handshake,
+  Phone,
+  Mail,
+  MapPin,
+  ArrowRight,
+  ArrowLeft,
+  Menu,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Quote,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Building2,
+  Loader2,
+  Upload,
+  Trash2,
+  LogOut,
+}
+
+export default function Icon({ name, ...props }) {
+  const Cmp = map[name] || Leaf
+  return <Cmp aria-hidden="true" {...props} />
+}

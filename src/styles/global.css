@@ -1,0 +1,288 @@
+/* ==========================================================================
+   Weiß Forst GbR – Design System
+   Farbwelt bewusst beibehalten (Waldgrün / Creme), aber frischer & moderner:
+   großzügigerer Weißraum, weichere Schatten, klare Typo-Skala.
+   ========================================================================== */
+
+:root {
+  /* Markenfarben (aus der bisherigen Seite übernommen) */
+  --green-900: #2e3d1c;
+  --green-800: #3e4f24;
+  --green-700: #556b2f; /* Primär */
+  --green-600: #6b8e23;
+  --green-500: #7cb342;
+  --green-400: #89b869; /* Akzent */
+  --green-300: #a9d18e;
+  --green-100: #e8f0dd;
+  --gold: #d8a51d; /* etwas erdiger als reines #FFD700, modernerer Look */
+  --gold-bright: #ffd700;
+
+  /* Neutrale & Hintergründe */
+  --cream: #fbf8ee;
+  --cream-2: #f3edd5;
+  --sand: #efe9d6;
+  --ink: #20281a;
+  --ink-soft: #46503a;
+  --muted: #6c7461;
+  --line: rgba(46, 61, 28, 0.12);
+  --white: #ffffff;
+
+  /* Semantische Tokens */
+  --bg: var(--cream);
+  --surface: #ffffff;
+  --text: var(--ink);
+  --text-soft: var(--ink-soft);
+  --primary: var(--green-700);
+  --primary-dark: var(--green-800);
+  --accent: var(--green-400);
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* Schatten (weich, mehrlagig) */
+  --shadow-sm: 0 1px 2px rgba(32, 40, 26, 0.06), 0 2px 6px rgba(32, 40, 26, 0.06);
+  --shadow-md: 0 6px 16px rgba(32, 40, 26, 0.08), 0 2px 6px rgba(32, 40, 26, 0.06);
+  --shadow-lg: 0 18px 40px rgba(32, 40, 26, 0.14), 0 6px 14px rgba(32, 40, 26, 0.08);
+
+  /* Typografie */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --container: 1180px;
+  --header-h: 76px;
+
+  /* Easing */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+a:hover {
+  color: var(--primary-dark);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--ink);
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+}
+h2 {
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+}
+h3 {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--green-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Layout-Helfer ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 40px);
+}
+
+.section {
+  padding-block: clamp(56px, 9vw, 120px);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-600);
+}
+.eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--green-400);
+  border-radius: 2px;
+}
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+.section-head.center {
+  margin-inline: auto;
+  text-align: center;
+}
+.section-head.center .eyebrow::before {
+  display: none;
+}
+.section-head p {
+  color: var(--text-soft);
+  font-size: 1.08rem;
+  margin-bottom: 0;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease),
+    background 0.2s var(--ease), color 0.2s var(--ease);
+  min-height: 48px;
+}
+.btn svg {
+  width: 18px;
+  height: 18px;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.btn-outline {
+  background: transparent;
+  border-color: var(--green-400);
+  color: var(--primary-dark);
+}
+.btn-outline:hover {
+  background: var(--green-100);
+  color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* ---------- Utility ---------- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 0 0 var(--r-sm) 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

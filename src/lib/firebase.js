@@ -8,7 +8,7 @@
 
 import { initializeApp } from 'firebase/app'
 import {
-  getFirestore,
+  initializeFirestore,
   collection,
   addDoc,
   getDocs,
@@ -37,7 +37,11 @@ let storage = null
 
 if (isFirebaseConfigured) {
   app = initializeApp(firebaseConfig)
-  db = getFirestore(app)
+  // Long-Polling automatisch erkennen -> zuverlässige Verbindung auch hinter
+  // Proxys/in Safari (verhindert die "WebChannel transport errored"-Warnung).
+  db = initializeFirestore(app, {
+    experimentalAutoDetectLongPolling: true,
+  })
   storage = getStorage(app)
 }
 

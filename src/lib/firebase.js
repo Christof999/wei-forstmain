@@ -77,6 +77,9 @@ export async function fetchPosts() {
 
 const GALLERY_FOLDERS = ['', 'gallery']
 const IMAGE_RE = /\.(jpe?g|png|webp|gif|avif)$/i
+// Dateien, die im Storage liegen, aber NICHT in der Galerie erscheinen sollen
+// (z. B. das Zertifikat, das auf der "Über uns"-Seite eingebunden ist).
+const GALLERY_EXCLUDE = new Set(['img_5877.jpg', 'img_5877.jpeg'])
 
 export async function fetchGalleryImages() {
   if (!isFirebaseConfigured) return []
@@ -92,6 +95,7 @@ export async function fetchGalleryImages() {
     for (const item of result.value.items) {
       if (seen.has(item.fullPath)) continue
       seen.add(item.fullPath)
+      if (GALLERY_EXCLUDE.has(item.name.toLowerCase())) continue
       if (IMAGE_RE.test(item.name)) items.push(item)
     }
   }

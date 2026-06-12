@@ -33,6 +33,7 @@ export const img = {
   svcForstdienstleistung: '/images/forstdienstleistung.jpg',
   svcBrennholz: '/images/brennholz.jpg',
   svcWaldpflege: '/images/waldpflege.jpg',
+  zertifikat: '/images/zertifikat-holzernte.jpg',
   team: `${S3}/gallery/Weiß_Forst_Gbr_055.JPG`,
   forestry: `${S3}/gallery/Weiß_Forst_Gbr_048.JPG`,
   waldpflege: `${S3}/gallery/Weiß_Forst_Gbr_008.JPG`,

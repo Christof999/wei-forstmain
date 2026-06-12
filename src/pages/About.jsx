@@ -35,6 +35,62 @@ export default function About() {
         </div>
       </section>
 
+      {/* Zertifizierung */}
+      <section className="section certificate">
+        <div className="container">
+          <Reveal className="certificate__card card">
+            <a
+              className="certificate__media"
+              href={img.zertifikat}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Verleihungsurkunde in voller Größe ansehen"
+            >
+              <img
+                src={img.zertifikat}
+                alt="RAL-Gütezeichen Verleihungsurkunde für Holzernte und Holzrücken – Forstservice Lukas Weiß"
+                loading="lazy"
+              />
+              <span className="certificate__zoom">
+                <Icon name="ExternalLink" /> Urkunde ansehen
+              </span>
+            </a>
+
+            <div className="certificate__body">
+              <span className="eyebrow">Zertifizierung</span>
+              <h2>RAL-Gütezeichen für Holzernte &amp; Holzrücken</h2>
+              <p>
+                Unser Forstservice ist von der Gütegemeinschaft Wald- und
+                Landschaftspflege e.&nbsp;V. mit dem RAL-Gütezeichen 244 „Wald-
+                und Landschaftspflege" ausgezeichnet. Das vom RAL – Deutsches
+                Institut für Gütesicherung und Kennzeichnung anerkannte
+                Gütezeichen steht für unabhängig geprüfte Qualität, fachgerechte
+                Ausführung und einen verantwortungsvollen Umgang mit Wald und
+                Technik – regelmäßig kontrolliert und verbindlich eingehalten.
+              </p>
+              <ul className="cert-features">
+                <li>
+                  <Icon name="BadgeCheck" />
+                  <span>
+                    <strong>GZ 244/1</strong> – Holzernte
+                  </span>
+                </li>
+                <li>
+                  <Icon name="BadgeCheck" />
+                  <span>
+                    <strong>GZ 244/2</strong> – Holzrücken
+                  </span>
+                </li>
+              </ul>
+              <p className="certificate__issuer">
+                <Icon name="Award" /> Verliehen durch die Gütegemeinschaft Wald-
+                und Landschaftspflege e.&nbsp;V. · RAL-GZ 244
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* WEISS-Slogan */}
       <section className="section weiss-slogan">
         <div className="container">

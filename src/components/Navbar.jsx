@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Icon from './Icon.jsx'
@@ -29,8 +30,9 @@ export default function Navbar() {
   }, [open])
 
   return (
-    <header className={`nav ${scrolled ? 'nav--solid' : ''}`}>
-      <div className="container nav__inner">
+    <>
+      <header className={`nav ${scrolled ? 'nav--solid' : ''}`}>
+        <div className="container nav__inner">
         <Link to="/" className="nav__brand" aria-label="Zur Startseite">
           <img src={img.logo} alt={`${company.name} Logo`} className="nav__logo" />
         </Link>
@@ -61,12 +63,14 @@ export default function Navbar() {
         >
           <Icon name="Menu" />
         </button>
-      </div>
+        </div>
+      </header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="nav__menu"
+      {createPortal(
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              className="nav__menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -119,7 +123,9 @@ export default function Navbar() {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </header>
+        </AnimatePresence>,
+        document.body,
+      )}
+    </>
   )
 }

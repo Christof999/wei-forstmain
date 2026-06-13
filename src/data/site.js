@@ -1,6 +1,7 @@
 // Zentrale Inhalts- und Konfigurationsdaten der Seite.
 
 const S3 = 'https://website-imageslw.s3.eu-central-1.amazonaws.com'
+const FB = 'https://firebasestorage.googleapis.com/v0/b/weissforstmain.firebasestorage.app/o'
 
 export const company = {
   name: 'Weiß Forst GbR',
@@ -29,11 +30,11 @@ export const img = {
   headerVideo: '/media/header.mp4',
   headerVideoMobile: '/media/header.mobile.mp4',
   zaunbau: '/images/zaunbau.png',
-  // Dienstleistungs-Fotos (direkt vom Kunden hochgeladen, fürs Web optimiert)
-  svcForstdienstleistung: '/images/forstdienstleistung.jpg',
+  // Dienstleistungs-Fotos & Zertifikat (Firebase Storage)
+  svcForstdienstleistung: `${FB}/gallery%2F1781352305082_IMG_7740.jpeg?alt=media&token=c45f4c59-b298-4244-839c-eb5229ba4a60`,
   svcBrennholz: '/images/brennholz.jpg',
-  svcWaldpflege: '/images/waldpflege.jpg',
-  zertifikat: '/images/zertifikat-holzernte.jpg',
+  svcWaldpflege: `${FB}/gallery%2F1781352295716_IMG_9227.jpeg?alt=media&token=053ad6b5-b657-4d87-99d7-f98b2d45d9e5`,
+  zertifikat: `${FB}/gallery%2F1781352297349_IMG_9228.jpeg?alt=media&token=922404db-7b78-4804-be6d-f1b9806be5d3`,
   team: `${S3}/gallery/Weiß_Forst_Gbr_055.JPG`,
   forestry: `${S3}/gallery/Weiß_Forst_Gbr_048.JPG`,
   waldpflege: `${S3}/gallery/Weiß_Forst_Gbr_008.JPG`,

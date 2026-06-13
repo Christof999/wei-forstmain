@@ -111,11 +111,8 @@ export default function About() {
 
       {/* Team */}
       <section className="section team">
-        <div className="container team__grid">
-          <Reveal className="team__image">
-            <img src={img.team} alt="Weiß Forst Team bei der Arbeit" loading="lazy" />
-          </Reveal>
-          <Reveal delay={0.1} className="team__text">
+        <div className="container team__content">
+          <Reveal className="team__text">
             <span className="eyebrow">Unser Team</span>
             <h2>Familienbetrieb mit Leidenschaft</h2>
             <p>

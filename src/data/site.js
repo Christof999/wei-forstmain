@@ -35,7 +35,6 @@ export const img = {
   svcBrennholz: '/images/brennholz.jpg',
   svcWaldpflege: `${FB}/gallery%2F1781352295716_IMG_9227.jpeg?alt=media&token=053ad6b5-b657-4d87-99d7-f98b2d45d9e5`,
   zertifikat: `${FB}/gallery%2F1781352297349_IMG_9228.jpeg?alt=media&token=922404db-7b78-4804-be6d-f1b9806be5d3`,
-  team: `${S3}/gallery/Weiß_Forst_Gbr_055.JPG`,
   forestry: `${S3}/gallery/Weiß_Forst_Gbr_048.JPG`,
   waldpflege: `${S3}/gallery/Weiß_Forst_Gbr_008.JPG`,
   firewood: `${S3}/gallery/Weiß_Forst_Gbr_002.JPG`,

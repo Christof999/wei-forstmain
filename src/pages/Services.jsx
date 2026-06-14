@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
+import Seo from '../components/Seo.jsx'
 import { services } from '../data/site.js'
 import './Services.css'
 
 export default function Services() {
   return (
     <PageTransition>
+      <Seo path="/leistungen" />
       <header className="page-hero">
         <div className="container">
           <span className="eyebrow">Dienstleistungen</span>

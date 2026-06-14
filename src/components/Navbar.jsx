@@ -87,7 +87,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {createPortal(
+      {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {open && (
             <motion.div

@@ -37,6 +37,7 @@ logs/
 
 # Gebaut mit Werkzeugen
 /dist
+/dist-ssr
 /build
 
 # Lokale Konfigurationsdateien

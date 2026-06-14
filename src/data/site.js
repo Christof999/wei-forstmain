@@ -123,6 +123,31 @@ export const values = [
   },
 ]
 
+// Häufige Fragen – sichtbar auf der Startseite UND als FAQPage-Structured-Data
+// (wichtig für Answer-Engine-Optimierung / KI-Suchen & Google-Rich-Results).
+export const faqs = [
+  {
+    q: 'Welche Forstdienstleistungen bietet die Weiß Forst GbR an?',
+    a: 'Wir übernehmen Holzernte und Durchforstung, Holzrückung und -transport, Jungbestands- und Waldpflege, Pflanzung und Forstzaunbau sowie die Aufarbeitung von Brennholz und Hackschnitzeln – alles aus einer Hand und nach nachhaltigen Grundsätzen.',
+  },
+  {
+    q: 'In welcher Region ist die Weiß Forst GbR tätig?',
+    a: 'Wir sind als Familienbetrieb in Merkendorf (Landkreis Ansbach) ansässig und arbeiten in ganz Mittelfranken und Bayern. Sprechen Sie uns auch bei Projekten in der weiteren Umgebung gerne an.',
+  },
+  {
+    q: 'Verkaufen Sie Brennholz und Hackschnitzel?',
+    a: 'Ja. Wir liefern hochwertiges Brennholz und Hackschnitzel aus nachhaltiger Forstwirtschaft – in verschiedenen Holzarten und Längen, getrocknet oder frisch, wahlweise mit Lieferung oder zur Selbstabholung.',
+  },
+  {
+    q: 'Was bedeutet das RAL-Gütezeichen für Holzernte und Holzrücken?',
+    a: 'Unser Forstservice ist mit dem RAL-Gütezeichen 244 „Wald- und Landschaftspflege" (GZ 244/1 Holzernte und GZ 244/2 Holzrücken) ausgezeichnet. Es steht für unabhängig geprüfte Qualität, fachgerechte Ausführung und einen verantwortungsvollen Umgang mit Wald und Technik – regelmäßig kontrolliert.',
+  },
+  {
+    q: 'Wie kann ich ein Angebot anfordern?',
+    a: 'Am schnellsten erreichen Sie uns telefonisch oder über das Kontaktformular auf unserer Website. Beschreiben Sie Ihr Projekt kurz – wir melden uns zeitnah mit einer persönlichen, unverbindlichen Beratung.',
+  },
+]
+
 export const sloganLines = [
   { letter: 'W', text: 'ir packen an – zuverlässig und professionell.' },
   { letter: 'E', text: 'insatz mit Herz, Hand und Verstand.' },

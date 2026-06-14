@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Lightbox from '../components/Lightbox.jsx'
+import Seo from '../components/Seo.jsx'
 import { galleryFallback } from '../data/site.js'
 import { fetchGalleryImages } from '../lib/firebase.js'
 import './Gallery.css'
@@ -31,6 +32,7 @@ export default function Gallery() {
 
   return (
     <PageTransition>
+      <Seo path="/galerie" />
       <header className="page-hero">
         <div className="container">
           <span className="eyebrow">Galerie</span>

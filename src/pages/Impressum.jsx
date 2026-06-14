@@ -1,8 +1,10 @@
 import PageTransition from '../components/PageTransition.jsx'
+import Seo from '../components/Seo.jsx'
 
 export default function Impressum() {
   return (
     <PageTransition>
+      <Seo path="/impressum" />
       <header className="page-hero">
         <div className="container">
           <span className="eyebrow">Rechtliches</span>

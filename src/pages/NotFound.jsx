@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition.jsx'
 import Icon from '../components/Icon.jsx'
+import Seo from '../components/Seo.jsx'
 
 export default function NotFound() {
   return (
     <PageTransition>
+      <Seo path="__notfound__" />
       <section
         className="section container"
         style={{ minHeight: '60vh', textAlign: 'center', paddingTop: 'calc(var(--header-h) + 60px)' }}

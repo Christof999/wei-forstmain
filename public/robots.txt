@@ -1,0 +1,6 @@
+# robots.txt – Weiß Forst GbR
+# Alle seriösen Crawler und KI-/Answer-Engines sind willkommen.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.xn--wei-forst-i1a.de/sitemap.xml

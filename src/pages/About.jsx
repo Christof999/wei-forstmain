@@ -1,12 +1,14 @@
 import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
+import Seo from '../components/Seo.jsx'
 import { values, sloganLines, img } from '../data/site.js'
 import './About.css'
 
 export default function About() {
   return (
     <PageTransition>
+      <Seo path="/ueber-uns" />
       <header className="page-hero">
         <div className="container">
           <span className="eyebrow">Über uns</span>

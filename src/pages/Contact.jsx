@@ -2,6 +2,7 @@ import { useState } from 'react'
 import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
+import Seo from '../components/Seo.jsx'
 import { company } from '../data/site.js'
 import { submitContactRequest, isFirebaseConfigured } from '../lib/firebase.js'
 import './Contact.css'
@@ -53,6 +54,7 @@ export default function Contact() {
 
   return (
     <PageTransition>
+      <Seo path="/kontakt" />
       <header className="page-hero">
         <div className="container">
           <span className="eyebrow">Kontakt</span>

@@ -4,7 +4,8 @@ import { motion } from 'framer-motion'
 import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
-import { company, services, values, galleryFallback, img } from '../data/site.js'
+import Seo from '../components/Seo.jsx'
+import { company, services, values, galleryFallback, img, faqs } from '../data/site.js'
 import { fetchPosts, fetchGalleryImages } from '../lib/firebase.js'
 import './Home.css'
 
@@ -31,6 +32,7 @@ export default function Home() {
 
   return (
     <PageTransition>
+      <Seo path="/" />
       {/* ---------------------------------- Hero --------------------------------- */}
       <section className="hero">
         <div className="hero__media">
@@ -205,6 +207,29 @@ export default function Home() {
             <Link to="/galerie" className="btn btn-outline">
               Zur ganzen Galerie <Icon name="ArrowRight" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ----------------------------------- FAQ --------------------------------- */}
+      <section className="section faq">
+        <div className="container">
+          <Reveal className="section-head center">
+            <span className="eyebrow">Häufige Fragen</span>
+            <h2>Antworten rund um unsere Forstdienstleistungen</h2>
+          </Reveal>
+          <div className="faq__list">
+            {faqs.map((item, i) => (
+              <Reveal key={item.q} delay={i * 0.05}>
+                <details className="faq__item" open={i === 0}>
+                  <summary>
+                    <span>{item.q}</span>
+                    <Icon name="ArrowRight" className="faq__chevron" />
+                  </summary>
+                  <p>{item.a}</p>
+                </details>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

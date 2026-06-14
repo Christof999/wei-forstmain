@@ -33,6 +33,32 @@ beschrieben. Hintergrund: Das frühere AWS-Backend ist nicht mehr zugänglich
 und wurde durch Firebase ersetzt. Bestehende Galeriebilder werden vorerst
 weiter von ihren öffentlichen S3-URLs geladen; neue Bilder laufen über Firebase.
 
+## SEO / GEO / AEO & Crawlbarkeit
+
+Die Seite ist eine React-SPA, wird beim Build aber zu echten, sofort
+crawlbaren HTML-Dateien **vorgerendert** (Static Prerendering):
+
+```bash
+npm run build
+# 1) vite build                      -> dist/ (Client-Assets + index.html)
+# 2) vite build --ssr entry-server   -> dist-ssr/ (Render-Funktion)
+# 3) node scripts/prerender.mjs      -> dist/<route>/index.html + sitemap.xml
+```
+
+Jede Route (`/`, `/ueber-uns`, `/leistungen`, …) erhält eine eigene HTML-Datei
+mit vollständig gerendertem Inhalt im `#root` – Suchmaschinen und KI-/Answer-
+Engines sehen den Text auch ohne JavaScript.
+
+- **`src/seo.js`** – zentrale SEO-Konfiguration: Titel, Descriptions,
+  Canonicals, Open-Graph/Twitter sowie JSON-LD Structured Data
+  (LocalBusiness, OfferCatalog/Service, FAQPage, BreadcrumbList, WebSite).
+- **`src/components/Seo.jsx`** – hält den `<head>` bei SPA-Navigation aktuell.
+- **`scripts/prerender.mjs`** – erzeugt die statischen HTML-Dateien,
+  `sitemap.xml` und die `404.html`.
+- **`public/robots.txt`** – verweist auf die Sitemap, erlaubt alle Crawler.
+- Sichtbarer **FAQ-Bereich** auf der Startseite (+ FAQ-Structured-Data) für
+  Answer-Engine-Optimierung.
+
 ## Deployment (Vercel)
 
 Gehostet auf **Vercel**. Vercel erkennt Vite automatisch; die SPA-Rewrites

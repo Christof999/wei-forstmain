@@ -81,7 +81,7 @@ export default function Contact() {
                 <div>
                   <h3>Firma</h3>
                   <p>
-                    WEISSFORST GBR
+                    WEISS FORST GBR
                     <br />
                     {company.address.person}
                   </p>

@@ -24,17 +24,40 @@ export default function Datenschutz() {
             Datenschutzgrundverordnung (DSGVO).
           </p>
 
-          <h2>Verantwortlicher</h2>
+          <h2>Verantwortliche</h2>
           <p>
-            WinWood
-            <br />
-            Matthias und Silke Weiß Forst GbR
+            Verantwortlich für die Datenverarbeitung auf dieser Website
+            (www.weiss-forst.de) sind:
+          </p>
+          <p>
+            <strong>Matthias u. Silke Weiß Forst GbR</strong>
             <br />
             Heglauer Straße 7
             <br />
             91732 Merkendorf
             <br />
-            E-Mail: L.Weiss-Forstservice@gmx.de
+            Telefon: 0151 54659796
+            <br />
+            E-Mail:{' '}
+            <a href="mailto:L.Weiss-Forstservice@gmx.de">
+              L.Weiss-Forstservice@gmx.de
+            </a>
+          </p>
+          <p>
+            <strong>Forstservice Lukas Weiß</strong> (Einzelunternehmen)
+            <br />
+            Inhaber: Lukas Weiß
+            <br />
+            Heglauer Straße 7
+            <br />
+            91732 Merkendorf
+            <br />
+            Telefon: 0174 7468091
+            <br />
+            E-Mail:{' '}
+            <a href="mailto:l.weiss-Forstservice@gmx.de">
+              l.weiss-Forstservice@gmx.de
+            </a>
           </p>
 
           <h2>Arten der verarbeiteten Daten</h2>

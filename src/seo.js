@@ -13,8 +13,8 @@
 
 import { company, services, faqs } from './data/site.js'
 
-// Kanonische Domain (Punycode der IDN www.weiß-forst.de – eindeutig für Crawler).
-export const BASE_URL = 'https://www.xn--wei-forst-i1a.de'
+// Kanonische Domain (Apex ohne www, wie bei All-Inkl registriert).
+export const BASE_URL = 'https://weiss-forst.de'
 export const SITE_NAME = 'Weiß Forst GbR'
 export const LOCALE = 'de_DE'
 const DEFAULT_OG_IMAGE = `${BASE_URL}/images/forstdienstleistung.jpg`

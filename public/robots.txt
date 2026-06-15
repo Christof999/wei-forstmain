@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.xn--wei-forst-i1a.de/sitemap.xml
+Sitemap: https://weiss-forst.de/sitemap.xml

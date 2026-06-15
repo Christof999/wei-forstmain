@@ -30,8 +30,11 @@ export const img = {
   headerVideo: '/media/header.mp4',
   headerVideoMobile: '/media/header.mobile.mp4',
   zaunbau: '/images/zaunbau.png',
-  // Dienstleistungs-Fotos & Zertifikat (Firebase Storage)
-  svcForstdienstleistung: `${FB}/gallery%2F1781352305082_IMG_7740.jpeg?alt=media&token=c45f4c59-b298-4244-839c-eb5229ba4a60`,
+  // Dienstleistungs-Fotos & Zertifikat
+  // Forstdienstleistung: lokal aus public/images (die frühere Firebase-Galerie-
+  // Datei wurde gelöscht -> 404). Lokale Bilder sind im Build gebündelt und
+  // unabhängig von der Galerie-Verwaltung im Admin-Bereich.
+  svcForstdienstleistung: '/images/forstdienstleistung.jpg',
   svcBrennholz: '/images/brennholz.jpg',
   svcWaldpflege: `${FB}/gallery%2F1781352295716_IMG_9227.jpeg?alt=media&token=053ad6b5-b657-4d87-99d7-f98b2d45d9e5`,
   zertifikat: `${FB}/gallery%2F1781352297349_IMG_9228.jpeg?alt=media&token=922404db-7b78-4804-be6d-f1b9806be5d3`,

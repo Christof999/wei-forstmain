@@ -62,6 +62,29 @@ export default function Impressum() {
             <br />
             <strong>Steuer-Nr.:</strong> 203 / 286 / 61404
           </p>
+
+          <h2>Webdesign &amp; Realisierung</h2>
+          <p>
+            Konzept, Gestaltung und Umsetzung dieser Website:
+            <br />
+            <strong>Soergel Design</strong>
+            <br />
+            <a
+              href="https://www.soergel-design.de"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              www.soergel-design.de
+            </a>
+          </p>
+
+          <h2>Hosting</h2>
+          <p>
+            Diese Website wird gehostet bei der Vercel Inc., 340 S Lemon Ave
+            #4133, Walnut, CA 91789, USA. Weitere Informationen zur
+            Datenverarbeitung finden Sie in unserer{' '}
+            <a href="/datenschutz">Datenschutzerklärung</a>.
+          </p>
         </div>
       </section>
     </PageTransition>

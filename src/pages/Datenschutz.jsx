@@ -53,6 +53,34 @@ export default function Datenschutz() {
             <li>Sicherheitsmaßnahmen.</li>
           </ul>
 
+          <h2>Hosting (Vercel)</h2>
+          <p>
+            Diese Website wird bei der Vercel Inc., 340 S Lemon Ave #4133,
+            Walnut, CA 91789, USA, gehostet. Beim Aufruf der Website werden
+            automatisch Informationen in sogenannten Server-Logfiles erhoben,
+            die Ihr Browser übermittelt – insbesondere IP-Adresse, Datum und
+            Uhrzeit des Zugriffs, die abgerufene Datei sowie Browsertyp und
+            Betriebssystem. Diese Daten dienen der sicheren, stabilen und
+            effizienten Bereitstellung unseres Onlineangebotes.
+          </p>
+          <p>
+            Rechtsgrundlage ist unser berechtigtes Interesse an einem
+            zuverlässigen Betrieb der Website gemäß Art. 6 Abs. 1 lit. f DSGVO.
+            Da die Vercel Inc. ihren Sitz in den USA hat, kann es zu einer
+            Übermittlung personenbezogener Daten in die USA kommen; die
+            Übermittlung wird durch entsprechende Garantien (u. a.
+            Standardvertragsklauseln) abgesichert. Weitere Informationen finden
+            Sie in der Datenschutzerklärung von Vercel unter{' '}
+            <a
+              href="https://vercel.com/legal/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              vercel.com/legal/privacy-policy
+            </a>
+            .
+          </p>
+
           <h2>Kontaktaufnahme</h2>
           <p>
             Bei der Kontaktaufnahme mit uns (z.B. per Kontaktformular, E-Mail

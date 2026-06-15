@@ -45,6 +45,19 @@ export default function Footer() {
           <Link to="/datenschutz">Datenschutz</Link>
         </div>
       </div>
+
+      <div className="container footer__credit">
+        <p>
+          Webdesign:{' '}
+          <a
+            href="https://www.soergel-design.de"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Soergel Design
+          </a>
+        </p>
+      </div>
     </footer>
   )
 }

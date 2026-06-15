@@ -10,7 +10,9 @@ import { initializeApp } from 'firebase/app'
 import {
   initializeFirestore,
   collection,
+  doc,
   addDoc,
+  getDoc,
   getDocs,
   query,
   orderBy,
@@ -81,12 +83,45 @@ const IMAGE_RE = /\.(jpe?g|png|webp|gif|avif)$/i
 // (z. B. das Zertifikat, das auf der "Über uns"-Seite eingebunden ist).
 const GALLERY_EXCLUDE = new Set(['img_5877.jpg', 'img_5877.jpeg'])
 
+// Im Admin-Bereich per Drag & Drop festgelegte Reihenfolge der Galerie.
+// Sie wird in Firestore unter gallery/_order im Feld "order" gespeichert
+// (Array der Storage-fullPaths) – exakt dieselbe Struktur, die die Admin-App
+// schreibt, damit die Sortierung 1:1 auf der Website übernommen wird.
+const GALLERY_ORDER_COLLECTION = 'gallery'
+const GALLERY_ORDER_DOC = '_order'
+
+export async function fetchGalleryOrder() {
+  if (!isFirebaseConfigured) return []
+  try {
+    const snap = await getDoc(doc(db, GALLERY_ORDER_COLLECTION, GALLERY_ORDER_DOC))
+    const order = snap.exists() ? snap.data()?.order : null
+    return Array.isArray(order) ? order.filter((p) => typeof p === 'string') : []
+  } catch {
+    return []
+  }
+}
+
+// Bilder gemäß der gespeicherten Reihenfolge sortieren: Bilder, die in der
+// Reihenfolge-Liste stehen, zuerst (nach ihrer Position); alle übrigen danach,
+// absteigend nach Dateiname. Identische Logik wie in der Admin-App.
+function applyGalleryOrder(images, order) {
+  if (!Array.isArray(order) || order.length === 0) return images
+  const rank = new Map(order.map((fullPath, i) => [fullPath, i]))
+  return [...images].sort((a, b) => {
+    const ra = rank.has(a.fullPath) ? rank.get(a.fullPath) : Infinity
+    const rb = rank.has(b.fullPath) ? rank.get(b.fullPath) : Infinity
+    if (ra !== rb) return ra - rb
+    return b.name.localeCompare(a.name)
+  })
+}
+
 export async function fetchGalleryImages() {
   if (!isFirebaseConfigured) return []
 
-  const lists = await Promise.allSettled(
-    GALLERY_FOLDERS.map((path) => listAll(ref(storage, path))),
-  )
+  const [lists, order] = await Promise.all([
+    Promise.allSettled(GALLERY_FOLDERS.map((path) => listAll(ref(storage, path)))),
+    fetchGalleryOrder(),
+  ])
 
   const seen = new Set()
   const items = []
@@ -99,17 +134,23 @@ export async function fetchGalleryImages() {
       if (IMAGE_RE.test(item.name)) items.push(item)
     }
   }
-  // Nach Dateiname sortieren (stabile, vorhersagbare Reihenfolge)
+  // Standard-Reihenfolge (falls keine eigene gepflegt ist): Dateiname absteigend.
   items.sort((a, b) => b.name.localeCompare(a.name))
 
   const urls = await Promise.all(
     items.map(async (item) => {
       try {
-        return { id: item.fullPath, name: item.name, url: await getDownloadURL(item) }
+        return {
+          id: item.fullPath,
+          name: item.name,
+          fullPath: item.fullPath,
+          url: await getDownloadURL(item),
+        }
       } catch {
         return null
       }
     }),
   )
-  return urls.filter(Boolean)
+  // Im Admin per Drag & Drop festgelegte Reihenfolge anwenden.
+  return applyGalleryOrder(urls.filter(Boolean), order)
 }

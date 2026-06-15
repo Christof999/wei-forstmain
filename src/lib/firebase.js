@@ -51,15 +51,42 @@ export { app, db, storage }
 
 /* ----------------------------- Kontaktanfragen ---------------------------- */
 
+// Endpoint der Admin-App, der bei einer neuen Anfrage Web-Push + E-Mail an die
+// Admins auslöst. Standard ist die Vercel-Domain der Admin-App; über
+// VITE_ADMIN_NOTIFY_URL kann sie bei Bedarf überschrieben werden.
+const ADMIN_NOTIFY_URL =
+  import.meta.env.VITE_ADMIN_NOTIFY_URL ||
+  'https://weiss-admin.vercel.app/api/push/notify'
+
+// Stößt die Admin-Benachrichtigung an. Fehler werden bewusst verschluckt –
+// die Anfrage selbst ist zu diesem Zeitpunkt bereits in Firestore gespeichert.
+function notifyAdmins(id) {
+  try {
+    return fetch(ADMIN_NOTIFY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+      keepalive: true, // Zustellung auch bei direkt folgender Navigation sichern
+    }).catch(() => {})
+  } catch {
+    return Promise.resolve()
+  }
+}
+
 export async function submitContactRequest(data) {
   if (!isFirebaseConfigured) {
     throw new Error('NOT_CONFIGURED')
   }
-  return addDoc(collection(db, 'contactRequests'), {
+  // Felder name / email / phone / message – genau so erwartet sie die
+  // E-Mail-/Push-Funktion der Admin-App.
+  const ref = await addDoc(collection(db, 'contactRequests'), {
     ...data,
     createdAt: serverTimestamp(),
     handled: false,
   })
+  // Admins benachrichtigen (Web-Push + E-Mail via Admin-App).
+  notifyAdmins(ref.id)
+  return ref
 }
 
 /* ---------------------------------- Posts --------------------------------- */

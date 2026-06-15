@@ -5,6 +5,7 @@ import Icon from '../components/Icon.jsx'
 import Seo from '../components/Seo.jsx'
 import { company } from '../data/site.js'
 import { submitContactRequest, isFirebaseConfigured } from '../lib/firebase.js'
+import { useConsent } from '../lib/consent.jsx'
 import './Contact.css'
 
 const initial = { name: '', phone: '', email: '', message: '' }
@@ -13,6 +14,7 @@ export default function Contact() {
   const [form, setForm] = useState(initial)
   const [status, setStatus] = useState('idle') // idle | sending | success | error
   const [errorMsg, setErrorMsg] = useState('')
+  const { consent, grant } = useConsent()
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
@@ -211,16 +213,35 @@ export default function Contact() {
         {/* Karte */}
         <div className="container">
           <Reveal className="contact-map">
-            <iframe
-              title="Standort Weiß Forst GbR"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2660.169273399118!2d10.677103615826117!3d49.17350118036037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479f1d54cf3b6b91%3A0xb641d37a9270aa35!2sHeglauer%20Stra%C3%9Fe%207%2C%2091732%20Merkendorf!5e0!3m2!1sde!2sde!4v1697034519948!5m2!1sde!2sde"
-              width="100%"
-              height="420"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            {consent.maps ? (
+              <iframe
+                title="Standort Weiß Forst GbR"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2660.169273399118!2d10.677103615826117!3d49.17350118036037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479f1d54cf3b6b91%3A0xb641d37a9270aa35!2sHeglauer%20Stra%C3%9Fe%207%2C%2091732%20Merkendorf!5e0!3m2!1sde!2sde!4v1697034519948!5m2!1sde!2sde"
+                width="100%"
+                height="420"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            ) : (
+              <div className="map-consent">
+                <div>
+                  <p>
+                    Zum Schutz Ihrer Daten wird die Google-Maps-Karte erst nach
+                    Ihrer Zustimmung geladen. Dabei werden Daten (u.&nbsp;a. Ihre
+                    IP-Adresse) an Google übertragen.
+                  </p>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => grant('maps')}
+                  >
+                    <Icon name="MapPin" /> Karte anzeigen
+                  </button>
+                </div>
+              </div>
+            )}
           </Reveal>
         </div>
       </section>

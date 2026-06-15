@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icon.jsx'
 import { company, nav, img } from '../data/site.js'
+import { useConsent } from '../lib/consent.jsx'
 import './Footer.css'
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { openSettings } = useConsent()
   return (
     <footer className="footer">
       <div className="container footer__grid">
@@ -43,6 +45,9 @@ export default function Footer() {
         <div className="footer__legal">
           <Link to="/impressum">Impressum</Link>
           <Link to="/datenschutz">Datenschutz</Link>
+          <button type="button" className="footer__cookie-btn" onClick={openSettings}>
+            Cookie-Einstellungen
+          </button>
         </div>
       </div>
 

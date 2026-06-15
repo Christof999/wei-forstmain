@@ -113,11 +113,39 @@ export default function Datenschutz() {
             Einwilligungen widerrufen werden oder sonstige Erlaubnisse entfallen.
           </p>
 
+          <h2>Einwilligung &amp; Cookie-Einstellungen</h2>
+          <p>
+            Inhalte von Drittanbietern (Google Fonts, Google Maps) werden erst
+            geladen, nachdem Sie über unseren Cookie-Hinweis eingewilligt haben.
+            Rechtsgrundlage ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a
+            DSGVO. Ihre Auswahl speichern wir technisch notwendig im lokalen
+            Speicher Ihres Browsers (localStorage); dabei werden keine Daten an
+            Dritte übertragen. Sie können Ihre Einwilligung jederzeit mit Wirkung
+            für die Zukunft über den Link „Cookie-Einstellungen" im Seitenfuß
+            ändern oder widerrufen.
+          </p>
+
+          <h2>Schriftarten (Google Fonts)</h2>
+          <p>
+            Diese Website nutzt zur einheitlichen Darstellung Schriftarten
+            („Google Fonts") des Anbieters Google Ireland Limited. Die Schriften
+            werden <strong>ausschließlich nach Ihrer Einwilligung</strong>
+            nachgeladen. Beim Laden stellt Ihr Browser eine Verbindung zu
+            Servern von Google her, wobei Ihre IP-Adresse übertragen wird. Ohne
+            Einwilligung werden lokale System-Schriftarten verwendet.
+            Rechtsgrundlage ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a
+            DSGVO.
+          </p>
+
           <h2>Google Maps</h2>
           <p>
             Wir binden die Landkarten des Dienstes „Google Maps" des Anbieters
-            Google LLC ein. Zu den verarbeiteten Daten können insbesondere
-            IP-Adressen und Standortdaten der Nutzer gehören.
+            Google Ireland Limited ein. Die Karte wird erst nach Ihrer
+            ausdrücklichen Einwilligung geladen. Dabei können insbesondere
+            IP-Adressen und Standortdaten der Nutzer verarbeitet und an Server
+            von Google – ggf. auch in den USA – übertragen werden.
+            Rechtsgrundlage ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a
+            DSGVO.
           </p>
         </div>
       </section>

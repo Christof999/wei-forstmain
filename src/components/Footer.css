@@ -84,6 +84,18 @@
 .footer__legal {
   display: flex;
   gap: 22px;
+  flex-wrap: wrap;
+}
+.footer__cookie-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: rgba(255, 255, 255, 0.82);
+}
+.footer__cookie-btn:hover {
+  color: var(--green-300);
 }
 
 .footer__credit {

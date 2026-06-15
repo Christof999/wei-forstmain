@@ -3,6 +3,8 @@ import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
+import CookieBanner from './components/CookieBanner.jsx'
+import { ConsentProvider } from './lib/consent.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Services from './pages/Services.jsx'
@@ -16,7 +18,7 @@ export default function App() {
   const location = useLocation()
 
   return (
-    <>
+    <ConsentProvider>
       <a href="#main" className="skip-link">
         Zum Inhalt springen
       </a>
@@ -37,6 +39,7 @@ export default function App() {
         </AnimatePresence>
       </main>
       <Footer />
-    </>
+      <CookieBanner />
+    </ConsentProvider>
   )
 }

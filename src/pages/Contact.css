@@ -90,6 +90,12 @@
   resize: vertical;
   min-height: 120px;
 }
+.form-privacy {
+  margin: 0 0 16px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
 .contact-form__submit {
   width: 100%;
   margin-top: 4px;

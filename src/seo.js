@@ -182,14 +182,15 @@ const routes = {
   '/impressum': {
     label: 'Impressum',
     title: 'Impressum | Weiß Forst GbR',
-    description: 'Impressum und Anbieterkennzeichnung der Weiß Forst GbR, Merkendorf.',
+    description:
+      'Impressum und Anbieterkennzeichnung der Matthias u. Silke Weiß Forst GbR und Forstservice Lukas Weiß, Merkendorf.',
     robots: 'noindex,follow',
   },
   '/datenschutz': {
     label: 'Datenschutz',
     title: 'Datenschutzerklärung | Weiß Forst GbR',
     description:
-      'Informationen zur Verarbeitung personenbezogener Daten auf der Website der Weiß Forst GbR gemäß DSGVO.',
+      'Datenschutzerklärung für www.weiss-forst.de: Verarbeitung personenbezogener Daten gemäß DSGVO durch Weiß Forst GbR und Forstservice Lukas Weiß.',
     robots: 'noindex,follow',
   },
   '/barrierefreiheit': {

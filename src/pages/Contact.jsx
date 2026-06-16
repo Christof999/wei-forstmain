@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
@@ -244,6 +245,13 @@ export default function Contact() {
                     <p>{errorMsg}</p>
                   </div>
                 )}
+
+                <p className="form-privacy" id="contact-privacy">
+                  Mit dem Absenden willigen Sie in die Verarbeitung Ihrer Angaben
+                  zur Bearbeitung Ihrer Anfrage ein. Weitere Informationen finden
+                  Sie in unserer{' '}
+                  <Link to="/datenschutz">Datenschutzerklärung</Link>.
+                </p>
 
                 <button
                   type="submit"

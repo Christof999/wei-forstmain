@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
+import HeroMedia from '../components/HeroMedia.jsx'
 import Seo from '../components/Seo.jsx'
-import { company, services, values, galleryFallback, img, faqs } from '../data/site.js'
+import { company, services, values, galleryFallback, img, faqs, getGalleryAlt } from '../data/site.js'
 import { fetchPosts, fetchGalleryImages } from '../lib/firebase.js'
 import './Home.css'
 
@@ -36,64 +36,32 @@ export default function Home() {
       {/* ---------------------------------- Hero --------------------------------- */}
       <section className="hero">
         <div className="hero__media">
-          <video
-            className="hero__video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
+          <HeroMedia
             poster={img.forestry}
-          >
-            <source
-              src={img.headerVideoMobile}
-              type="video/mp4"
-              media="(max-width: 768px)"
-            />
-            <source src={img.headerVideo} type="video/mp4" />
-          </video>
+            videoMobile={img.headerVideoMobile}
+            videoDesktop={img.headerVideo}
+          />
           <div className="hero__overlay" />
         </div>
 
         <div className="container hero__content">
-          <motion.span
-            className="hero__eyebrow"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Forstdienstleistungen · Familienbetrieb
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
+          <span className="hero__eyebrow">Forstdienstleistungen · Familienbetrieb</span>
+          <h1>
             Verantwortung für den Wald –<br />
             heute und für kommende Generationen
-          </motion.h1>
-          <motion.p
-            className="hero__lead"
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
-          >
+          </h1>
+          <p className="hero__lead">
             Moderne, nachhaltige Forstwirtschaft mit Herz, Hand und Verstand.
             Von der Holzernte über Waldpflege bis zu Pflanzung und Zaunbau.
-          </motion.p>
-          <motion.div
-            className="hero__actions"
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-          >
+          </p>
+          <div className="hero__actions">
             <Link to="/kontakt" className="btn btn-primary">
               Anfrage senden <Icon name="ArrowRight" />
             </Link>
             <Link to="/leistungen" className="btn btn-ghost">
               Unsere Leistungen
             </Link>
-          </motion.div>
+          </div>
         </div>
 
         <div className="hero__scroll" aria-hidden="true">
@@ -199,7 +167,7 @@ export default function Home() {
                 delay={i * 0.05}
                 className={`gallery-preview__item gp-${i}`}
               >
-                <img src={src} alt="Projektimpression Weiß Forst" loading="lazy" />
+                <img src={src} alt={getGalleryAlt(src, i)} loading="lazy" />
               </Reveal>
             ))}
           </div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icon.jsx'
+import ExternalLink from './ExternalLink.jsx'
 import { company, nav, img } from '../data/site.js'
 import { useConsent } from '../lib/consent.jsx'
 import './Footer.css'
@@ -45,6 +46,7 @@ export default function Footer() {
         <div className="footer__legal">
           <Link to="/impressum">Impressum</Link>
           <Link to="/datenschutz">Datenschutz</Link>
+          <Link to="/barrierefreiheit">Barrierefreiheit</Link>
           <button type="button" className="footer__cookie-btn" onClick={openSettings}>
             Cookie-Einstellungen
           </button>
@@ -53,14 +55,7 @@ export default function Footer() {
 
       <div className="container footer__credit">
         <p>
-          Webdesign:{' '}
-          <a
-            href="https://www.soergel-design.de"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Soergel Design
-          </a>
+          Webdesign: <ExternalLink href="https://www.soergel-design.de">Soergel Design</ExternalLink>
         </p>
       </div>
     </footer>

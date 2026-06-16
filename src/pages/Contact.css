@@ -44,7 +44,7 @@
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink-soft);
   margin: 2px 0 4px;
 }
 .contact-info__list p {
@@ -77,15 +77,24 @@
     background 0.2s var(--ease);
 }
 .form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
+.form-group textarea:focus,
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 3px solid var(--green-500);
+  outline-offset: 2px;
   border-color: var(--green-500);
   background: #fff;
-  box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.18);
+  box-shadow: none;
 }
 .form-group textarea {
   resize: vertical;
   min-height: 120px;
+}
+.form-privacy {
+  margin: 0 0 16px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-soft);
 }
 .contact-form__submit {
   width: 100%;

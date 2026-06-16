@@ -53,6 +53,23 @@ export const galleryFallback = [
   `${S3}/gallery/Weiß_Forst_Gbr_002.JPG`,
 ]
 
+const galleryAltBySrc = {
+  [`${S3}/gallery/Weiß_Forst_Gbr_055.JPG`]:
+    'Holzrückung mit Forwarder im Wald – Weiß Forst GbR',
+  [`${S3}/gallery/Weiß_Forst_Gbr_048.JPG`]:
+    'Forstdienstleistung mit Harvester bei der Holzernte',
+  [`${S3}/gallery/Weiß_Forst_Gbr_030.JPG`]:
+    'Beratung und Planung am Waldrand in Mittelfranken',
+  [`${S3}/gallery/Weiß_Forst_Gbr_008.JPG`]:
+    'Waldpflege und Bestandsarbeiten im Forst',
+  [`${S3}/gallery/Weiß_Forst_Gbr_002.JPG`]:
+    'Brennholz-Aufarbeitung und Forstdienstleistung',
+}
+
+export function getGalleryAlt(src, index) {
+  return galleryAltBySrc[src] || `Forstprojekt ${index + 1} – Weiß Forst GbR`
+}
+
 export const services = [
   {
     id: 'forestry',

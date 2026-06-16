@@ -12,6 +12,7 @@ import Gallery from './pages/Gallery.jsx'
 import Contact from './pages/Contact.jsx'
 import Impressum from './pages/Impressum.jsx'
 import Datenschutz from './pages/Datenschutz.jsx'
+import Barrierefreiheit from './pages/Barrierefreiheit.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="/kontakt" element={<Contact />} />
             <Route path="/impressum" element={<Impressum />} />
             <Route path="/datenschutz" element={<Datenschutz />} />
+            <Route path="/barrierefreiheit" element={<Barrierefreiheit />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>

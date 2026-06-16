@@ -23,6 +23,10 @@
 .gallery-grid__item button:hover img {
   transform: scale(1.06);
 }
+.gallery-grid__item button:focus-visible {
+  outline: 3px solid var(--green-500);
+  outline-offset: 3px;
+}
 
 @media (max-width: 560px) {
   .gallery-grid {

@@ -1,16 +1,28 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
-import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import Icon from './Icon.jsx'
 import { nav, company, img } from '../data/site.js'
+import { useFocusTrap } from '../lib/useFocusTrap.js'
 import './Navbar.css'
+
+const MOBILE_NAV_ID = 'mobile-nav'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
   const locationKeyRef = useRef('')
+  const menuRef = useRef(null)
+  const closeRef = useRef(null)
+
+  const closeMenu = useCallback(() => setOpen(false), [])
+
+  useFocusTrap(open, menuRef, {
+    onEscape: closeMenu,
+    initialFocusRef: closeRef,
+  })
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -45,7 +57,6 @@ export default function Navbar() {
       document.body.style.right = ''
       document.body.style.overflow = ''
 
-      // Nach Navigation nicht alte Position wiederherstellen – ScrollToTop übernimmt
       if (locationKeyRef.current === openedAt) {
         window.scrollTo(0, scrollY)
       }
@@ -81,6 +92,7 @@ export default function Navbar() {
           className="nav__toggle"
           aria-label="Menü öffnen"
           aria-expanded={open}
+          aria-controls={MOBILE_NAV_ID}
           onClick={() => setOpen(true)}
         >
           <Icon name="Menu" />
@@ -91,7 +103,13 @@ export default function Navbar() {
         <AnimatePresence>
           {open && (
             <motion.div
+              ref={menuRef}
+              id={MOBILE_NAV_ID}
               className="nav__menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile Navigation"
+              tabIndex={-1}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -100,22 +118,18 @@ export default function Navbar() {
               <div className="container nav__menu-head">
                 <img src={img.logo} alt={`${company.name} Logo`} className="nav__menu-logo" />
                 <button
+                  ref={closeRef}
                   className="nav__menu-close"
                   aria-label="Menü schließen"
-                  onClick={() => setOpen(false)}
+                  onClick={closeMenu}
                 >
                   <Icon name="X" />
                 </button>
               </div>
 
               <nav className="nav__menu-links" aria-label="Mobile Navigation">
-                {nav.map((item, i) => (
-                  <motion.div
-                    key={item.to}
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.06 + i * 0.05, duration: 0.3 }}
-                  >
+                {nav.map((item) => (
+                  <div key={item.to}>
                     <NavLink
                       to={item.to}
                       end={item.to === '/'}
@@ -125,7 +139,7 @@ export default function Navbar() {
                     >
                       {item.label}
                     </NavLink>
-                  </motion.div>
+                  </div>
                 ))}
               </nav>
 

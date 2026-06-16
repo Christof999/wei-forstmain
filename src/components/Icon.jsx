@@ -25,6 +25,8 @@ import {
   LogOut,
   Award,
   ExternalLink,
+  Play,
+  Pause,
 } from 'lucide-react'
 
 // Zentrale Icon-Zuordnung – konsistente Vektor-Icons statt Emoji.
@@ -55,6 +57,8 @@ const map = {
   LogOut,
   Award,
   ExternalLink,
+  Play,
+  Pause,
 }
 
 export default function Icon({ name, ...props }) {

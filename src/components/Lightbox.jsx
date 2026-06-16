@@ -1,19 +1,29 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Icon from './Icon.jsx'
+import { useFocusTrap } from '../lib/useFocusTrap.js'
 import './Lightbox.css'
 
-export default function Lightbox({ images, index, onClose, onNext, onPrev }) {
+export default function Lightbox({ images, alts, index, onClose, onNext, onPrev }) {
   const open = index !== null && index >= 0
+  const panelRef = useRef(null)
+  const closeRef = useRef(null)
+
+  const handleClose = useCallback(() => onClose(), [onClose])
+
+  useFocusTrap(open, panelRef, {
+    onEscape: handleClose,
+    initialFocusRef: closeRef,
+  })
 
   const handleKey = useCallback(
     (e) => {
       if (!open) return
-      if (e.key === 'Escape') onClose()
       if (e.key === 'ArrowRight') onNext()
       if (e.key === 'ArrowLeft') onPrev()
     },
-    [open, onClose, onNext, onPrev],
+    [open, onNext, onPrev],
   )
 
   useEffect(() => {
@@ -22,22 +32,34 @@ export default function Lightbox({ images, index, onClose, onNext, onPrev }) {
   }, [handleKey])
 
   const src = open ? images[index] : null
+  const alt = open ? alts?.[index] || `Galeriebild ${index + 1}` : ''
+  const label = open ? `Bildansicht, Bild ${index + 1} von ${images.length}` : 'Bildansicht'
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
+          ref={panelRef}
           className="lightbox"
           role="dialog"
           aria-modal="true"
-          aria-label="Bildansicht"
+          aria-label={label}
+          tabIndex={-1}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          onClick={onClose}
+          onClick={handleClose}
         >
-          <button className="lightbox__btn lightbox__close" aria-label="Schließen" onClick={onClose}>
+          <p className="visually-hidden" aria-live="polite">
+            {label}: {alt}
+          </p>
+          <button
+            ref={closeRef}
+            className="lightbox__btn lightbox__close"
+            aria-label="Schließen"
+            onClick={handleClose}
+          >
             <Icon name="X" />
           </button>
           <button
@@ -53,7 +75,7 @@ export default function Lightbox({ images, index, onClose, onNext, onPrev }) {
           <motion.img
             key={src}
             src={src}
-            alt="Vergrößerte Galerieansicht"
+            alt={alt}
             className="lightbox__img"
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -70,6 +92,9 @@ export default function Lightbox({ images, index, onClose, onNext, onPrev }) {
           >
             <Icon name="ChevronRight" />
           </button>
+          <p className="lightbox__counter" aria-hidden="true">
+            {index + 1} / {images.length}
+          </p>
         </motion.div>
       )}
     </AnimatePresence>

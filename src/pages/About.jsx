@@ -1,4 +1,5 @@
 import PageTransition from '../components/PageTransition.jsx'
+import ExternalLink from '../components/ExternalLink.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
 import Seo from '../components/Seo.jsx'
@@ -23,6 +24,10 @@ export default function About() {
 
       <section className="section">
         <div className="container">
+          <Reveal className="section-head center">
+            <span className="eyebrow">Werte</span>
+            <h2>Unsere Grundwerte</h2>
+          </Reveal>
           <div className="about-values">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.08} className="about-value card">
@@ -41,11 +46,9 @@ export default function About() {
       <section className="section certificate">
         <div className="container">
           <Reveal className="certificate__card card">
-            <a
+            <ExternalLink
               className="certificate__media"
               href={img.zertifikat}
-              target="_blank"
-              rel="noreferrer"
               aria-label="Verleihungsurkunde in voller Größe ansehen"
             >
               <img
@@ -56,7 +59,7 @@ export default function About() {
               <span className="certificate__zoom">
                 <Icon name="ExternalLink" /> Urkunde ansehen
               </span>
-            </a>
+            </ExternalLink>
 
             <div className="certificate__body">
               <span className="eyebrow">Zertifizierung</span>

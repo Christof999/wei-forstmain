@@ -94,7 +94,7 @@ const today = new Date().toISOString().slice(0, 10)
 const urls = seoRoutes
   .map((p) => {
     const loc = p === '/' ? `${BASE_URL}/` : `${BASE_URL}${p}`
-    const priority = p === '/' ? '1.0' : p === '/impressum' || p === '/datenschutz' ? '0.3' : '0.8'
+    const priority = p === '/' ? '1.0' : p === '/impressum' || p === '/datenschutz' || p === '/barrierefreiheit' ? '0.3' : '0.8'
     const changefreq = p === '/' ? 'weekly' : 'monthly'
     return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`
   })

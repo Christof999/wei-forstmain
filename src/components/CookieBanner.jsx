@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useConsent } from '../lib/consent.jsx'
+import { useFocusTrap } from '../lib/useFocusTrap.js'
+import Icon from './Icon.jsx'
 import './CookieBanner.css'
 
-// Cookie-/Einwilligungs-Banner inkl. Detaileinstellungen.
-// Wird ausschließlich clientseitig gerendert (kein Prerender), damit es im
-// statischen HTML nicht erscheint und wiederkehrende Besucher es nicht sehen.
 export default function CookieBanner() {
   const {
     consent,
@@ -20,31 +19,46 @@ export default function CookieBanner() {
 
   const [mounted, setMounted] = useState(false)
   const [prefs, setPrefs] = useState({ fonts: false, maps: false })
+  const bannerRef = useRef(null)
+  const modalRef = useRef(null)
+  const modalCloseRef = useRef(null)
+
+  const showBanner = mounted && !decided && !settingsOpen
+
+  const closeModal = useCallback(() => {
+    closeSettings()
+  }, [closeSettings])
+
+  useFocusTrap(showBanner, bannerRef, { onEscape: rejectAll })
+  useFocusTrap(settingsOpen, modalRef, {
+    onEscape: closeModal,
+    initialFocusRef: modalCloseRef,
+  })
 
   useEffect(() => setMounted(true), [])
 
-  // Beim Öffnen der Einstellungen aktuelle Werte übernehmen.
   useEffect(() => {
     if (settingsOpen) setPrefs({ fonts: consent.fonts, maps: consent.maps })
   }, [settingsOpen, consent.fonts, consent.maps])
 
   if (!mounted) return null
 
-  const showBanner = !decided && !settingsOpen
   const toggle = (key) => setPrefs((p) => ({ ...p, [key]: !p[key] }))
 
   return (
     <>
       {showBanner && (
         <div
+          ref={bannerRef}
           className="cookie-banner"
           role="dialog"
-          aria-live="polite"
+          aria-modal="true"
           aria-label="Hinweis zu Cookies und Datenschutz"
+          tabIndex={-1}
         >
           <div className="cookie-banner__inner">
             <div className="cookie-banner__text">
-              <h2>Datenschutz &amp; Cookies</h2>
+              <p className="cookie-banner__title">Datenschutz &amp; Cookies</p>
               <p>
                 Wir verwenden nur technisch notwendige Speicherung. Inhalte von
                 Drittanbietern wie <strong>Google Fonts</strong> (Schriftarten)
@@ -70,10 +84,33 @@ export default function CookieBanner() {
       )}
 
       {settingsOpen && (
-        <div className="cookie-modal" role="dialog" aria-modal="true" aria-label="Datenschutz-Einstellungen">
-          <div className="cookie-modal__backdrop" onClick={closeSettings} />
-          <div className="cookie-modal__panel">
-            <h2>Datenschutz-Einstellungen</h2>
+        <div className="cookie-modal" role="presentation">
+          <button
+            type="button"
+            className="cookie-modal__backdrop"
+            aria-label="Einstellungen schließen"
+            onClick={closeModal}
+          />
+          <div
+            ref={modalRef}
+            className="cookie-modal__panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Datenschutz-Einstellungen"
+            tabIndex={-1}
+          >
+            <div className="cookie-modal__head">
+              <h2>Datenschutz-Einstellungen</h2>
+              <button
+                ref={modalCloseRef}
+                type="button"
+                className="cookie-modal__close"
+                aria-label="Einstellungen schließen"
+                onClick={closeModal}
+              >
+                <Icon name="X" />
+              </button>
+            </div>
             <p className="cookie-modal__lead">
               Entscheiden Sie selbst, welche externen Inhalte geladen werden
               dürfen. Sie können Ihre Auswahl jederzeit über „Cookie-Einstellungen"

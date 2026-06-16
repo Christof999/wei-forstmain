@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Icon from '../components/Icon.jsx'
@@ -12,25 +12,51 @@ const initial = { name: '', phone: '', email: '', message: '' }
 
 export default function Contact() {
   const [form, setForm] = useState(initial)
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [status, setStatus] = useState('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({})
   const { consent, grant } = useConsent()
+  const successRef = useRef(null)
+  const errorRef = useRef(null)
 
-  const handleChange = (e) =>
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
+  const handleChange = (e) => {
+    const { name } = e.target
+    setForm((f) => ({ ...f, [name]: e.target.value }))
+    if (fieldErrors[name]) {
+      setFieldErrors((errs) => ({ ...errs, [name]: false }))
+    }
+  }
+
+  useEffect(() => {
+    if (status === 'success') successRef.current?.focus()
+    if (status === 'error') errorRef.current?.focus()
+  }, [status])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!form.name || !form.phone || !form.email || !form.message) {
+
+    const missing = {}
+    if (!form.name.trim()) missing.name = true
+    if (!form.phone.trim()) missing.phone = true
+    if (!form.email.trim()) missing.email = true
+    if (!form.message.trim()) missing.message = true
+
+    if (Object.keys(missing).length) {
+      setFieldErrors(missing)
       setStatus('error')
-      setErrorMsg('Bitte füllen Sie alle Felder aus.')
+      setErrorMsg('Bitte füllen Sie alle Pflichtfelder aus.')
+      const firstMissing = ['name', 'phone', 'email', 'message'].find((key) => missing[key])
+      if (firstMissing) {
+        document.getElementById(firstMissing)?.focus()
+      }
       return
     }
+
     setStatus('sending')
     setErrorMsg('')
+    setFieldErrors({})
 
     if (!isFirebaseConfigured) {
-      // Fallback ohne Backend: E-Mail-Client öffnen.
       const body = encodeURIComponent(
         `Name: ${form.name}\nTelefon: ${form.phone}\nE-Mail: ${form.email}\n\n${form.message}`,
       )
@@ -46,7 +72,7 @@ export default function Contact() {
       await submitContactRequest(form)
       setStatus('success')
       setForm(initial)
-    } catch (err) {
+    } catch {
       setStatus('error')
       setErrorMsg(
         'Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an.',
@@ -70,7 +96,6 @@ export default function Contact() {
 
       <section className="section">
         <div className="container contact-grid">
-          {/* Kontaktdaten */}
           <Reveal className="contact-info card">
             <h2>Unsere Kontaktdaten</h2>
             <ul className="contact-info__list">
@@ -125,11 +150,16 @@ export default function Contact() {
             </ul>
           </Reveal>
 
-          {/* Formular */}
-          <Reveal delay={0.1} className="contact-form card">
+          <Reveal className="contact-form card">
             <h2>Kontaktformular</h2>
             {status === 'success' ? (
-              <div className="form-feedback form-feedback--ok">
+              <div
+                ref={successRef}
+                className="form-feedback form-feedback--ok"
+                role="status"
+                aria-live="polite"
+                tabIndex={-1}
+              >
                 <Icon name="CheckCircle2" />
                 <p>
                   Vielen Dank für Ihre Nachricht! Wir melden uns so schnell wie
@@ -137,16 +167,24 @@ export default function Contact() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate>
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                aria-busy={status === 'sending'}
+              >
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
                   <input
                     id="name"
                     name="name"
                     type="text"
+                    autoComplete="name"
                     value={form.name}
                     onChange={handleChange}
                     required
+                    aria-required="true"
+                    aria-invalid={fieldErrors.name || undefined}
+                    aria-describedby={status === 'error' ? 'contact-error' : undefined}
                   />
                 </div>
                 <div className="form-group">
@@ -155,9 +193,13 @@ export default function Contact() {
                     id="phone"
                     name="phone"
                     type="tel"
+                    autoComplete="tel"
                     value={form.phone}
                     onChange={handleChange}
                     required
+                    aria-required="true"
+                    aria-invalid={fieldErrors.phone || undefined}
+                    aria-describedby={status === 'error' ? 'contact-error' : undefined}
                   />
                 </div>
                 <div className="form-group">
@@ -166,9 +208,13 @@ export default function Contact() {
                     id="email"
                     name="email"
                     type="email"
+                    autoComplete="email"
                     value={form.email}
                     onChange={handleChange}
                     required
+                    aria-required="true"
+                    aria-invalid={fieldErrors.email || undefined}
+                    aria-describedby={status === 'error' ? 'contact-error' : undefined}
                   />
                 </div>
                 <div className="form-group">
@@ -180,11 +226,20 @@ export default function Contact() {
                     value={form.message}
                     onChange={handleChange}
                     required
+                    aria-required="true"
+                    aria-invalid={fieldErrors.message || undefined}
+                    aria-describedby={status === 'error' ? 'contact-error' : undefined}
                   />
                 </div>
 
                 {status === 'error' && (
-                  <div className="form-feedback form-feedback--err">
+                  <div
+                    ref={errorRef}
+                    id="contact-error"
+                    className="form-feedback form-feedback--err"
+                    role="alert"
+                    tabIndex={-1}
+                  >
                     <Icon name="AlertCircle" />
                     <p>{errorMsg}</p>
                   </div>
@@ -194,10 +249,12 @@ export default function Contact() {
                   type="submit"
                   className="btn btn-primary contact-form__submit"
                   disabled={status === 'sending'}
+                  aria-disabled={status === 'sending'}
                 >
                   {status === 'sending' ? (
                     <>
-                      <Icon name="Loader2" className="spin" /> Wird gesendet…
+                      <Icon name="Loader2" className="spin" aria-hidden="true" />
+                      <span aria-live="polite">Wird gesendet…</span>
                     </>
                   ) : (
                     <>
@@ -210,7 +267,6 @@ export default function Contact() {
           </Reveal>
         </div>
 
-        {/* Karte */}
         <div className="container">
           <Reveal className="contact-map">
             {consent.maps ? (

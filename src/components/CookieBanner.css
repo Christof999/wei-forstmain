@@ -29,8 +29,11 @@
 .cookie-banner__text {
   flex: 1 1 380px;
 }
-.cookie-banner__text h2 {
+.cookie-banner__text h2,
+.cookie-banner__title {
+  font-family: var(--font-display);
   font-size: 1.05rem;
+  font-weight: 600;
   margin: 0 0 6px;
 }
 .cookie-banner__text p {
@@ -76,8 +79,40 @@
   padding: 28px;
   animation: cookie-in 0.3s var(--ease) both;
 }
+.cookie-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: rgba(20, 26, 16, 0.55);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+}
+.cookie-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.cookie-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.cookie-modal__close svg {
+  width: 20px;
+  height: 20px;
+}
 .cookie-modal__panel h2 {
-  margin: 0 0 8px;
+  margin: 0;
   font-size: 1.3rem;
 }
 .cookie-modal__lead {

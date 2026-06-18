@@ -33,7 +33,7 @@ export const organizationLd = {
   '@id': `${BASE_URL}/#business`,
   name: company.name,
   legalName: 'Matthias u. Silke Weiß Forst GbR',
-  alternateName: ['Forstservice Weiß', 'WinWood'],
+  alternateName: ['Forstservice Weiß', 'Forstservice Lukas Weiß'],
   description:
     'Familiengeführter Forstbetrieb in Merkendorf (Mittelfranken) für nachhaltige Forstdienstleistungen: Holzernte, Waldpflege, Pflanzung, Forstzaunbau sowie Brennholz und Hackschnitzel. RAL-gütezeichengeprüfte Holzernte und Holzrückung.',
   url: `${BASE_URL}/`,
@@ -182,7 +182,8 @@ const routes = {
   '/impressum': {
     label: 'Impressum',
     title: 'Impressum | Weiß Forst GbR',
-    description: 'Impressum und Anbieterkennzeichnung der Weiß Forst GbR, Merkendorf.',
+    description:
+      'Impressum und Anbieterkennzeichnung der Matthias u. Silke Weiß Forst GbR und Forstservice Lukas Weiß, Merkendorf.',
     robots: 'noindex,follow',
   },
   '/datenschutz': {

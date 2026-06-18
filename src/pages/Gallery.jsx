@@ -3,13 +3,15 @@ import PageTransition from '../components/PageTransition.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import Seo from '../components/Seo.jsx'
-import { galleryFallback } from '../data/site.js'
+import { galleryFallback, getGalleryAlt } from '../data/site.js'
 import { fetchGalleryImages } from '../lib/firebase.js'
 import './Gallery.css'
 
 export default function Gallery() {
   const [images, setImages] = useState(galleryFallback)
   const [lightboxIndex, setLightboxIndex] = useState(null)
+
+  const alts = images.map((src, i) => getGalleryAlt(src, i))
 
   useEffect(() => {
     let active = true
@@ -56,9 +58,9 @@ export default function Gallery() {
                 <button
                   type="button"
                   onClick={() => open(i)}
-                  aria-label={`Bild ${i + 1} vergrößern`}
+                  aria-label={`${alts[i]} vergrößern`}
                 >
-                  <img src={src} alt={`Galeriebild ${i + 1}`} loading="lazy" />
+                  <img src={src} alt={alts[i]} loading="lazy" />
                 </button>
               </Reveal>
             ))}
@@ -68,6 +70,7 @@ export default function Gallery() {
 
       <Lightbox
         images={images}
+        alts={alts}
         index={lightboxIndex}
         onClose={close}
         onNext={next}

@@ -1,7 +1,7 @@
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: 1100;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,14 +10,18 @@
   backdrop-filter: blur(4px);
 }
 .lightbox__img {
+  position: relative;
+  z-index: 1;
   max-width: min(92vw, 1100px);
   max-height: 86vh;
   border-radius: var(--r-md);
   box-shadow: var(--shadow-lg);
   object-fit: contain;
+  pointer-events: auto;
 }
 .lightbox__btn {
   position: absolute;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -27,15 +31,21 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
+  cursor: pointer;
   transition: background 0.2s var(--ease), transform 0.2s var(--ease);
 }
 .lightbox__btn:hover {
   background: rgba(255, 255, 255, 0.24);
   transform: scale(1.05);
 }
+.lightbox__btn:focus-visible {
+  outline: 3px solid var(--green-300);
+  outline-offset: 2px;
+}
 .lightbox__btn svg {
   width: 26px;
   height: 26px;
+  pointer-events: none;
 }
 .lightbox__close {
   top: 20px;
@@ -46,6 +56,18 @@
 }
 .lightbox__next {
   right: 16px;
+}
+.lightbox__counter {
+  position: absolute;
+  z-index: 2;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.92rem;
+  font-weight: 600;
+  pointer-events: none;
 }
 
 @media (max-width: 640px) {
